@@ -4,10 +4,10 @@ export const withAuth = () => {
     // const token = localStorage.getItem('token');
     const token = getToken();
 
-    const instance = axios.create({
+    return axios.create({
         headers: {
             Authorization: token || '',
-        }
-    })
-    return instance;
-}
+        },
+    });
+    // return instance;
+};
