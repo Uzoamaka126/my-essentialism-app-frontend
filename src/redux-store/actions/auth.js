@@ -9,9 +9,11 @@ export const register = user => dispatch => {
     axios
         .post(`${apiURL}/auth/register`, user)
         .then(res => {
+            console.log(res.data);
             dispatch({
                 type: types.REGISTER_SUCCESS,
-                payload: res.data
+                payload: res.data.token,
+                user: res.data
             })
         })
         .catch(err => {
@@ -22,16 +24,18 @@ export const register = user => dispatch => {
         });
 };
 
-export const Login = user => dispatch => {
+export const login = user => dispatch => {
     dispatch({
         type: types.LOGIN_START
     });
     axios
         .post(`${apiURL}/auth/login`, user)
         .then(res => {
+            console.log(res.data);
             dispatch({
                 type: types.LOGIN_SUCCESS,
-                payload: res.data
+                payload: res.data.token,
+                user: res.data
             })
         })
         .catch(err => {
@@ -62,5 +66,7 @@ export const verify = (token, id) => dispatch => {
         });
       });
 }
+
+// Pick User Values
 
 

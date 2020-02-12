@@ -17,8 +17,6 @@ export const valueReducer = (state = initialState, action) => {
             return {
                 ...state,
                 values: action.payload,
-                isFetching: false,
-                error: ''
             }
         case types.GET_VALUES_FAILURE:
             return {
