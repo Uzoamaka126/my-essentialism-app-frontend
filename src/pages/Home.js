@@ -12,7 +12,7 @@ import {  makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid'
-import {PrimaryButton} from '../components/_styles_/Buttons/StyledButton';
+import {PrimaryButton} from '../components/Styles/Buttons/StyledButton';
 
 import { getToken } from'../_helpers/authenticationChecker'
 

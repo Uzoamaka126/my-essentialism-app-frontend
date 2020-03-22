@@ -8,7 +8,10 @@ import AboutUs from './pages/AboutUs';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/userDashboard/Dashboard';
-import  {Global} from './components/_styles_/Global_Styles/StyledGlobalStyles'
+import  {Global} from './components/Styles/Global_Styles/StyledGlobalStyles'
+import DashboardHome from './pages/userDashboard/DashboardHome';
+import MyValues from './pages/Values/MyValues';
+import Values from './pages/Values';
 
 function App() {
   return (
@@ -19,7 +22,11 @@ function App() {
         <Route path="/about" component={AboutUs}/>
         <Route exact path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
-        <ProtectedRoute path="/dashboard" component={Dashboard}/>
+        {/* <Route path="/dashboard" component={Dashboard} /> */}
+        <ProtectedRoute path="/dashboard/allvalues" component={Values} />
+        <ProtectedRoute path="/dashboard/myvalues" component={MyValues} />
+
+        <ProtectedRoute exact path="/dashboard" component={Dashboard}/>
         <Route render={() => <Redirect to="/" />} />
       </Switch>
   </>

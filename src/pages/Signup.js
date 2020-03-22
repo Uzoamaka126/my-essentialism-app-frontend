@@ -9,7 +9,7 @@ import RegistrationSuccess from './RegistrationSuccess'
 import { register } from '../redux-store/actions/auth';
 import Wait from '../assets/Call waiting.svg';
 import Logo from '../assets/Logo.svg';
-import { StyledAuthForm, StyledAuthFormWrapper } from '../components/_styles_/Auth/StyledAuthForm'
+import { StyledAuthForm, StyledAuthFormWrapper } from '../components/Styles/Auth/StyledAuthForm'
 
 
 // backgroundColor: '#6C63FF',

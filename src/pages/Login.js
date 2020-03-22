@@ -9,7 +9,7 @@ import Logo from '../assets/Logo.svg';
 
 import Button from '../components/_buttons_/Button';
 import { login } from '../redux-store/actions/auth';
-import { StyledAuthForm, StyledAuthFormWrapper } from '../components/_styles_/Auth/StyledAuthForm'
+import { StyledAuthForm, StyledAuthFormWrapper } from '../components/Styles/Auth/StyledAuthForm'
 
 export function Login(props) {
     const email = useRef();
