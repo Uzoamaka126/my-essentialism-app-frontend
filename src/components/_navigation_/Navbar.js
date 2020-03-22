@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { StyledDefaultNavbar } from '../_styles_/Navigation/StyledAuthNavbar';
+import { StyledDefaultNavbar } from '../Styles/Navigation/StyledAuthNavbar';
 
 export default function Navbar(props) {
     // const location = props.location.pathname;

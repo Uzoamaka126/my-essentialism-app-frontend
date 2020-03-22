@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledButton } from '../_styles_/Buttons/StyledButton';
+import { StyledButton } from '../Styles/Buttons/StyledButton';
 
 export default function Button (props) {
   const clickHandler = (e) => {
