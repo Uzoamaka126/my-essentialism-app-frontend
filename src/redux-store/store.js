@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, } from 'redux'
 import thunk from 'redux-thunk';
 import { logger } from 'redux-logger'
-import { setToken } from '../_helpers/authenticationChecker'
+import { setToken } from '../Utilities/authenticationChecker'
 import { rootReducer } from './reducers';
 
 const middleware = [thunk, setToken, logger];

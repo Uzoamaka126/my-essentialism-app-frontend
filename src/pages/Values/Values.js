@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getValues } from '../redux-store/actions/fetch-values';
-import Spinner from '../../Components/Spinner/Spinner';
-import ModalValue from './ModalValue';
-
 export function Values(props) {
     const { getValues, isFetching, values } = props;
     const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +10,7 @@ export function Values(props) {
         getValues();
     }, [getValues]);
 
-    function openModal() {
-        setIsOpen(true);
-    }
-    function closeModal() {
-        setIsOpen(false)
-    }
-
-    if(!values) return <Spinner />
+    // if(!values) return <Spinner />
 
     return (
         <>
@@ -82,4 +71,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getValues })(Values);
+export default connect(mapStateToProps, null)(Values);

@@ -1,5 +1,5 @@
-import React from './node_modules/react';
-import { NavLink } from './node_modules/react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { StyledSidebarItems } from '../Styles/Navigation/SidebarItems.styles'
 
 export default function SidebarItems({ active, name, onItemClick, path, }) {

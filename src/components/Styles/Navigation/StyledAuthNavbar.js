@@ -1,4 +1,4 @@
-import styled from './node_modules/styled-components';
+import styled from '@emotion/styled';
 
 export const StyledAuthNavbar = styled.nav`
     min-height: 60px;
@@ -12,13 +12,8 @@ export const StyledAuthNavbar = styled.nav`
             // content:
         }
     }
-
-
-
 `;
 
 export const StyledDefaultNavbar = styled(StyledAuthNavbar)`
     box-shadow: none;
-
-
 `

@@ -1,6 +1,6 @@
-import { withAuth } from '../../_helpers/axiosHelper';
+import { withAuth } from '../../Utilities/axiosHelper';
 import * as types from './action.types';
-import { apiURL } from '../../_helpers/urls';
+import { apiURL } from '../../Utilities/urls';
 export const getValues = () => async dispatch => {
     dispatch({
         type: types.GET_VALUES_STARTED

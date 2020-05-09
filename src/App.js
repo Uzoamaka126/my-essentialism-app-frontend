@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import { ThemeProvider } from "@chakra-ui/core";
 import { Route, Redirect, Switch } from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectedRoute';
 
@@ -10,10 +10,11 @@ import Signup from './pages/Auth/Signup/Signup';
 import Dashboard from './pages/userDashboard/Dashboard';
 import MyValues from './pages/Values/MyValues';
 import Values from './pages/Values/Values';
+import { customTheme } from './Components/Styles/Global/Theme';
 
 function App() {
   return (
-    <>
+    <ThemeProvider theme={customTheme}>
       <Switch>
         <Route exact path="/" render={props => <Home {...props} />} />
         <Route path="/about" component={AboutUs}/>
@@ -25,7 +26,7 @@ function App() {
         <ProtectedRoute exact path="/dashboard" component={Dashboard}/>
         <Route render={() => <Redirect to="/" />} />
       </Switch>
-  </>
+  </ThemeProvider>
   );
 }
 export default App;

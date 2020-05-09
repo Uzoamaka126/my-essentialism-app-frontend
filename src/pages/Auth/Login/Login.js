@@ -2,14 +2,13 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import formImg from '../assets/form-img.svg';
-import Wait from '../assets/Call waiting.svg';
+import formImg from '../.././../Components/assets/form-img.svg';
+import Wait from '../.././../Components/assets/Call waiting.svg';
+import Logo from '../.././../Components/assets/Logo.svg';
 
-import Logo from '../assets/Logo.svg';
-
-import Button from '../components/_buttons_/Button';
-import { login } from '../redux-store/actions/auth';
-import { StyledAuthForm, StyledAuthFormWrapper } from '../components/Styles/Auth/StyledAuthForm'
+import { login } from '../../../redux-store/actions/auth';
+import { StyledAuthForm, StyledAuthFormWrapper } from '../../../Components/Styles/Auth/StyledAuthForm'
+import { Button } from '@chakra-ui/core';
 
 export function Login(props) {
     const email = useRef();
@@ -101,7 +100,9 @@ export function Login(props) {
                                 </div>
                             </div>
                             <div className="form-others">
-                                <Button className="button" label={props.loading ? "Processing..." : "Log In"} handleClick={submitLogin} id="login_btn" />
+                            {/* <Button>
+                                {props.loading ? "Processing..." : "Log In"}
+                            </Button> */}
                                 <p className="text-14">Don't have an account?  
                                     <Link to="/signup"> Signup here</Link>
                                 </p>

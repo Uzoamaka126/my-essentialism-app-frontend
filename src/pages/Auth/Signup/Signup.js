@@ -1,64 +1,47 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
-import Button from '../components/_buttons_/Button';
-import Navbar from '../../../Components/_navigation_/Navbar'
-import Modal from '../../../Components/RealModal';
-import RegistrationSuccess from './RegistrationSuccess'
+// import RegistrationSuccess from './RegistrationSuccess'
 // Import other helper functions
 import { register } from '../../../redux-store/actions/auth';
-import Wait from '../assets/Call waiting.svg';
-import Logo from '../assets/Logo.svg';
+import Wait from '../../../Components/assets/Call waiting.svg';
+import Logo from '../../../Components/assets/Logo.svg';
 import { StyledAuthForm, StyledAuthFormWrapper } from '../../../Components/Styles/Auth/StyledAuthForm'
-
+import { Button } from '@chakra-ui/core';
 
 // backgroundColor: '#6C63FF',
 export function Signup({ history, location, success, register, loading }) {
 
-    const fullname = useRef("");
-    const email = useRef("");
-    const password = useRef("");
     const [fullNameError, setFullNameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
-    function handleSubmit() {
-        let valid = validate();
-        if(valid) {
-            return;
-        };
+    // function handleSubmit() {
+    //     let valid = validate();
+    //     if(valid) {
+    //         return;
+    //     };
 
-        const userSignupData = {
-            fullname: fullname.current.value,
-            email: email.current.value,
-            password: password.current.value
-        };
-      
-        if (userSignupData.fullname && userSignupData.email && userSignupData.password) {
-            register(userSignupData);
-        }        
-    }
+    // const validate = () => {
+    //     let isError = false;
+    //     // var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const validate = () => {
-        let isError = false;
-        // var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        if (fullname.current.value === "") {
-            setFullNameError("Username cannot be empty!");
-            isError = true;
-        }
+    //     if (fullname.current.value === "") {
+    //         setFullNameError("Username cannot be empty!");
+    //         isError = true;
+    //     }
       
-        if (password.current.value.length < 5) {
-        setPasswordError("Minimum of 5 characters!");
-        isError = true;
-        }
+    //     if (password.current.value.length < 5) {
+    //     setPasswordError("Minimum of 5 characters!");
+    //     isError = true;
+    //     }
       
-        if (email.current.value.length < 10) {
-        setEmailError('Please Enter a valid email address!')
-        isError = true;
-        }
-        return isError;
-    };
+    //     if (email.current.value.length < 10) {
+    //     setEmailError('Please Enter a valid email address!')
+    //     isError = true;
+    //     }
+    //     return isError;
+    // };
 
     return (
         <StyledAuthFormWrapper className="form-wrapper">
@@ -79,7 +62,6 @@ export function Signup({ history, location, success, register, loading }) {
                             <input 
                                 id="fullname" 
                                 type="text" 
-                                ref={fullname} 
                                 required 
                             />
                         </div>
@@ -88,7 +70,6 @@ export function Signup({ history, location, success, register, loading }) {
                             <input 
                                 id="email"
                                 onChange={() => { setEmailError("") }}
-                                ref={email}
                                 type="email"                         
                                 required 
                             />
@@ -98,16 +79,11 @@ export function Signup({ history, location, success, register, loading }) {
                             <input 
                                 id="password" 
                                 type="password" 
-                                ref={password} 
                                 required 
                             />
                         </div>
                         <div className="form-others">
-                            <Button 
-                                className="button"
-                                label={!loading ? "Sign Up" : "Processing..."}
-                                handleClick={handleSubmit}    
-                            />                        
+                            {/* <Button>{!loading ? "Sign Up" : "Processing..."}</Button> */}
                             <p className="text-14">Already have an account?  
                                 <Link to="/login"> Login here</Link>
                             </p>

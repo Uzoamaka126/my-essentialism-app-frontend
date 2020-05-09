@@ -13,7 +13,7 @@ export default function Dashboard(props) {
     console.log(token);
 
     return (
-        
+        <></>
     )
 }
 

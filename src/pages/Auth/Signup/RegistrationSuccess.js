@@ -2,25 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // import checkmark from "../assets/images/check.png";
-import {
-  StyledRegistrationSuccessModal
-} from "../../../Components/Styles/StyledRegistrationSuccessful";
-import Button from '../components/_buttons_/Button';
+import { Button, Box } from "@chakra-ui/core";
 
 function RegistrationSuccess(props) {
   return (
-    <StyledRegistrationSuccessModal>
+    <Box>
       <div className="regstr-modal-top">
         {/* <img alt="success" src={checkmark} /> */}
         <h1>Awesome!</h1>
         <p>You have successfully signed up!</p>
       </div>
       <div className="regstr-modal-border">
-        <Link to="/dashboard">
-          <Button className="button" label="Dashboard" />
-        </Link>
+        {/* <Link to="/dashboard"> */}
+          <Button>Dashboard</Button>
+        {/* </Link> */}
       </div>
-    </StyledRegistrationSuccessModal>
+    </Box>
   );
 }
 

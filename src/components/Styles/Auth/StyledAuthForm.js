@@ -1,4 +1,4 @@
-import styled from './node_modules/styled-components';
+import styled from '@emotion/styled';
 
 export const StyledAuthFormWrapper = styled.div`
     // background: rgb(224,96,21);
@@ -10,8 +10,6 @@ export const StyledAuthFormWrapper = styled.div`
     overflow: hidden;
     padding-top: 1px;
     margin-top: -1px;
-
-
 `;
 export const StyledAuthForm = styled.div`
     background: #FFF;

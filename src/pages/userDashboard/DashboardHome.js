@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from '../../assets/avatar.svg';
-import { getUserProfile } from '../../redux-store/actions/fetch-user-profile';
-import UserTable from './UserTable';
+import Avatar from '../../Components/assets/avatar.svg';
 
 export function DashboardHome() {
     return (
@@ -18,7 +16,6 @@ export function DashboardHome() {
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-6 col-lg-6 m-auto mt-4">
-                                <UserTable />
                             </div>
                         </div>
                     </div>
@@ -33,4 +30,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getUserProfile })(DashboardHome);
+export default connect(mapStateToProps, null)(DashboardHome);

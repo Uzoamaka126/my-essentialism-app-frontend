@@ -1,4 +1,4 @@
-import styled from './node_modules/styled-components';
+import styled from '@emotion/styled';
 
 export const StyledNavLabel = styled.div`
     width: 100%;

@@ -1,4 +1,4 @@
-import styled from './node_modules/styled-components';
+import styled from '@emotion/styled';
 
 export const StyledDashboard = styled.section`
     // background: rgb(226,226,226);
