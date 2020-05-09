@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from './node_modules/styled-components';
 
 export const StyledAuthFormWrapper = styled.div`
     // background: rgb(224,96,21);

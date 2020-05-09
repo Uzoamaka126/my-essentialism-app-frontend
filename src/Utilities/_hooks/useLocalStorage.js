@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState} from './node_modules/react';
 
 const useLocalStorage = (key, initialValue) => {
 

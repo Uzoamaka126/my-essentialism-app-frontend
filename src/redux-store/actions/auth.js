@@ -1,6 +1,6 @@
 import axios from 'axios';
-import * as types from './actionTypes';
-import { apiURL } from '../../_helpers/urls';
+import * as types from './action.types';
+import { apiURL } from '../../Utilities/urls';
 
 export const register = user => dispatch => {
     dispatch({

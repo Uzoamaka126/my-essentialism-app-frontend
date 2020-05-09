@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { authReducer } from './authReducer';
-import { valueReducer } from './valueReducer';
-import { userProfile } from './getUserProfileReducer';
+import { authReducer } from './auth.reducer';
+import { valueReducer } from './value.reducer';
+import { userProfile } from './user.reducer';
 
 export const rootReducer = combineReducers({
     auth: authReducer,

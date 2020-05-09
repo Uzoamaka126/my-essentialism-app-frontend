@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from './node_modules/react';
+import { Link } from "./node_modules/react-router-dom";
 import { StyledNav } from '../Styles/Navigation/topnav.styles';
-import { clearLocalStorage } from'../../_helpers/authenticationChecker'
+import { clearLocalStorage } from'../../Utilities/authenticationChecker'
 
 export default function AuthNavbar(props) {
     function logout() {

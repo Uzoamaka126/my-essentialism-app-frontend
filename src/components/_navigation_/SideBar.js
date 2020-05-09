@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from './node_modules/react';
+import { Link } from './node_modules/react-router-dom';
 import { StyledSidebar } from '../Styles/Navigation/sidebar.styles';
-import Values from '../../pages/Values';
+import Values from '../../pages/Values/Values';
 import MyValues from '../../pages/Values/MyValues';
 import SidebarItems from './SidebarItems';
 
@@ -15,13 +15,13 @@ function SideBar(props) {
                 key: 1
             },
             {
-                path: '/dashboard/allvalues',
+                path: '/values',
                 name: 'Values',
                 key: 2
             },
             {
-                path: '/dashboard/myvalues',
-                name: 'MyValues',
+                path: '/values/me',
+                name: 'My Values',
                 key: 3
             },            
         ]
@@ -33,6 +33,7 @@ function SideBar(props) {
             activePath: path
          });
     }
+    
     const { items, activePath } = state;
     console.log(items);
 
