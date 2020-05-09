@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getValues } from '../redux-store/actions/fetch-values';
-import Spinner from '../components/Spinner/Spinner';
-import ModalValue from './Values/ModalValue';
+import Spinner from '../../Components/Spinner/Spinner';
+import ModalValue from './ModalValue';
 
 export function Values(props) {
     const { getValues, isFetching, values } = props;

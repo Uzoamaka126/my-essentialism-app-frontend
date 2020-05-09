@@ -1,8 +1,4 @@
-import { 
-    GET_VALUES, 
-    GET_VALUES_SUCCESS, 
-    GET_VALUES_FAILURE
-} from '../actions/actionTypes';
+import * as types from '../actions/action.types'
 
 const initialState = {
     values: [],
@@ -12,18 +8,18 @@ const initialState = {
 
 export const valueReducer = (state = initialState, action) => {
     switch(action.type) {
-        case GET_VALUES: 
+        case types.GET_VALUES_STARTED: 
             return {
                 ...state,
                 isFetching: true 
             }
-        case GET_VALUES_SUCCESS:
+        case types.GET_VALUES_SUCCEDED:
             return {
                 ...state,
                 values: action.payload,
                 isFetching: false
             }
-        case GET_VALUES_FAILURE:
+        case types.GET_VALUES_FAILED:
             return {
                 ...state,
                 error: action.payload

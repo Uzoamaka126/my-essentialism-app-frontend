@@ -1,30 +1,29 @@
 import {
-    GET_USER_PROFILE,
-    GET_USER_PROFILE_SUCCESS,
-    GET_USER_PROFILE_FAILURE
-} from '../actions/actionTypes';
+    USER_PROFILE_LOADING,
+    USER_PROFILE_SUCCEEDED,
+    USER_PROFILE_FAILED
+} from '../actions/action.typess';
 
 export const initialState = {
     loading: false,
     profile: {},
-    values: [],
     error: false
 }
 
-export const userProfile =(state = initialState, action) => {
+export const userProfile = (state = initialState, action) => {
     switch(action.type) {
-        case GET_USER_PROFILE: 
+        case USER_PROFILE_LOADING: 
             return {
                 ...state,
                 loading: true
             }
-        case GET_USER_PROFILE_SUCCESS:
+        case USER_PROFILE_SUCCEEDED:
             return {
                 ...state,
                 loading: false,
                 profile: action.payload
             }
-        case GET_USER_PROFILE_FAILURE:
+        case USER_PROFILE_FAILED:
             return {
                 ...state,
                 error: false,

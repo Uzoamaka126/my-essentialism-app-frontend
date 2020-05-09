@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from './node_modules/styled-components';
 
 export const StyledSidebar = styled.div`
     height: 100%;

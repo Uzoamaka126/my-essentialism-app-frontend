@@ -2,14 +2,14 @@ import React, { useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import Button from '../components/_buttons_/Button';
-import Navbar from '../components/_navigation_/Navbar'
-import Modal from '../components/RealModal';
+import Navbar from '../../../Components/_navigation_/Navbar'
+import Modal from '../../../Components/RealModal';
 import RegistrationSuccess from './RegistrationSuccess'
 // Import other helper functions
-import { register } from '../redux-store/actions/auth';
+import { register } from '../../../redux-store/actions/auth';
 import Wait from '../assets/Call waiting.svg';
 import Logo from '../assets/Logo.svg';
-import { StyledAuthForm, StyledAuthFormWrapper } from '../components/Styles/Auth/StyledAuthForm'
+import { StyledAuthForm, StyledAuthFormWrapper } from '../../../Components/Styles/Auth/StyledAuthForm'
 
 
 // backgroundColor: '#6C63FF',

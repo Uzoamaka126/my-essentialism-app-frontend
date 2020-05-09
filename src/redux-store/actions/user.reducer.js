@@ -2,7 +2,7 @@ import {
     GET_USER_PROFILE,
     GET_USER_PROFILE_SUCCESS,
     GET_USER_PROFILE_FAILURE
-} from './actionTypes';
+} from './action.types';
 
 import { apiURL } from '../../_helpers/urls'
 import { withAuth } from '../../_helpers/axiosHelper';

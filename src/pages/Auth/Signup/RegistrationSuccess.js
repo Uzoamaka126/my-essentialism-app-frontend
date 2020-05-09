@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import checkmark from "../assets/images/check.png";
 import {
   StyledRegistrationSuccessModal
-} from "../components/Styles/StyledRegistrationSuccessful";
+} from "../../../Components/Styles/StyledRegistrationSuccessful";
 import Button from '../components/_buttons_/Button';
 
 function RegistrationSuccess(props) {

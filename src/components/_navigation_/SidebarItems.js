@@ -1,15 +1,15 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from './node_modules/react';
+import { NavLink } from './node_modules/react-router-dom';
 import { StyledSidebarItems } from '../Styles/Navigation/SidebarItems.styles'
 
-export default function SidebarItems({ active, name, onItemClick, path, className }) {
+export default function SidebarItems({ active, name, onItemClick, path, }) {
     function handleClick() { 
         return onItemClick(path);
     }
     
     return (
         <StyledSidebarItems active={active}>
-            <NavLink to={path} className={className} onClick={handleClick}>{name}</NavLink>
+            <NavLink to={path} onClick={handleClick}>{name}</NavLink>
         </StyledSidebarItems>
     );
 }

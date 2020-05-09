@@ -1,25 +1,33 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { StyledDefaultNavbar } from '../Styles/Navigation/StyledAuthNavbar';
+import { getToken } from '../../Utilities/authenticationChecker';
+import { Flex, Box } from '@chakra-ui/core';
 
 export default function Navbar(props) {
-    // const location = props.location.pathname;
-    // console.log(props);
+    const token = getToken();
+    
     return (
         <StyledDefaultNavbar className="navbar">
-            <div className="container">
-                <div className="nav-brand">
+            <Box className="container">
+                <Box className="nav-brand">
                     <span className="red">
                         Essentialism
                     </span>
-                </div>
-                <div className="right-nav">
+                </Box>
+                <Box className="right-nav">
                     <Link to="/">Home</Link>
                     <Link to="/about">About Us</Link>
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">SignUp</Link>
-                </div>
-            </div>
+                    {token
+                        ? 
+                            <Flex>
+                                <Link to="/login">Login</Link>
+                                <Link to="/signup">SignUp</Link>
+                            </Flex>
+                        :
+                            <Link to="/dashbaord">Go to Dashboard</Link>}
+                </Box>
+            </Box>
         </StyledDefaultNavbar>
     )
 }

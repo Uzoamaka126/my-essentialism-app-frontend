@@ -1,44 +1,19 @@
 import React from 'react';
-import { getToken } from '../../_helpers/authenticationChecker'
-import AuthNavbar from '../../components/_navigation_/AuthNavbar';
-import SideBar from '../../components/_navigation_/SideBar';
-import Navbar from '../../components/_navigation_/Navbar';
+import { getToken } from '../../Utilities/authenticationChecker'
+import AuthNavbar from '../../Components/_navigation_/AuthNavbar';
+import SideBar from '../../Components/_navigation_/SideBar';
+import Navbar from '../../Components/_navigation_/Navbar';
 import DashboardHome from './DashboardHome';
-import Values from'../Values';
+import Values from'../Values/Values';
 import MyValues from '../Values/MyValues';
-import { StyledDashboard } from '../../components/Styles/StyledDashboard';
-import Login from '../../pages/Login';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import { StyledDashboard } from '../../Components/Styles/StyledDashboard';
+
 export default function Dashboard(props) {
     const token = getToken();
     console.log(token);
 
     return (
-        <Router>
-            {
-                token ? 
-                <>
-                    <SideBar />
-                    <AuthNavbar /> 
-                    <StyledDashboard>
-                        <div className="wrapper">
-                            <Switch>
-                                <Route exact path="/dashboard" component={DashboardHome} />
-                                <Route path="/dashboard/allvalues" component={Values} />
-                                <Route path="/dashboard/myvalues" component={MyValues} />
-                            </Switch>
-                        </div>
-                    </StyledDashboard>
-                </>
-                : <Login />
-            }
-            
-        </Router>
+        
     )
 }
 

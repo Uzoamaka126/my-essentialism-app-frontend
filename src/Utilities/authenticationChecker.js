@@ -1,4 +1,4 @@
-import * as types from '../redux-store/actions/actionTypes';
+import * as types from '../redux-store/actions/action.types';
 import { isTokenExpired } from './checkForToken';
 export const setToken = store => next => action => {
   if(action.type === types.REGISTER_SUCCESS || action.type === types.LOGIN_SUCCESS) {
