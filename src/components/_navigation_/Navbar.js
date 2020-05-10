@@ -1,33 +1,31 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { StyledDefaultNavbar } from '../Styles/Navigation/StyledAuthNavbar';
+import { Link as RouterLink } from 'react-router-dom';
 import { getToken } from '../../Utilities/authenticationChecker';
-import { Flex, Box } from '@chakra-ui/core';
+import { Flex, Box, Stack, Link, Text } from '@chakra-ui/core';
 
 export default function Navbar(props) {
     const token = getToken();
     
     return (
-        <StyledDefaultNavbar className="navbar">
-            <Box className="container">
-                <Box className="nav-brand">
-                    <span className="red">
-                        Essentialism
-                    </span>
-                </Box>
-                <Box className="right-nav">
-                    <Link to="/">Home</Link>
-                    <Link to="/about">About Us</Link>
+        <Flex justifyContent="space-between" padding="1rem 1.5rem">
+            <Box>
+                <Text>
+                    Essentialism
+                </Text>
+            </Box>
+                <Stack isInline sacing={20} border="1px solid red">
+                    <Link as={RouterLink} to="/">Home</Link>
+                    <Link as={RouterLink} to="/about">About Us</Link>
                     {token
                         ? 
-                            <Flex>
-                                <Link to="/login">Login</Link>
-                                <Link to="/signup">SignUp</Link>
-                            </Flex>
+                            <Link as={RouterLink} to="/dashbaord">Go to Dashboard</Link>
                         :
-                            <Link to="/dashbaord">Go to Dashboard</Link>}
-                </Box>
-            </Box>
-        </StyledDefaultNavbar>
+                            <Flex>
+                                <Link marginRight="0.625rem" as={RouterLink} to="/login">Login</Link>
+                                <Link as={RouterLink} to="/signup">SignUp</Link>
+                            </Flex>
+                    }
+                </Stack>
+        </Flex>
     )
 }

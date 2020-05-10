@@ -4,14 +4,14 @@ import { apiURL } from '../../Utilities/urls';
 
 export const register = user => dispatch => {
     dispatch({
-        type: types.REGISTER_REQUEST
+        type: types.REGISTER_STARTED
     });
     axios
         .post(`${apiURL}/auth/register`, user)
         .then(res => {
             console.log(res.data);
             dispatch({
-                type: types.REGISTER_SUCCESS,
+                type: types.REGISTER_SUCCEDED,
                 payload: res.data.token,
                 user: res.data
             })
@@ -19,21 +19,21 @@ export const register = user => dispatch => {
         .catch(err => {
             console.log(err);
             dispatch({
-                type: types.REGISTER_FAILURE
+                type: types.REGISTER_FAILED
             });
         });
 };
 
 export const login = user => dispatch => {
     dispatch({
-        type: types.LOGIN_START
+        type: types.LOGIN_STARTED
     });
     axios
         .post(`${apiURL}/auth/login`, user)
         .then(res => {
             console.log(res.data);
             dispatch({
-                type: types.LOGIN_SUCCESS,
+                type: types.LOGIN_SUCCEDED,
                 payload: res.data.token,
                 user: res.data
             })
@@ -41,7 +41,7 @@ export const login = user => dispatch => {
         .catch(err => {
             console.log(err);
             dispatch({
-                type: types.LOGIN_FAILURE
+                type: types.LOGIN_FAILED
             })   
         })
 }

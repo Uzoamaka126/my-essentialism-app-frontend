@@ -31,31 +31,36 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: false,
                 verification_error: true,
             }
-        case types.LOGIN_SUCCESS:
+        case types.LOGIN_STARTED:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case types.LOGIN_SUCCEDED:
             return {
                 ...state,
                 isLoading: false,
                 login_success: true,
                 user: action.user
             }
-        case types.LOGIN_FAILURE:
+        case types.LOGIN_FAILED:
             return {
                 ...state,
                 isLoading: false,
                 login_error: true,
             }
-        case types.REGISTER_REQUEST: 
+        case types.REGISTER_STARTED: 
             return {
                 ...state,
                 isLoading: true
             }
-        case types.REGISTER_SUCCESS: 
+        case types.REGISTER_SUCCEDED: 
             return {
                 ...state,
                 isLoading: false,
                 register_success: true
             }
-        case types.REGISTER_FAILURE:
+        case types.REGISTER_FAILED:
             return {
                 ...state,
                 isLoading: false,

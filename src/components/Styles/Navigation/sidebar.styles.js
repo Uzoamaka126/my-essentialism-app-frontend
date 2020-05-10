@@ -1,4 +1,4 @@
-import styled from './node_modules/styled-components';
+import styled from '@emotion/styled';
 
 export const StyledSidebar = styled.div`
     height: 100%;
