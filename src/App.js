@@ -9,6 +9,7 @@ import Signup from "./PublicApp/Auth/Signup/Signup";
 import { Dashboard, Values } from "./ProtectedApp/components";
 import { DashboardHome } from './ProtectedApp/components/Dashboard/Home/DashboardHome'
 import { MyValues } from './ProtectedApp/components/Values/MyValues'
+import { OnboardingComponent } from "./ProtectedApp/components/Dashboard/Home/Onboarding/onboarding.component";
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
@@ -35,6 +36,7 @@ function App() {
             <Route path="/dashboard/values" component={Values} />
             <Route path="/dashboard/values/me" component={MyValues} />
             <Route path="/dashboard/home" component={DashboardHome} />
+            <Route path="/dashboard/onboarding" component={OnboardingComponent} />
           </Switch>
         </Dashboard>
       </Switch>

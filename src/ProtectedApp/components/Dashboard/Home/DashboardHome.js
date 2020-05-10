@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import Avatar from "../../../../Components/assets/avatar.svg";
+import { OnboardingComponent } from "./Onboarding/onboarding.component";
+import { Box } from "@chakra-ui/core";
 
 export function DashboardHome(props) {
   return (
-    <div className="container">
-     
-    </div>
+    <Box width="100%">
+      <OnboardingComponent {...props} />
+    </Box>
   );
 }
