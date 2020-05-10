@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Flex, Text, Image, Button} from '@chakra-ui/core'
 // Import assets
 import BgImg from '../Components/assets/bg-img-2.svg';

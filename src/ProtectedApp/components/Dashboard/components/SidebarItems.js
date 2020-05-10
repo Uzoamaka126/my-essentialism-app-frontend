@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { StyledSidebarItems } from '../Styles/Navigation/SidebarItems.styles'
+import { StyledSidebarItems } from '../../../../Components/Styles/Navigation/SidebarItems.styles'
 
 export default function SidebarItems({ active, name, onItemClick, path, }) {
     function handleClick() { 

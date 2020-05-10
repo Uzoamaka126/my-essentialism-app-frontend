@@ -1,32 +1,44 @@
-import React from 'react';
+import React from "react";
 import { ThemeProvider } from "@chakra-ui/core";
-import { Route, Redirect, Switch } from 'react-router-dom';
-import ProtectedRoute from './Components/ProtectedRoute';
-
-import Home from './pages/Home';
-import AboutUs from './pages/Landing/AboutUs';
-import Login from './pages/Auth/Login/Login';
-import Signup from './pages/Auth/Signup/Signup';
-import Dashboard from './pages/userDashboard/Dashboard';
-import MyValues from './pages/Values/MyValues';
-import Values from './pages/Values/Values';
-import { customTheme } from './Components/Styles/Global/Theme';
-
+import { Route, Redirect, Switch } from "react-router-dom";
+import Home from "./PublicApp/Home";
+import { customTheme } from "./Components/Styles/Global/Theme";
+import Login from "./PublicApp/Auth/Login/Login";
+import AboutUs from "./PublicApp/Landing/AboutUs";
+import Signup from "./PublicApp/Auth/Signup/Signup";
+import { Dashboard, Values } from "./ProtectedApp/components";
+import { DashboardHome } from './ProtectedApp/components/Dashboard/Home/DashboardHome'
+import { MyValues } from './ProtectedApp/components/Values/MyValues'
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <Switch>
-        <Route exact path="/" render={props => <Home {...props} />} />
-        <Route path="/about" component={AboutUs}/>
-        <Route exact path="/login" component={Login}/>
-        <Route path="/signup" component={Signup}/>
-        <ProtectedRoute path="/dashboard/allvalues" component={Values} />
-        <ProtectedRoute path="/dashboard/myvalues" component={MyValues} />
+        <Route exact path="/" render={(props) => <Home {...props} />} />
+        <Route path="/about" component={AboutUs} />
+        <Route exact path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Dashboard>
+          <Switch>
+            {/* <ProtectedRoute
+            path="/s/home"
+            isLoggedIn={!!user}
+            render={(props) => <Home {...props} />}
+          />
+          <ProtectedRoute
+            path="/s/onboarding"
+            isLoggedIn={!!user}
+            render={(props) => <Onboarding {...{ user, profile, ...props }} />}
+          />
+          */}
 
-        <ProtectedRoute exact path="/dashboard" component={Dashboard}/>
-        <Route render={() => <Redirect to="/" />} />
+            {/* <Route component={ErrorPage} /> */}
+            <Route path="/dashboard/values" component={Values} />
+            <Route path="/dashboard/values/me" component={MyValues} />
+            <Route path="/dashboard/home" component={DashboardHome} />
+          </Switch>
+        </Dashboard>
       </Switch>
-  </ThemeProvider>
+    </ThemeProvider>
   );
 }
 export default App;
