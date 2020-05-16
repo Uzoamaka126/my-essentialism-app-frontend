@@ -1,57 +1,62 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import { ValuesComponent } from "./Values.component";
 
-export function Values() {
-                        //    console.log(values);
-                           //  useEffect(() => {
-                           //    getValues();
-                           //  }, [getValues]);
-
-                           // if(!values) return <Spinner /> { getValues, isFetching, values }
-
-                           return (
-                             <>
-                               {/* <h3>Choose your list of values</h3> */}
-                               <div className="container">
-                                 <div className="row">
-                                   <div className="col-sm-12 col-md-12 col-lg-12">
-                                     {/* {values && values.map((value, index) => {
-                        return (
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">{value.name}</h5>
-                                    <button type="button" className="btn btn-primary" onClick={openModal}>
-                                        View Description
-                                    </button>
-                                </div>
-                               
-                            </div>
-                        )
-                    })} */}
-                                     Values
-                                   </div>
-                                 </div>
-                               </div>
-                             </>
-                             // <li key={key}>
-                             //     <input
-                             //     onChange={handleChange}
-                             //     type="checkbox"
-                             //     id={`checkbox${key}`}
-                             //     value={name}
-                             //     />
-                             //     <label htmlFor={`checkbox${key}`}>{name}</label>
-                             // </li>
-                           );
-                         }
-
-const mapStateToProps = state => {
-    console.log(state)
-    return {
-        values: state.values,
-        isFetching: state.values.isFetching,
-        error: state.values.error
-    }
+export function Values(props) {
+  return <ValuesComponent values={props.values} {...props} />;
 }
 
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    values: state.values,
+    isFetching: state.values.isFetching,
+    error: state.values.error,
+  };
+};
+
+Values.defaultProps = {
+  values: [
+    {
+      id: 1,
+      name: "Athletic Ability",
+    },
+    {
+      id: 2,
+      name: "Arts & Literature",
+    },
+    {
+      id: 3,
+      name: "Body Image",
+    },
+    {
+      id: 4,
+      name: "Career",
+    },
+    {
+      id: 5,
+      name: "Creativity",
+    },
+    {
+      id: 6,
+      name: "Kindness & Generosity",
+    },
+    {
+      id: 7,
+      name: "Living In The Moment",
+    },
+    {
+      id: 8,
+      name: "Membership In a Social Group",
+    },
+    {
+      id: 9,
+      name: "Moral Principles",
+    },
+    {
+      id: 10,
+      name: "Music",
+    },
+  ],
+};
 export default connect(mapStateToProps, null)(Values);

@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/core";
 import { Header, Content, SideBar} from './components';
 
 const menuList = [
-  { title: "Home", url: "/dashboard/home" },
+  { title: "Onboarding", url: "/dashboard/home" },
   { title: "Values", url: "/dashboard/values" },
   {
     title: "My Values",

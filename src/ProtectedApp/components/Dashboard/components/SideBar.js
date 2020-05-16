@@ -6,11 +6,15 @@ import { Box, Button, Text, Stack, Flex, Image, Icon } from "@chakra-ui/core";
 const StyledSidebar = styled(Box)`
   a {
     width: 100%;
-    color: #212242;
+    color: #eee;
     display: block;
 
     &.active {
       color: #6554c0;
+    }
+
+    &.hover {
+      text-decoration: none;
     }
   }
 `;
@@ -45,7 +49,7 @@ export function SideBar({ menuList }) {
       zIndex={10}
       height="100vh"
       position="fixed"
-      backgroundColor="#f6fafd"
+      backgroundColor="#2e2642"
     >
       <Stack
         mx="1rem"
@@ -70,7 +74,8 @@ export function SideBar({ menuList }) {
                     fontWeight="bold"
                     textTransform="uppercase"
                     minWidth="6.5625rem"
-                    color={title === t ? "#6554c0" : "#212242"}
+                    color={title === t ? "#6554c0" : "#fff"}
+                    _hover={{ textDecoration: "none" }}
                   >
                     {t}
                   </Text>
