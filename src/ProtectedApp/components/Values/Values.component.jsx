@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Box,
@@ -39,12 +39,16 @@ export function ValuesComponent({ values, history }) {
 
   return (
     <Box>
-          <Flex padding="1.5rem 1rem 1rem" marginBottom="5rem" justifyContent="space-between">
+      <Flex
+        padding="1.5rem 1rem 1rem"
+        marginBottom="5rem"
+        justifyContent="space-between"
+      >
         <Text fontSize="1.5rem" color="#2e2642" fontWeight="medium">
           What kind of values do you like?
         </Text>
         <Box>
-                  <Button color="#fff" background="#e91e63" onClick={onOpen}>
+          <Button color="#fff" background="#e91e63" onClick={onOpen}>
             Add Selected Values
           </Button>
         </Box>
