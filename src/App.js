@@ -1,18 +1,18 @@
 import React from "react";
-import { ThemeProvider } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 import { Route, Redirect, Switch } from "react-router-dom";
 import Home from "./PublicApp/Home";
 import { customTheme } from "./Components/Styles/Global/Theme";
 import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
 import Signup from "./PublicApp/Auth/Signup/Signup";
-import { Dashboard, Values } from "./ProtectedApp/components";
-import { DashboardHome } from './ProtectedApp/components/Dashboard/Home/DashboardHome'
-import { MyValues } from './ProtectedApp/components/Values/MyValues'
+import { Dashboard, Values, CurrentValues } from "./ProtectedApp/components";
+import { DashboardHome } from "./ProtectedApp/components/Dashboard/Home/DashboardHome";
 import { OnboardingComponent } from "./ProtectedApp/components/Dashboard/Home/Onboarding/onboarding.component";
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
+      <CSSReset />
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route path="/about" component={AboutUs} />
@@ -33,10 +33,17 @@ function App() {
           */}
 
             {/* <Route component={ErrorPage} /> */}
-            <Route path="/dashboard/values" component={Values} />
-            <Route path="/dashboard/values/me" component={MyValues} />
+            <Route exact path="/dashboard/values" component={Values} />
+            <Route
+            exact
+              path="/dashboard/values/me/current"
+              component={CurrentValues}
+            />
             <Route path="/dashboard/home" component={DashboardHome} />
-            <Route path="/dashboard/onboarding" component={OnboardingComponent} />
+            <Route
+              path="/dashboard/onboarding"
+              component={OnboardingComponent}
+            />
           </Switch>
         </Dashboard>
       </Switch>

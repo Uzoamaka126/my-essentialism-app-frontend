@@ -54,7 +54,7 @@ export function OnboardingComponent({ history }) {
       >
         <Box width="100%">
           <Progress
-            color="gray"
+            color="pink"
             size="sm"
             marginBottom="1rem"
             width="100%"
@@ -70,7 +70,7 @@ export function OnboardingComponent({ history }) {
         >
           <Button
             variant="ghost"
-            variantColor="blue"
+            color="#e91e63"
             _focus={{ border: "none" }}
             isDisabled={step === 1 ? true : false}
             onClick={previousStep}
@@ -81,7 +81,7 @@ export function OnboardingComponent({ history }) {
             Prev
           </Button>
           <Button
-            variantColor="blue"
+            color="#e91e63"
             variant="ghost"
             borderWidth="0"
             _focus={{ border: "none" }}

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import { Box, Button, Text, Stack, Flex, Image, Icon } from "@chakra-ui/core";
+import { Header } from "./Header";
 
 const StyledSidebar = styled(Box)`
   a {
@@ -50,7 +51,11 @@ export function SideBar({ menuList }) {
       height="100vh"
       position="fixed"
       backgroundColor="#2e2642"
+      width="215px"
     >
+      <Box>
+        <Text margin="1rem" color="#f2f2f2" fontSize="1.2rem" fontWeight="medium">Uzoamaka</Text>
+      </Box>
       <Stack
         mx="1rem"
         as="aside"
@@ -86,6 +91,7 @@ export function SideBar({ menuList }) {
                         isToggled && title === t ? "chevron-up" : "chevron-down"
                       }
                       ml="1.3125rem"
+                      color={isToggled && title === t ? "#6554c0" : "#fff"}
                       size="4"
                     />
                   )}

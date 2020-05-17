@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   Box,
   Flex,
   Checkbox,
@@ -7,29 +8,52 @@ import {
   Image,
   Spinner,
   Stack,
+  useDisclosure,
 } from "@chakra-ui/core";
-export function ValuesComponent({ values }) {
+import { ModalValue } from "./ModalValue";
+export function ValuesComponent({ values, history }) {
   const [list, setList] = useState([]);
   const [checkboxValue, setCheckboxValue] = useState("");
 
-  function addToList() {}
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    function handleChange(event) {
-        setCheckboxValue(event.target.checked)
-    }
+  const checkboxRef = React.useRef();
+
+  console.log(checkboxRef);
+  function addToList({ id, name }) {
+    const valueObject = {
+      id: id,
+      name: name,
+    };
+
+    setList([...list, valueObject]);
+  }
+
+  function handleChange(event) {
+    setCheckboxValue(event.target.checked);
+    // setCheckboxValue([event.target.value]: event.target.name)
+    console.log(checkboxValue);
+  }
+
   if (!values) return <Spinner />;
 
   return (
     <Box>
-      <Box>
-        <Text>Hi there!</Text>
-        <Text>Choose your list of values</Text>
-      </Box>
+          <Flex padding="1.5rem 1rem 1rem" marginBottom="5rem" justifyContent="space-between">
+        <Text fontSize="1.5rem" color="#2e2642" fontWeight="medium">
+          What kind of values do you like?
+        </Text>
+        <Box>
+                  <Button color="#fff" background="#e91e63" onClick={onOpen}>
+            Add Selected Values
+          </Button>
+        </Box>
+      </Flex>
 
       <Stack
         flexWrap="wrap"
         width="fit-content"
-        padding="3rem 1rem"
+        padding="1rem 1rem 3rem"
         spacing={6}
         isInline
       >
@@ -46,38 +70,36 @@ export function ValuesComponent({ values }) {
             maxHeight="200px"
             padding="15px 20px"
             marginBottom="1.5rem"
+            minWidth="200px"
             background="#fff"
             key={index}
           >
-            <Image alt="" />
-            <Flex alignItems="center">
-              <Checkbox
-                marginBottom="0"
-                size="sm"
-                value={checkboxValue}
-                marginRight="0.625rem"
-              ></Checkbox>
-              <Text
-                fontSize="1.125rem"
-                marginBottom="0"
-                fontWeight="normal"
-                lineHeight="1.5"
-              >
-                {item.name}
-              </Text>
-            </Flex>
+            <Checkbox
+              marginBottom="1rem"
+              size="sm"
+              value={checkboxValue}
+              onChange={(e) => {
+                console.log(e);
+              }}
+              marginRight="0.625rem"
+              variantColor="blue"
+              ref={checkboxRef}
+              onClick={() => addToList({ id: index, name: item.name })}
+            />
+            <Image src={item.src} alt="" width="50px" height="50px" />
+            <Text
+              fontSize="1rem"
+              marginBottom="0"
+              fontWeight="normal"
+              lineHeight="1.5"
+              marginTop="0.625rem"
+            >
+              {item.name}
+            </Text>
           </Box>
         ))}
       </Stack>
+      <ModalValue isOpen={isOpen} onClose={onClose} history={history} />
     </Box>
-    // {/* // <li key={key}>
-    //     <input
-    //     onChange={handleChange}
-    //     type="checkbox"
-    //     id={`checkbox${key}`}
-    //     value={name}
-    //     />
-    //     <label htmlFor={`checkbox${key}`}>{name}</label>
-    // </li> */}
   );
 }
