@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/core";
 import { Header, Content, SideBar} from './components';
 
 const menuList = [
-  { title: "Home", url: "/dashboard/home" },
+  { title: "Onboarding", url: "/dashboard/home" },
   { title: "Values", url: "/dashboard/values" },
   {
     title: "My Values",
@@ -38,7 +38,6 @@ export function Dashboard({ children }) {
 
   return (
     <>
-      <Header />
       <Flex>
         <SideBar menuList={menuList} />
         <Content 
@@ -46,7 +45,7 @@ export function Dashboard({ children }) {
           height="100vh"
           overflow="auto"
           position="fixed"
-          paddingLeft="208px"
+          paddingLeft="215px"
           backgroundColor="#fff"
         >
           {children}

@@ -13,7 +13,7 @@ export default function Navbar(props) {
                     Essentialism
                 </Text>
             </Box>
-                <Stack isInline sacing={20} border="1px solid red">
+                <Stack isInline spacing={20} border="1px solid red">
                     <Link as={RouterLink} to="/">Home</Link>
                     <Link as={RouterLink} to="/about">About Us</Link>
                     {token

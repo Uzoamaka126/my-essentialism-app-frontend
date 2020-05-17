@@ -1,17 +1,55 @@
-import React from 'react';
+import React from "react";
+import { ModalContainer } from "../../../Components/ModalContainer";
+import {
+  Box,
+  Text,
+  Flex,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  Button,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/core";
 
-function ModalValue({ value, closeModal, isOpen, children }) {
-    const changeModalClass = isOpen ? "modal fade show" : "modal fade"
-    return (
-        // {/* ----------------- Value Modal ------------ */}
-        <div className={changeModalClass} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+export function ModalValue({ history, isOpen, onClose }) {
+  return (
+    <ModalContainer
+      title="Value(s) successfully added"
+      isOpen={isOpen}
+      onClose={onClose}
+      initialFocusRef
+    >
+      <ModalCloseButton />
+      <ModalBody>
+        <Alert
+          marginBottom="2rem"
+          marginTop="1rem"
+          status="success"
+          padding="1.5rem 1rem"
+        >
+          <AlertIcon />
+          <AlertDescription>
+            <Text fontSize="0.875rem">
+              You have added your values. Please click <strong>"Next"</strong>
+              to go to go to your value list page
+            </Text>
+          </AlertDescription>
+        </Alert>
+        <Flex marginBottom="1.5rem" width="100%" justifyContent="flex-end">
+          <Button
+            rightIcon="chevron-right"
+            color="#fff"
+                      background="#e91e63"
+            fontSize="1rem"
+            onClick={() => {
+              history.push("/dashboard/values/me/current");
+            }}
+          >
+            Next
+          </Button>
+        </Flex>
+      </ModalBody>
+    </ModalContainer>
+  );
 }
-
-export default ModalValue;
