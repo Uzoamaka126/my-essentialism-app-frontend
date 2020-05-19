@@ -6,9 +6,15 @@ import { customTheme } from "./Components/Styles/Global/Theme";
 import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
 import Signup from "./PublicApp/Auth/Signup/Signup";
-import { Dashboard, Values, CurrentValues } from "./ProtectedApp/components";
-import { DashboardHome } from "./ProtectedApp/components/Dashboard/Home/DashboardHome";
-import { OnboardingComponent } from "./ProtectedApp/components/Dashboard/Home/Onboarding/onboarding.component";
+import {
+  Dashboard,
+  Values,
+  CurrentValues,
+  Projects,
+  OnboardingComponent,
+  DashboardHome
+} from "./ProtectedApp/components";
+
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
@@ -35,9 +41,14 @@ function App() {
             {/* <Route component={ErrorPage} /> */}
             <Route exact path="/dashboard/values" component={Values} />
             <Route
-            exact
+              exact
               path="/dashboard/values/me/current"
               component={CurrentValues}
+            />
+            <Route
+              exact
+              path="/dashboard/projects"
+              component={Projects}
             />
             <Route path="/dashboard/home" component={DashboardHome} />
             <Route

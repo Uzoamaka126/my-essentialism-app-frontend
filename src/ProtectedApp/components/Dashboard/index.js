@@ -17,8 +17,8 @@ const menuList = [
   {
     title: "Projects",
     subItems: [
-      { title: "Current", url: "/dashboard/projects/current" },
-      { title: "All", url: "/dashboard/projects/all" },
+      { title: "Current", url: "/dashboard/projects" },
+      // { title: "All", url: "/dashboard/projects/all" },
     ],
     url: "/dashboard/projects",
   },
