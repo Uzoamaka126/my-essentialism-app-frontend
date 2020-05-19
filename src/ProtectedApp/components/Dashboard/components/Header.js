@@ -6,9 +6,9 @@ export function Header({ onLogout }) {
   return (
     <Box
       height="50px"
-      background="#e3e8ee"
+      // background="#e3e8ee"
+      background="#fff"
       borderLeft="solid 1px rgba(0,0,0,.05)"
-    >
-    </Box>
+    ></Box>
   );
 }
