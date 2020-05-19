@@ -3,7 +3,6 @@ import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
 import { useSearch } from "../../Utilities/_hooks/useSearch";
 
 export function Search({ value, onChange, placeholder, minWidth = "300px" }) {
-    const { searchInputValue, handleChange } = useSearch({ initialValue: value, onChange });
     
     return (
         <InputGroup size="sm" display="flex" minWidth={minWidth} alignItems="center">
@@ -12,11 +11,12 @@ export function Search({ value, onChange, placeholder, minWidth = "300px" }) {
             </InputLeftElement>
             <Input
                 type="search"
-                value={searchInputValue}
-                onChange={handleChange}
+                value={value}
+                onChange={(event) => onChange(event.currentTarget.value)}
                 placeholder={placeholder}
-                background="#f6f8fc"
-                border="1px solid #eee"
+                background="rgb(230, 236, 240)"
+                border="1px solid #e8f5f9"
+                borderRadius="5px"
                 _focus={{ backgroundColor: 'transparent' }}
             />
         </InputGroup>

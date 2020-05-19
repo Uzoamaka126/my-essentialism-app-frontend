@@ -1,54 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { ModalContainer } from "../../../../Components/ModalContainer";
-import {
-  Box,
-  Text,
-  Flex,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/core";
+import { ModalBody } from "@chakra-ui/core";
+import Select from "react-select";
+export function AddValueModal({ valuesList, label, isOpen, onClose }) {
+  const [optionValue, setOptionValue] = useState(null);
+  const [inputValue, setInputValue] = useState('');
 
-export function ModalSingleValue({ history, isOpen, onClose }) {
+  const newArr = valuesList.map((value) => ({
+    label: value.name,
+    value: value.name,
+  }));
+
   return (
     <ModalContainer
-      title="Value(s) successfully added"
+      title=" What kind of values do you like?"
       isOpen={isOpen}
       onClose={onClose}
       initialFocusRef
+      showCloseButton
     >
-      <ModalCloseButton />
       <ModalBody>
-        <Alert
-          marginBottom="2rem"
-          marginTop="1rem"
-          status="success"
-          padding="1.5rem 1rem"
-        >
-          <AlertIcon />
-          <AlertDescription>
-            <Text fontSize="0.875rem">
-              You have added your values. Please click <strong>"Next"</strong>
-              to go to go to your value list page
-            </Text>
-          </AlertDescription>
-        </Alert>
-        <Flex marginBottom="1.5rem" width="100%" justifyContent="flex-end">
-          <Button
-            rightIcon="chevron-right"
-            color="#fff"
-            background="#e91e63"
-            fontSize="1rem"
-            onClick={() => {
-              history.push("/dashboard/values/me/current");
-            }}
-          >
-            Next
-          </Button>
-        </Flex>
+        <Select
+          name="values-form-field"
+          value={optionValue}
+          onChange={(value) => { setOptionValue(value); console.log(value)}}
+          inputValue={inputValue}
+          onInputChange={(inputValue) => setInputValue(inputValue)}
+          isMulti
+          options={newArr}
+          isClearable={false}
+          backspaceRemovesValue
+          removeSelected={false}
+          isSearchable
+        />
       </ModalBody>
     </ModalContainer>
   );

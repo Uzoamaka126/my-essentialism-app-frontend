@@ -7,7 +7,7 @@ import { Header } from "./Header";
 const StyledSidebar = styled(Box)`
   a {
     width: 100%;
-    color: #eee;
+    color: #1a1f36;
     display: block;
 
     &.active {
@@ -50,11 +50,11 @@ export function SideBar({ menuList }) {
       zIndex={10}
       height="100vh"
       position="fixed"
-      backgroundColor="#2e2642"
+      backgroundColor="#e3e8ee"
       width="215px"
     >
       <Box>
-        <Text margin="1rem" color="#f2f2f2" fontSize="1.2rem" fontWeight="medium">Uzoamaka</Text>
+        <Text margin="1rem" color="#1a1f36" fontSize="1.2rem" fontWeight="medium">Uzoamaka</Text>
       </Box>
       <Stack
         mx="1rem"
@@ -79,7 +79,7 @@ export function SideBar({ menuList }) {
                     fontWeight="bold"
                     textTransform="uppercase"
                     minWidth="6.5625rem"
-                    color={title === t ? "#6554c0" : "#fff"}
+                    color={title === t ? "#6554c0" : "#1a1f36"}
                     _hover={{ textDecoration: "none" }}
                   >
                     {t}
@@ -91,7 +91,7 @@ export function SideBar({ menuList }) {
                         isToggled && title === t ? "chevron-up" : "chevron-down"
                       }
                       ml="1.3125rem"
-                      color={isToggled && title === t ? "#6554c0" : "#fff"}
+                      color={isToggled && title === t ? "#6554c0" : "#1a1f36"}
                       size="4"
                     />
                   )}
