@@ -28,7 +28,14 @@ export function ModalContainer({
         <ModalOverlay />
         <ModalContent borderRadius="5px">
           {title && (
-            <ModalHeader textAlign="center" fontWeight="medium" paddingY="1rem">
+            <ModalHeader
+              textAlign="center"
+              fontWeight="medium"
+              paddingY="1rem"
+              background="#fbfbfb"
+              border="1px solid #eee"
+              fontSize="1rem"
+            >
               {title}
             </ModalHeader>
           )}

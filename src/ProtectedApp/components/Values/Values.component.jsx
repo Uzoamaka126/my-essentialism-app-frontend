@@ -19,7 +19,6 @@ export function ValuesComponent({ values, history }) {
 
   const checkboxRef = React.useRef();
 
-  console.log(checkboxRef);
   function addToList({ id, name }) {
     const valueObject = {
       id: id,
@@ -31,8 +30,6 @@ export function ValuesComponent({ values, history }) {
 
   function handleChange(event) {
     setCheckboxValue(event.target.checked);
-    // setCheckboxValue([event.target.value]: event.target.name)
-    console.log(checkboxValue);
   }
 
   if (!values) return <Spinner />;

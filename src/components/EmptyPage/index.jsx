@@ -4,7 +4,7 @@ import {
   Heading,
   Image,
   Text,
-  Icon,
+  // Icon,
 } from '@chakra-ui/core';
 import React from 'react';
 
