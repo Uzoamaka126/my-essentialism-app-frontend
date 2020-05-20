@@ -5,10 +5,10 @@ import { Box, Button, Text } from "@chakra-ui/core";
 export function Header({ onLogout }) {
   return (
     <Box
-      height="60px"
+      height="50px"
+      // background="#e3e8ee"
       background="#fff"
-      borderBottom="solid 1px rgba(0,0,0,.05)"
-    >
-    </Box>
+      borderLeft="solid 1px rgba(0,0,0,.05)"
+    ></Box>
   );
 }

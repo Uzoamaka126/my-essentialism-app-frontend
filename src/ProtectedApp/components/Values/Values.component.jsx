@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Box,
@@ -19,7 +19,6 @@ export function ValuesComponent({ values, history }) {
 
   const checkboxRef = React.useRef();
 
-  console.log(checkboxRef);
   function addToList({ id, name }) {
     const valueObject = {
       id: id,
@@ -31,23 +30,19 @@ export function ValuesComponent({ values, history }) {
 
   function handleChange(event) {
     setCheckboxValue(event.target.checked);
-    // setCheckboxValue([event.target.value]: event.target.name)
-    console.log(checkboxValue);
   }
 
   if (!values) return <Spinner />;
 
   return (
     <Box>
-          <Flex padding="1.5rem 1rem 1rem" marginBottom="5rem" justifyContent="space-between">
+      <Flex
+        padding="1.5rem 1rem 1rem"
+        marginBottom="3rem"
+      >
         <Text fontSize="1.5rem" color="#2e2642" fontWeight="medium">
-          What kind of values do you like?
+          All Values
         </Text>
-        <Box>
-                  <Button color="#fff" background="#e91e63" onClick={onOpen}>
-            Add Selected Values
-          </Button>
-        </Box>
       </Flex>
 
       <Stack
@@ -99,7 +94,6 @@ export function ValuesComponent({ values, history }) {
           </Box>
         ))}
       </Stack>
-      <ModalValue isOpen={isOpen} onClose={onClose} history={history} />
     </Box>
   );
 }
