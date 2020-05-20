@@ -12,7 +12,8 @@ import {
   CurrentValues,
   Projects,
   OnboardingComponent,
-  DashboardHome
+  DashboardHome,
+  SingleProject
 } from "./ProtectedApp/components";
 
 function App() {
@@ -45,11 +46,8 @@ function App() {
               path="/dashboard/values/me/current"
               component={CurrentValues}
             />
-            <Route
-              exact
-              path="/dashboard/projects"
-              component={Projects}
-            />
+            <Route exact path="/dashboard/projects" component={Projects} />
+            <Route exact path="/dashboard/project/:id" component={SingleProject} />
             <Route path="/dashboard/home" component={DashboardHome} />
             <Route
               path="/dashboard/onboarding"

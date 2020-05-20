@@ -162,9 +162,9 @@ export function ProjectsComponent({ projects, history }) {
                           padding="0"
                           paddingBottom="0"
                           as={RouterLink}
-                          to={`/dashboard/values/me/current/${item.id}`}
+                          to={`/dashboard/project/${item.id}`}
                         >
-                          View Tasks
+                          View project
                         </Link>
                         <IconButton
                           aria-label="delete"
