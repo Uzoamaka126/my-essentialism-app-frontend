@@ -40,7 +40,8 @@ export function LoginComponent({ login_success, loading, login }) {
           style={{
             width: "100%",
             margin: "10rem auto 0",
-            background: "#f8f8f8",
+            background: "#fff",
+            border: "1px solid rgb(248, 248, 248)",
             padding: "1.5rem 1rem",
           }}
         >
@@ -50,6 +51,7 @@ export function LoginComponent({ login_success, loading, login }) {
               type="email"
               borderColor="#eee"
               border="1px solid #eee"
+              background="#f7fbfb"
               id="email"
               aria-describedby="email-helper-text"
               onChange={formik.handleChange}
@@ -65,6 +67,7 @@ export function LoginComponent({ login_success, loading, login }) {
             <Input
               type="password"
               border="1px solid #eee"
+              background="#f7fbfb"
               borderColor="#eee"
               id="password"
               aria-describedby="password-helper-text"
@@ -78,7 +81,7 @@ export function LoginComponent({ login_success, loading, login }) {
               size="lg"
               variant="solid"
               marginBottom="0.875rem"
-              background="#53f"
+              background="#e91e63"
               color="#fff"
               border="none"
               width="100%"
@@ -89,7 +92,7 @@ export function LoginComponent({ login_success, loading, login }) {
               Don't have an account?
               <Link
                 style={{
-                  color: "#53f",
+                  color: "#e91e63",
                   marginLeft: "0.25rem",
                 }}
                 to="/signup"
