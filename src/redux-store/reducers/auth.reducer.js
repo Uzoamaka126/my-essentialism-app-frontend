@@ -2,6 +2,7 @@ import * as types from '../actions/action.types';
 
 const initialState = {
     user: null,
+    token: null,
     isLoading: false,
     register_error: false,
     register_success: false,
@@ -13,24 +14,6 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
     switch(action.type) {
-        case types.VERIFICATION_START:
-            return {
-                ...state,
-                isLoading: true
-            }
-        case types.VERIFICATION_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                verification_success: true,
-                user: action.payload
-            }
-        case types.VERIFICATION_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                verification_error: true,
-            }
         case types.LOGIN_STARTED:
             return {
                 ...state,
@@ -41,7 +24,8 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 login_success: true,
-                user: action.user
+                user: action.user,
+                token: action.token
             }
         case types.LOGIN_FAILED:
             return {
@@ -58,7 +42,9 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                register_success: true
+                register_success: true,
+                user: action.user.response,
+                token: action.user.token
             }
         case types.REGISTER_FAILED:
             return {

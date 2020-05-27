@@ -16,19 +16,50 @@ export const getToken = () => {
       } else {
         const isExpired = isTokenExpired(token); // Check if token is expired
         if (isExpired) {
-          clearLocalStorage();
+          clearAppState();
           return undefined;
         }
       }
       // otherwise outside of all these usecases, return the token
       return token;
-    } catch {
+    } catch (err) {
       return undefined;
     }
   };
   
+const STATE = 'SIMPU'
+
+export const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem(STATE)
+    if (serializedState === null) {
+      return undefined
+    }
+    return JSON.parse(serializedState)
+  } catch (err) {
+    return undefined
+  }
+}
+
+export const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state)
+    localStorage.setItem(STATE, serializedState)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const clearState = () => {
+  try {
+    localStorage.removeItem(STATE)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // Define a function to clear the local storage 
-export const clearLocalStorage = () =>{
+export const clearAppState = () =>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.location.href = '/';

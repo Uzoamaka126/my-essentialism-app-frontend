@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Heading } from "@chakra-ui/core";
+import { Box, Text } from "@chakra-ui/core";
 export function Wrapper({ children }) {
   return (
     <Box

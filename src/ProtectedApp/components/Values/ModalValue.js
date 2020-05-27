@@ -1,7 +1,6 @@
 import React from "react";
 import { ModalContainer } from "../../../Components/ModalContainer";
 import {
-  Box,
   Text,
   Flex,
   Alert,
