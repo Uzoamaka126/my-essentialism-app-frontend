@@ -1,6 +1,7 @@
 import * as types from "./action.types";
 import { client } from "../../Utilities/axiosHelper";
-
+import { setState } from "../../Utilities/authenticationChecker";
+// const STATE = 'ESSENTIALISM'
 export const register = (user) => (dispatch) => {
   dispatch({
     type: types.REGISTER_STARTED,
@@ -13,6 +14,9 @@ export const register = (user) => (dispatch) => {
           payload: res.data.token,
           user: res.data
       })
+      const { data, data: token } = res;
+      setState({ token, data })
+      return { token, data };
   })
   .catch(err => {
       console.log(err);
@@ -31,9 +35,12 @@ export const login = (user) => (dispatch) => {
       console.log(res.data);
       dispatch({
         type: types.LOGIN_SUCCEDED,
-        token: res.data.token,
-        user: res.data.user,
+        payload: res.data.token,
+        user: res.data,
       });
+      const { data, data: token } = res;
+      setState({  token, data })
+      return { token, data };
     })
     .catch((err) => {
       console.log(err);

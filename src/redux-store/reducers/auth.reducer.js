@@ -23,7 +23,7 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: false,
                 login_success: true,
                 user: action.user,
-                token: action.token
+                token: action.payload
             }
         case types.LOGIN_FAILED:
             return {
@@ -41,14 +41,13 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 register_success: true,
-                user: action.user.response,
-                token: action.user.token,
+                user: action.user,
+                token: action.payload
             }
         case types.REGISTER_FAILED:
             return {
                 ...state,
                 isLoading: false,
-                register_success: false,
                 register_error: true
             }
         case types.LOGOUT:

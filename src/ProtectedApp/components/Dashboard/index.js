@@ -1,7 +1,6 @@
 import React from "react";
-import { getToken } from "../../../Utilities/authenticationChecker";
 import { Flex } from "@chakra-ui/core";
-import { Content, SideBar, Header } from "./components";
+import { Content, SideBar } from "./components";
 
 const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
@@ -32,7 +31,13 @@ const menuList = [
   },
 ];
 
-export function Dashboard({ children, onLogout, user, profile }) {
+export function Dashboard({ children, user, history, profile,logout }) {
+
+  function handleLogout() {
+    logout();
+    history.push("/");
+  }
+
   return (
     <>
       <Flex>
@@ -44,7 +49,7 @@ export function Dashboard({ children, onLogout, user, profile }) {
           position="fixed"
           paddingLeft="215px"
           backgroundColor="#fff"
-          logout={onLogout}
+          logout={handleLogout}
           user={user}
           profile={profile}
         >

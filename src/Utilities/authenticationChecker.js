@@ -1,65 +1,64 @@
 import * as types from '../redux-store/actions/action.types';
-import { isTokenExpired } from './checkForToken';
-export const setToken = store => next => action => {
-  if(action.type === types.REGISTER_SUCCEDED || action.type === types.LOGIN_SUCCEDED) {
-      // look into the action creators to see that the payload is set to the token 
-    localStorage.setItem('user', JSON.stringify(action.user))
+// import { isTokenExpired, decodeToken } from './checkForToken';
+
+const STATE = 'ESSENTIALISM'
+
+// export const setToken = store => next => action => {
+// if (action.type === types.REGISTER_SUCCEDED || action.type === types.LOGIN_SUCCEDED) {
+//   localStorage.setItem(STATE, JSON.stringify(action.user)) // email + token = action.user;
+// }
+// next(action);
+// }
+export const setState = state => {
+  try {
+    const stringifiedState = JSON.stringify(state);
+    localStorage.setItem(STATE, stringifiedState)
+  } catch (err) {
+    console.log(err)
   }
-  next(action);
 }
-export const getToken = () => {
-    try {
-      const token = localStorage.getItem('user');
-      if (token === null) {
-        return undefined;
-      } else {
-        const isExpired = isTokenExpired(token); // Check if token is expired
-        if (isExpired) {
-          clearAppState();
-          return undefined;
-        }
-      }
-      // otherwise outside of all these usecases, return the token
-      return token;
-    } catch (err) {
+export const getState = () => {
+  try {
+    const userObject = localStorage.getItem(STATE);
+
+    if (userObject === null) {
       return undefined;
+    } else {
+      // const isExpired = isTokenExpired(userObject); // Check if token is expired
+      // if (isExpired) {
+      //   clearAppState();
+      //   return undefined;
+      // }
+      return JSON.parse(userObject);
     }
-  };
+    // otherwise outside of all these usecases, return the token
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const getToken = () => {
+  if (getState()) {
+    const { token } = getState();
+    return token;
+  }
+  return null
+}
+
+export const getUser = () => {
+  if (getState()) {
+    const { user } = getState()
+    return user
+  }
+  return null
+}
   
-const STATE = 'SIMPU'
-
-export const loadState = () => {
-  try {
-    const serializedState = localStorage.getItem(STATE)
-    if (serializedState === null) {
-      return undefined
-    }
-    return JSON.parse(serializedState)
-  } catch (err) {
-    return undefined
-  }
-}
-
-export const saveState = (state) => {
-  try {
-    const serializedState = JSON.stringify(state)
-    localStorage.setItem(STATE, serializedState)
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const clearState = () => {
-  try {
-    localStorage.removeItem(STATE)
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 // Define a function to clear the local storage 
 export const clearAppState = () =>{
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  try {
+    localStorage.removeItem(STATE);
     window.location.href = '/';
+  } catch (err) {
+    console.log(err)
+  }
 };

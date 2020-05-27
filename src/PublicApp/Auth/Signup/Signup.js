@@ -54,12 +54,12 @@ function Signup(props) {
 }
 
 const mapStateToProps = (store) => {
-  console.log(store.auth);
 
   return {
     isLoading: store.auth.isLoading,
     register_success: store.auth.register_success,
     register_error: store.auth.register_error,
+    auth: store.auth
   };
 };
 
