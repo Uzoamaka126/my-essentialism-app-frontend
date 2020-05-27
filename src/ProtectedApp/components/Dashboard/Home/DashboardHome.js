@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { OnboardingComponent } from "./Onboarding/onboarding.component";
 import { Box } from "@chakra-ui/core";
 

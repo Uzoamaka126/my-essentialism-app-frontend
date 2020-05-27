@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
-import { useSearch } from "../../Utilities/_hooks/useSearch";
+// import { useSearch } from "../../Utilities/_hooks/useSearch";
 
 export function Search({ value, onChange, placeholder, minWidth = "300px" }) {
     

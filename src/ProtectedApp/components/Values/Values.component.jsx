@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Button,
   Box,
   Flex,
   Checkbox,
@@ -8,14 +7,14 @@ import {
   Image,
   Spinner,
   Stack,
-  useDisclosure,
+  // useDisclosure,
 } from "@chakra-ui/core";
-import { ModalValue } from "./ModalValue";
+// import { ModalValue } from "./ModalValue";
 export function ValuesComponent({ values, history }) {
   const [list, setList] = useState([]);
   const [checkboxValue, setCheckboxValue] = useState("");
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   const checkboxRef = React.useRef();
 
@@ -26,10 +25,6 @@ export function ValuesComponent({ values, history }) {
     };
 
     setList([...list, valueObject]);
-  }
-
-  function handleChange(event) {
-    setCheckboxValue(event.target.checked);
   }
 
   if (!values) return <Spinner />;

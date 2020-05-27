@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
-import { Box, Button, Text, Stack, Flex, Image, Icon } from "@chakra-ui/core";
-import { Header } from "./Header";
+import { Box, Text, Stack, Flex, Icon } from "@chakra-ui/core";
 
 const StyledSidebar = styled(Box)`
   a {

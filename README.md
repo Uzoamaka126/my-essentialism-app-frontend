@@ -1,8 +1,5 @@
 # my-essentialism-app-frontend
-
-You can find the deployed project at: (work-in-progress)
-
-A writing publishing platform (cms) that allows readers to emoji react to text blocks and text highlights
+- Work-in-progress
 
 ### [Key Features](#Key-Features)
 
@@ -17,7 +14,7 @@ A writing publishing platform (cms) that allows readers to emoji react to text b
 
 - *React/Redux*
 - *Styled Components* 
-- React-Bootstrap
+- ChakraUI
 
 [Front end deployed to `Netlify`](#Front-end-deployed-to-Netlify) 
 
@@ -25,13 +22,6 @@ A writing publishing platform (cms) that allows readers to emoji react to text b
 
 - I used an api that I created and hosted on Heroku
 
-# [Environment Variables](#Environment-variables)
-
-For the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
-
-```
-DATABASE_URL = postgres url from elephantsql
-```
 
 ## [Getting Started](#Getting-started)
 

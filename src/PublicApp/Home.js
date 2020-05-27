@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Box, Flex, Text, Image, Button} from '@chakra-ui/core'
+import { Box, Flex, Text, Image } from '@chakra-ui/core'
 // Import assets
 import BgImg from '../Components/assets/bg-img-2.svg';
 import Park from '../Components/assets/Video park.svg';
 // Import Components
 import Navbar from '../Components/_navigation_/Navbar';
-import { getToken } from '../Utilities/authenticationChecker';
 
 //#53f, rgb(110, 214, 154), #6772e5;, #319795
 export default function Home(props) {
-    const token = getToken();
 
     return (
         <Box>

@@ -1,7 +1,7 @@
 import React from "react";
 import { getToken } from "../../../Utilities/authenticationChecker";
 import { Flex } from "@chakra-ui/core";
-import { Header, Content, SideBar} from './components';
+import { Content, SideBar} from './components';
 
 const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
@@ -9,7 +9,7 @@ const menuList = [
   {
     title: "My Values",
     subItems: [
-      { title: "Current", url: "/dashboard/values/me/current" },
+      { title: "Current", url: "/dashboard/values/current" },
       { title: "Top Three", url: "/dashboard/values/me/top-three" },
     ],
     url: "/dashboard/values/me",

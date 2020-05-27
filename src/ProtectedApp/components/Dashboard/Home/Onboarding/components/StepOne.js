@@ -1,5 +1,4 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/core";
 import { Wrapper, Title, SubTitle } from "./BoxWrapper";
 
 export function StepOne(props) {

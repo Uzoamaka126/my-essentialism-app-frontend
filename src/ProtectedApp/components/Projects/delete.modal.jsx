@@ -1,5 +1,4 @@
 import React from "react";
-import { ModalContainer } from "../../../Components/ModalContainer";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -33,8 +32,8 @@ export function DeleteProjectModal({ isOpen, onClose, cancelRef }) {
             fontSize="0.8rem"
             background="#e91e63"
             onClick={onClose}
-                      ml={3}
-                      color="#fff"
+            ml={3}
+            color="#fff"
           >
             Delete
           </Button>
