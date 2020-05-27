@@ -7,16 +7,7 @@ import { ToastBox } from "../../../Components";
 import { RegistrationSuccess } from "./RegistrationSuccess";
 
 function Signup(props) {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  function onOpen() {
-    setIsOpen(true);
-  }
-
-  function onClose() {
-    setIsOpen(false);
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
     isLoading,
@@ -34,18 +25,14 @@ function Signup(props) {
         position: 'bottom-left',
         render: () => <ToastBox message="User created" />,
       });
+      onOpen();
     }
-    history.push('dashboard/home')
-    // onOpen();
-  }
-
-  
-
-  if (register_error) {
-    toast({
-      position: "bottom-left",
-      render: () => <ToastBox message={"Error creating user"} />,
-    });
+    if (register_error) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Error creating user"} />,
+      });
+    }
   }
 
   return (

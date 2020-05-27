@@ -1,7 +1,7 @@
 import React from "react";
 import { getToken } from "../../../Utilities/authenticationChecker";
 import { Flex } from "@chakra-ui/core";
-import { Content, SideBar} from './components';
+import { Content, SideBar, Header } from "./components";
 
 const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
@@ -29,24 +29,24 @@ const menuList = [
       { title: "Change Password", url: "/dashboard/settings/password" },
     ],
     url: "/dashboard/settings",
-  }
+  },
 ];
 
-export function Dashboard({ children }) {
-  const token = getToken();
-  console.log(token);
-
+export function Dashboard({ children, onLogout, user, profile }) {
   return (
     <>
       <Flex>
-        <SideBar menuList={menuList} />
-        <Content 
+        <SideBar menuList={menuList} user={user} />
+        <Content
           width="100%"
-          height="100vh"
+          height="calc(100vh -60px)"
           overflow="auto"
           position="fixed"
           paddingLeft="215px"
           backgroundColor="#fff"
+          logout={onLogout}
+          user={user}
+          profile={profile}
         >
           {children}
         </Content>

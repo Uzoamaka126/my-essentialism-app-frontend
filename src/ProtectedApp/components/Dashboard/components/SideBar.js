@@ -19,7 +19,7 @@ const StyledSidebar = styled(Box)`
   }
 `;
 
-export function SideBar({ menuList }) {
+export function SideBar({ menuList, user }) {
   const [selected, setSelected] = React.useState({
     isToggled: true,
     title: "Overview",
@@ -53,7 +53,7 @@ export function SideBar({ menuList }) {
       width="215px"
     >
       <Box>
-        <Text margin="1rem" color="#1a1f36" fontSize="1.2rem" fontWeight="medium">Uzoamaka</Text>
+        <Text margin="1rem" color="#1a1f36" fontSize="1.2rem" fontWeight="medium">{user && user.username}</Text>
       </Box>
       <Stack
         mx="1rem"

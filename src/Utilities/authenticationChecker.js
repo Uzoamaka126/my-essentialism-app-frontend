@@ -3,14 +3,13 @@ import { isTokenExpired } from './checkForToken';
 export const setToken = store => next => action => {
   if(action.type === types.REGISTER_SUCCEDED || action.type === types.LOGIN_SUCCEDED) {
       // look into the action creators to see that the payload is set to the token 
-    localStorage.setItem('token', action.payload);
     localStorage.setItem('user', JSON.stringify(action.user))
   }
   next(action);
 }
 export const getToken = () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('user');
       if (token === null) {
         return undefined;
       } else {

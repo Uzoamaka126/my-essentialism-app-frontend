@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/core";
 
-export function Header({ onLogout }) {
+export function Header({ logout }) {
   return (
     <Box
       height="60px"
@@ -52,6 +52,7 @@ export function Header({ onLogout }) {
                   _hover={{ background: "transparent" }}
                   fontWeight="normal"
                   variant="ghost"
+                  onClick={logout}
                 >
                   Log out
                 </Button>

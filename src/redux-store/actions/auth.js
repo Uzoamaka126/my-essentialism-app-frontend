@@ -43,23 +43,8 @@ export const login = (user) => (dispatch) => {
     });
 };
 
-// verify the token
-// export const verify = (token, id) => (dispatch) => {
-//   dispatch({
-//     type: types.VERIFICATION_START,
-//   });
-//   return axios
-//     .post(`${apiURL}/auth/verify/${id}/${token}`)
-//     .then((res) => {
-//       dispatch({
-//         type: types.VERIFICATION_SUCCESS,
-//         payload: res.data,
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       dispatch({
-//         type: types.VERIFICATION_FAILURE,
-//       });
-//     });
-// };
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: types.LOGOUT,
+  })
+}
