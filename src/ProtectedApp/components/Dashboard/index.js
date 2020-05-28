@@ -31,17 +31,23 @@ const menuList = [
   },
 ];
 
-export function Dashboard({ children, user, history, profile,logout }) {
-
+export function Dashboard({
+  children,
+  user,
+  history,
+  logout,
+  userInfo,
+}) {
   function handleLogout() {
     logout();
-    history.push("/");
   }
+  const { username } = userInfo.data.response;
+  console.log(username);
 
   return (
     <>
       <Flex>
-        <SideBar menuList={menuList} user={user} />
+        <SideBar username={username} menuList={menuList} user={user} />
         <Content
           width="100%"
           height="calc(100vh -60px)"
@@ -51,7 +57,6 @@ export function Dashboard({ children, user, history, profile,logout }) {
           backgroundColor="#fff"
           logout={handleLogout}
           user={user}
-          profile={profile}
         >
           {children}
         </Content>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux-store/actions/auth";
-import { fetchUserProfile } from '../redux-store/actions/user.actions'
+import { fetchUserProfile } from "../redux-store/actions/user.actions";
 import DashboardHome from "./components/Dashboard/Home/DashboardHome";
 import { OnboardingComponent } from "./components/Dashboard/Home/Onboarding/onboarding.component";
 import { Values } from "./components/Values";
@@ -10,22 +10,44 @@ import { CurrentValues } from "./components/MyValues/current.container";
 import { Projects } from "./components/Projects/project.container";
 import { Dashboard } from "./components/Dashboard";
 import { SingleProject } from "./components/Projects/single.container";
+import { getState } from "../Utilities/authenticationChecker";
 
-export const ProtectedApp = (props) => {
-  const { logout, user, auth, history } = props;
-  // const { id } = auth;
-  console.log(user, auth);
+const mapStateToProps = (store) => {
+  console.log(store.auth);
+  return {
+    user: store.auth.user,
+    profile: store.user.profile,
+  }
+}
+// const connector = connect(
+//   (store) => ({
+//     user: store.auth.user,
+//     profile: store.user.profile,
+//   }),
+//   {
+//     logout,
+//   }
+// );
 
-  // const paramId = JSON.parse(props.location.pathname.split("/")[2]);
+const ProtectedApp = (props) => {
+  const { user, profile, history, fetchUserProfile } = props;
 
-  // React.useEffect(() => {
-  //   if(auth && auth.id) {
-  //     fetchUserProfile(`${auth.id}`)
-  //   }
-  // }, [auth, auth.id]);
+  const userInfo = getState();
+  const { id, username } = userInfo.data.response;
+
+  React.useEffect(() => {
+    if (userInfo && id) {
+      fetchUserProfile(`${id}`);
+    }
+  }, []);
 
   return (
-    <Dashboard history={history} logout={logout} user={user}>
+    <Dashboard
+      history={history}
+      logout={logout}
+      profile={profile}
+      userInfo={userInfo}
+    >
       <Switch>
         {/* <ProtectedRoute
             path="/s/home"
@@ -74,12 +96,4 @@ export const ProtectedApp = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    user: state.user,
-    auth: state.auth.user
-  };
-};
-
-export default connect(mapStateToProps, { logout })(ProtectedApp);
+export default connect(mapStateToProps, { logout, fetchUserProfile })(ProtectedApp);

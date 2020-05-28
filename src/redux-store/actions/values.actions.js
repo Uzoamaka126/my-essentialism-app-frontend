@@ -1,12 +1,11 @@
-import { withAuth } from '../../Utilities/axiosHelper';
+import { client } from '../../Utilities/axiosHelper';
 import * as types from './action.types';
-import { apiURL } from '../../Utilities/urls';
 export const getValues = () => async dispatch => {
     dispatch({
         type: types.GET_VALUES_STARTED
     });
     try {
-        const response = await withAuth().get(`${apiURL}/values`);
+        const response = await client().get('values');
         dispatch({
             type: types.GET_VALUES_SUCCEDED,
             payload: response.data

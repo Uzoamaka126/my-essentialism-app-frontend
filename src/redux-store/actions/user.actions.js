@@ -7,30 +7,22 @@ import {
   UPDATE_USER_PROFILE_FAILED,
 } from "../actions/action.types";
 import { client } from "../../Utilities/axiosHelper";
-import { getState, setState } from "../../Utilities/authenticationChecker";
-export const fetchUserProfile = (id) => (dispatch) => {
+export const fetchUserProfile = (id) => async (dispatch) => {
   dispatch({ type: GET_USER_PROFILE_STARTED });
-  client()
-    .get(`/users/${id}`)
-    .then((res) => {
-      console.log(res);
-      const { data } = res;
-      dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: res.data });
-      const previousLocalStorage = getState();
-      setState({ ...previousLocalStorage, data })
-      return { ...previousLocalStorage, data };
-
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch({ type: GET_USER_PROFILE_FAILED });
-    });
+  try {
+    const response = await client().get(`/users/fetch/${id}`);
+    console.log(response.data);
+    dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: response.data });
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: GET_USER_PROFILE_FAILED });
+  }
 };
 
 export const updateUserProfile = (id, data) => (dispatch) => {
   dispatch({ type: UPDATE_USER_PROFILE_STARTED });
   client()
-    .put(`/users/${id}`, data)
+    .patch(`/users/edit/${id}`, data)
     .then((res) => {
       console.log(res);
       dispatch({ type: UPDATE_USER_PROFILE_SUCCEEDED, payload: res.data });
@@ -40,3 +32,14 @@ export const updateUserProfile = (id, data) => (dispatch) => {
       dispatch({ type: UPDATE_USER_PROFILE_FAILED });
     });
 };
+
+// export const getSingleArticle = data => async dispatch => {
+//   dispatch({ type: GET_SINGLE_START });
+//   try {
+//     const response = await axiosWithAuth().get(`${apiURL}/articles/${data.article_id}`, data);
+//     dispatch({ type: GET_SINGLE_SUCCESS, payload: response.data.response });
+//   } catch (err) {
+//     console.log(err);
+//     dispatch({ type: GET_SINGLE_FAIL });
+//   }
+// };

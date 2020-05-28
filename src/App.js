@@ -6,7 +6,7 @@ import { customTheme } from "./Components/Styles/Global/Theme";
 import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
 import Signup from "./PublicApp/Auth/Signup/Signup";
-import { ProtectedApp } from "./ProtectedApp";
+import ProtectedApp from "./ProtectedApp";
 import { getUser, getToken } from './Utilities/authenticationChecker';
 
 function App(props) {

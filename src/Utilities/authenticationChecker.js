@@ -13,6 +13,7 @@ export const setState = state => {
   try {
     const stringifiedState = JSON.stringify(state);
     localStorage.setItem(STATE, stringifiedState)
+    return stringifiedState;
   } catch (err) {
     console.log(err)
   }

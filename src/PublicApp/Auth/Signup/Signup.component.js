@@ -5,6 +5,7 @@ import { SignupForm } from "./SignupForm";
 export function SignupComponent({
   isLoading,
   onSubmit,
+  error_message
 }) {
 
   return (
@@ -13,6 +14,7 @@ export function SignupComponent({
         <SignupForm
           isLoading={isLoading}
           onSubmit={(values) => onSubmit(values)}
+          error_message={error_message}
         />
       </Box>
     </Box>

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { register } from "../../../redux-store/actions/auth";
 import { SignupComponent } from "./Signup.component";
-import { useToast, useDisclosure } from "@chakra-ui/core";
+import { useToast, useDisclosure, Button } from "@chakra-ui/core";
 import { ToastBox } from "../../../Components";
 import { RegistrationSuccess } from "./RegistrationSuccess";
 
@@ -13,24 +13,26 @@ function Signup(props) {
     isLoading,
     register,
     register_success,
+    error_message,
     register_error,
     history,
   } = props;
   const toast = useToast();
+  console.log(error_message);
 
   function handleSubmit(values) {
     register(values);
-    if (register_success) {
+    // if (register_success) {
       toast({
         position: 'bottom-left',
         render: () => <ToastBox message="User created" />,
       });
       onOpen();
-    }
-    if (register_error) {
+    // }
+    if (!!register_error || error_message) {
       toast({
         position: "bottom-left",
-        render: () => <ToastBox message={"Error creating user"} />,
+        render: () => <ToastBox message={error_message} />,
       });
     }
   }
@@ -40,6 +42,7 @@ function Signup(props) {
       <SignupComponent
         isLoading={isLoading}
         onSubmit={handleSubmit}
+        error_message={error_message}
         {...props}
       />
       {isOpen && (
@@ -59,7 +62,8 @@ const mapStateToProps = (store) => {
     isLoading: store.auth.isLoading,
     register_success: store.auth.register_success,
     register_error: store.auth.register_error,
-    auth: store.auth
+    auth: store.auth,
+    error_message: store.auth.error_message
   };
 };
 

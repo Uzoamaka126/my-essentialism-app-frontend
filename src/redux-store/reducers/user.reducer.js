@@ -6,6 +6,7 @@ import {
     UPDATE_USER_PROFILE_SUCCEEDED,
     UPDATE_USER_PROFILE_FAILED,
 } from "../actions/action.types";
+import { getState, setState } from "../../Utilities/authenticationChecker";
 
 export const initialState = {
     loading: false,
@@ -22,6 +23,10 @@ export const userProfileReducer = (state = initialState, action) => {
                 loading: true,
             };
         case GET_USER_PROFILE_SUCCEEDED:
+            const { payload } = action;
+            console.log(payload);
+            const previousLocalStorage = getState();
+            setState({ ...previousLocalStorage, payload })
             return {
                 ...state,
                 loading: false,
