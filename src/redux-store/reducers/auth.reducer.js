@@ -21,8 +21,8 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: true,
             }
         case types.LOGIN_SUCCEDED:
-            const { user: newUser, payload: newInfo } = action;
-            setState({ newUser, newInfo })
+            const { user: oldUser, payload: oldP } = action;
+            setState({ oldUser, oldP })
             return {
                 ...state,
                 isLoading: false,
@@ -35,8 +35,9 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
+                error_message: action.payload,
                 login_error: true,
-                isAuthUser: false
+                isAuthUser: false,
             }
         case types.REGISTER_STARTED: 
             return {
@@ -44,14 +45,14 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: true
             }
         case types.REGISTER_SUCCEDED: 
-            const { user: oldUser, payload: oldUserInfo } = action;
-            setState({ oldUser, oldUserInfo })
+            const { user: { response: newUser, token } } = action;
+            setState({ newUser, token })
             return {
                 ...state,
                 isLoading: false,
                 register_success: true,
-                user: action.user,
-                token: action.payload,
+                user: newUser,
+                token: token,
                 isAuthUser: true
             }
         case types.REGISTER_FAILED:

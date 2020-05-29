@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import {
   Box,
   Flex,
-  Checkbox,
   Text,
-  Image,
   Spinner,
   Stack,
   // useDisclosure,
 } from "@chakra-ui/core";
 // import { ModalValue } from "./ModalValue";
-export function ValuesComponent({ values, history }) {
+export function ValuesComponent({ values, history, isLoading, error }) {
   const [list, setList] = useState([]);
-  const [checkboxValue, setCheckboxValue] = useState("");
 
   // const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const checkboxRef = React.useRef();
 
   function addToList({ id, name }) {
     const valueObject = {
@@ -64,19 +59,6 @@ export function ValuesComponent({ values, history }) {
             background="#fff"
             key={index}
           >
-            <Checkbox
-              marginBottom="1rem"
-              size="sm"
-              value={checkboxValue}
-              onChange={(e) => {
-                console.log(e);
-              }}
-              marginRight="0.625rem"
-              variantColor="blue"
-              ref={checkboxRef}
-              onClick={() => addToList({ id: index, name: item.name })}
-            />
-            <Image src={item.src} alt="" width="50px" height="50px" />
             <Text
               fontSize="1rem"
               marginBottom="0"
@@ -84,7 +66,7 @@ export function ValuesComponent({ values, history }) {
               lineHeight="1.5"
               marginTop="0.625rem"
             >
-              {item.name}
+              {item.value_name}
             </Text>
           </Box>
         ))}

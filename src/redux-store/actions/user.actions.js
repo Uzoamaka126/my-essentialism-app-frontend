@@ -32,14 +32,3 @@ export const updateUserProfile = (id, data) => (dispatch) => {
       dispatch({ type: UPDATE_USER_PROFILE_FAILED });
     });
 };
-
-// export const getSingleArticle = data => async dispatch => {
-//   dispatch({ type: GET_SINGLE_START });
-//   try {
-//     const response = await axiosWithAuth().get(`${apiURL}/articles/${data.article_id}`, data);
-//     dispatch({ type: GET_SINGLE_SUCCESS, payload: response.data.response });
-//   } catch (err) {
-//     console.log(err);
-//     dispatch({ type: GET_SINGLE_FAIL });
-//   }
-// };

@@ -41,9 +41,9 @@ export function Dashboard({
   function handleLogout() {
     logout();
   }
-  const { username } = userInfo.data.response;
-  console.log(username);
-
+  // const { username } = userInfo.data.response;
+  // console.log(username);
+const username = "Amaka"
   return (
     <>
       <Flex>

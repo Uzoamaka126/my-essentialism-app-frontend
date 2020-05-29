@@ -1,6 +1,6 @@
 import { client } from '../../Utilities/axiosHelper';
 import * as types from './action.types';
-export const getValues = () => async dispatch => {
+export const fetchValues = () => async dispatch => {
     dispatch({
         type: types.GET_VALUES_STARTED
     });

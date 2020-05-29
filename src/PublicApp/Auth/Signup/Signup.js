@@ -18,18 +18,18 @@ function Signup(props) {
     history,
   } = props;
   const toast = useToast();
-  console.log(error_message);
+  console.log(error_message, register_success);
 
   function handleSubmit(values) {
     register(values);
-    // if (register_success) {
-      toast({
-        position: 'bottom-left',
-        render: () => <ToastBox message="User created" />,
-      });
+    if (register_success) {
+      // toast({
+      //   position: 'bottom-left',
+      //   render: () => <ToastBox message="User created" />,
+      // });
       onOpen();
-    // }
-    if (!!register_error || error_message) {
+    }
+    else if (!!register_error || error_message === 'Email already exists') {
       toast({
         position: "bottom-left",
         render: () => <ToastBox message={error_message} />,
@@ -45,13 +45,11 @@ function Signup(props) {
         error_message={error_message}
         {...props}
       />
-      {isOpen && (
         <RegistrationSuccess
           isOpen={isOpen}
           onClose={onClose}
           history={history}
         />
-      )}
     </>
   );
 }
@@ -62,7 +60,6 @@ const mapStateToProps = (store) => {
     isLoading: store.auth.isLoading,
     register_success: store.auth.register_success,
     register_error: store.auth.register_error,
-    auth: store.auth,
     error_message: store.auth.error_message
   };
 };

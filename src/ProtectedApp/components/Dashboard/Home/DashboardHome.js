@@ -6,7 +6,6 @@ import { fetchUserProfile, logout } from "../../../../redux-store/actions/";
 
 function DashboardHome(props) {
   const { user, auth, logout, fetchUserProfile } = props;
-  console.log(user, auth, logout, fetchUserProfile);
 
   return (
     <Box width="100%">

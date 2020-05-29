@@ -12,7 +12,8 @@ export const initialState = {
     loading: false,
     values: [],
     projects: [],
-    profile: {}
+    profile: {},
+    error: ""
 };
 
 export const userProfileReducer = (state = initialState, action) => {
@@ -42,6 +43,7 @@ export const userProfileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: action.payload
             };
         default:
             return state;

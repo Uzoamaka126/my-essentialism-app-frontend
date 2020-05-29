@@ -1,32 +1,23 @@
 import * as types from "./action.types";
 import { client } from "../../Utilities/axiosHelper";
-import { setState } from "../../Utilities/authenticationChecker";
-// const STATE = 'ESSENTIALISM'
 export const register = (user) => (dispatch) => {
   dispatch({
     type: types.REGISTER_STARTED,
   });
   client()
     .post("auth/register", user)
-    .then((res) => {
-      console.log(res.data);
+    .then((response) => {
       dispatch({
         type: types.REGISTER_SUCCEDED,
-        payload: res.data.token,
-        user: res.data.data,
+        user: response.data,
       });
-      if (res && (res.data !== null || res.data !== "")) {
-        const { data, token } = res.data;
-        setState({ data, token });
-        return { data, token };
-      }
     })
     .catch((err) => {
-      console.log(err.response, err.status);
-      if (err.response.data.error === "This email already exists") {
+      console.log(err);
+      if (err === "This email already exists") {
         dispatch({
           type: types.REGISTER_FAILED,
-          payload: err.response.data.error
+          payload: err
         });
       }
     });
@@ -42,10 +33,10 @@ export const login = (user) => (dispatch) => {
       if (res.data === "" || res.data === null) {
         dispatch({
           type: types.LOGIN_FAILED,
+          payload: "You have no account with this email"
         });
       }
-      if (res.data !== "" || res.data !== null) {
-        console.log(typeof res.data);
+      else {
         dispatch({
           type: types.LOGIN_SUCCEDED,
           payload: res.data.token,
@@ -57,6 +48,7 @@ export const login = (user) => (dispatch) => {
       console.log(err);
       dispatch({
         type: types.LOGIN_FAILED,
+        payload: err
       });
     });
 };
