@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalContainer } from "../../../../Components/ModalContainer";
+import { ModalContainer } from "../../../../../Components/ModalContainer";
 import { ModalBody, Box, Button } from "@chakra-ui/core";
 import Select from "react-select";
 export function AddValueModal({ values, isOpen, onClose, handleAddValues }) {
@@ -23,7 +23,7 @@ export function AddValueModal({ values, isOpen, onClose, handleAddValues }) {
           name="values-form-field"
           value={optionValue}
           onChange={(value) => {
-            setOptionValue(value)
+            setOptionValue(value);
           }}
           inputValue={inputValue}
           onInputChange={(inputValue) => setInputValue(inputValue)}

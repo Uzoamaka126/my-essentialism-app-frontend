@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/core";
 import { DeleteProjectModal } from "./delete.modal";
 import { AddProjectModal } from "./add.modal";
-import { Search, EmptyPage } from "../../../Components";
+import { Search, EmptyPage } from "../../../../Components";
 export function ProjectsComponent({ projects, history }) {
   const [isDialogOpen, setIsDialogOpen] = useState();
   const onDialogClose = () => setIsDialogOpen(false);

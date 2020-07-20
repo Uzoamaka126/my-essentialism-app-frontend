@@ -1,23 +1,25 @@
-import Axios from 'axios';
-import { getToken } from './authenticationChecker'
+import Axios from "axios";
+import { getState } from "./localStorage";
+
+console.log(`${process.env.REACT_APP_API_URL}`)
 export const client = () => {
-    const headers = {
-        'content-type': 'application/json',
-        'Authorization': ''
-    };
-    const token = getToken();
+  const headers = {
+    'Authorization': "",
+    'Content-Type': "application/json",
+  };
 
-    if (token) {
-        headers.Authorization = token;
-    }
+  const { token } = getState()
 
-    return Axios.create({
-        headers: headers,
-        baseURL: `${process.env.REACT_APP_API_URL}/`
-    });
-}
+  if (token) {
+    headers.Authorization = token;
+  }
+  return Axios.create({
+    headers: headers,
+    baseURL: `${process.env.REACT_APP_API_URL}/`,
+  });
+};
 
-export const buildConversationUrl = (url) => `${process.env.REACT_APP_CONVERSATION_API_URL}/api/v1/${url}`;
+
 // export async function client(url, { data, method, ...customConfig }) {
 //     const headers = {
 //         'content-type': 'application/json',
@@ -47,16 +49,16 @@ export const buildConversationUrl = (url) => `${process.env.REACT_APP_CONVERSATI
 // }
 
 Axios.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        if (error.response && error.response.status === 401) {
-            window.location.href = '/login';
-        }
-        if (error.response && error.response.data) {
-            return Promise.reject(error.response.data.message);
-        }
-        return Promise.reject(error.message);
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response && error.response.status === 401) {
+      window.location.href = "/login";
     }
+    if (error.response && error.response.data) {
+      return Promise.reject(error.response.data.message);
+    }
+    return Promise.reject(error.message);
+  }
 );

@@ -5,35 +5,39 @@ import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/core";
 import { connect } from "react-redux";
 import { fetchUserProfile, fetchValues } from "../../redux-store/actions";
 import { FullPageSpinner } from "../index";
+import { getState } from "../../Utilities/localStorage";
 
 function PreloadedStateProvider(props) {
   const { user, fetchUserProfile, fetchValues, children } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  console.log(user, isLoading);
+ const { id } = getState();
+  
+  console.log(user, id);
 
-  function handleAllFetchOnLoad() {
-    const { id } = user || { id: "2", email: "" };
+  function handleAllFetchOnLoad() {    
     setIsLoading(true);
-    // Promise.all([fetchUserProfile(id), fetchValues()])
-    //   .then(() => {
-    //     setIsLoading(false);
-    //     setError(false);
-    //   })
-    //   .catch(() => {
-    //     setError(true);
-    //     setIsLoading(false);
-    //   });
-    fetchUserProfile(id);
-    fetchValues();
-    setIsLoading(false)
+    Promise.all([fetchUserProfile(id)])
+      .then(() => {
+        setIsLoading(false);
+        setError(false);
+      })
+      .catch(() => {
+        setError(true);
+        setIsLoading(false);
+      });
+    // fetchUserProfile(id);
+    // fetchValues();
+    // setIsLoading(false)
   }
 
   useEffect(() => {
     handleAllFetchOnLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(error, isLoading)
 
   if (isLoading) {
     return <FullPageSpinner />;
@@ -64,6 +68,7 @@ function PreloadedStateProvider(props) {
   }
   return <>{children}</>;
 }
+
 
 const mapStateToProps = (state) => {
   return {

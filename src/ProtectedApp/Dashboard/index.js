@@ -4,12 +4,11 @@ import { Content, SideBar } from "./components";
 
 const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
-  { title: "Values", url: "/dashboard/values" },
   {
     title: "My Values",
     subItems: [
-      { title: "Current", url: "/dashboard/values/current" },
-      { title: "Top Three", url: "/dashboard/values/me/top-three" },
+      { title: "Current", url: "/dashboard/values" },
+      { title: "Top Three", url: "/dashboard/values/top-three" },
     ],
     url: "/dashboard/values/me",
   },
@@ -17,7 +16,6 @@ const menuList = [
     title: "Projects",
     subItems: [
       { title: "Current", url: "/dashboard/projects" },
-      // { title: "All", url: "/dashboard/projects/all" },
     ],
     url: "/dashboard/projects",
   },
@@ -38,11 +36,7 @@ export function Dashboard({
   logout,
   userInfo,
 }) {
-  function handleLogout() {
-    logout();
-  }
-  // const { username } = userInfo.data.response;
-  // console.log(username);
+
 const username = "Amaka"
   return (
     <>
@@ -55,7 +49,7 @@ const username = "Amaka"
           position="fixed"
           paddingLeft="215px"
           backgroundColor="#fff"
-          logout={handleLogout}
+          logout={logout}
           user={user}
         >
           {children}

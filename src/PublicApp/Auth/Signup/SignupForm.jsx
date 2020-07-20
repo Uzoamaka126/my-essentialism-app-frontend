@@ -22,7 +22,6 @@ const validationSchema = yup.object().shape({
 });
 
 export function SignupForm({ isLoading, onSubmit, error_message }) {
-
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -30,110 +29,113 @@ export function SignupForm({ isLoading, onSubmit, error_message }) {
       email: "",
       password: "",
     },
-    onSubmit: (values) => onSubmit(values)
+    onSubmit: (values) => onSubmit(values),
   });
 
-  const { values } = formik;
-
   return (
-    <Box>
-      <Box width="100%" margin="0 auto" maxWidth="448px">
-        <form
-          onSubmit={formik.handleSubmit}
-          style={{
-            width: "100%",
-            margin: "10rem auto 0",
-            background: "#fff",
-            border: "1px solid rgb(248, 248, 248)",
-            padding: "1.5rem 1rem",
-          }}
+    <Box width="100%" maxWidth="448px">
+      <form
+        // onSubmit={formik.handleSubmit}
+        style={{
+          width: "100%",
+          margin: "10rem auto 0",
+          background: "#fff",
+          border: "1px solid rgb(248, 248, 248)",
+          padding: "1.5rem 1rem",
+        }}
+      >
+        <FormControl
+          isInvalid={!!formik.touched.username || !!formik.errors.username}
+          marginBottom="1rem"
         >
-          <FormControl
-            isInvalid={!!formik.touched.username || !!formik.errors.username}
-            marginBottom="1rem"
+          <FormLabel marginBottom="0rem">Username</FormLabel>
+          <Input
+            type="text"
+            name="username"
+            background="#f7fbfb"
+            id="username"
+            aria-describedby="username-helper-text"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            placeholder="Enter username here"
+          />
+          <FormErrorMessage marginBottom="0.625rem">
+            {formik.errors.username}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl
+          isInvalid={
+            !!formik.touched.email || !!formik.errors.email || error_message
+          }
+          marginBottom="1rem"
+        >
+          <FormLabel marginBottom="0rem">Email address</FormLabel>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={formik.values.email}
+            background="#f7fbfb"
+            aria-describedby="email-helper-text"
+            placeholder="Enter email"
+            onChange={formik.handleChange}
+          />
+          <FormErrorMessage marginBottom="0.625rem">
+            {formik.errors.email || error_message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl
+          isInvalid={!!formik.touched.password || !!formik.errors.password}
+          marginBottom="1rem"
+        >
+          <FormLabel marginBottom="0rem" htmlFor="password">
+            Password
+          </FormLabel>
+          <Input
+            type="password"
+            background="#f7fbfb"
+            name="password"
+            id="password"
+            aria-describedby="password-helper-text"
+            placeholder="Enter password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
+          <FormErrorMessage marginBottom="0.625rem">
+            {formik.errors.password}
+          </FormErrorMessage>
+        </FormControl>
+        <Box width="100%">
+          <Button
+            size="lg"
+            variant="solid"
+            marginBottom="0.875rem"
+            background="#035257"
+            color="#fff"
+            border="none"
+            width="100%"
+            isLoading={!!isLoading}
+            disabled={
+              !formik.values.email && !formik.values.username && !formik.values.password
+            }
+            onClick={() => onSubmit(formik.values)}
           >
-            <FormLabel marginBottom="0rem">Username</FormLabel>
-            <Input
-              type="text"
-              name="username"
-              background="#f7fbfb"
-              id="username"
-              aria-describedby="username-helper-text"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-              placeholder="Enter username here"
-            />
-            <FormErrorMessage marginBottom="0.625rem">
-              {formik.errors.username}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl
-            isInvalid={!!formik.touched.email || !!formik.errors.email || error_message}
-            marginBottom="1rem"
-          >
-            <FormLabel marginBottom="0rem">Email address</FormLabel>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              value={formik.values.email}
-              background="#f7fbfb"
-              aria-describedby="email-helper-text"
-              placeholder="Enter email"
-              onChange={formik.handleChange}
-            />
-            <FormErrorMessage marginBottom="0.625rem">
-              {formik.errors.email || error_message}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl
-            isInvalid={!!formik.touched.password || !!formik.errors.password}
-            marginBottom="1rem"
-          >
-            <FormLabel marginBottom="0rem" htmlFor="password">Password</FormLabel>
-            <Input
-              type="password"
-              background="#f7fbfb"
-              name="password"
-              id="password"
-              aria-describedby="password-helper-text"
-              placeholder="Enter password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-            />
-            <FormErrorMessage marginBottom="0.625rem">
-              {formik.errors.password}
-            </FormErrorMessage>
-          </FormControl>
-          <Box width="100%">
-            <Button
-              size="lg"
-              variant="solid"
-              marginBottom="0.875rem"
-              background="#e91e63"
-              color="#fff"
-              border="none"
-              width="100%"
-              isLoading={isLoading}
-              onClick={() => onSubmit(values)}
+            Sign up
+          </Button>
+          <Text>
+            Don't have an account?
+            <Link
+              style={{
+                color: "#e91e63",
+                marginLeft: "0.25rem",
+              }}
+              to="/login"
             >
-              Sign up
-            </Button>
-            <Text>
-              Don't have an account?
-              <Link
-                style={{
-                  color: "#e91e63",
-                  marginLeft: "0.25rem",
-                }}
-                to="/login"
-              >
-                Login
-              </Link>
-            </Text>
-          </Box>
-        </form>
-      </Box>
+              Login
+            </Link>
+          </Text>
+        </Box>
+      </form>
     </Box>
   );
 }

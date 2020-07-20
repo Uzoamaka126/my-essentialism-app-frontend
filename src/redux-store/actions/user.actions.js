@@ -11,7 +11,6 @@ export const fetchUserProfile = (id) => async (dispatch) => {
   dispatch({ type: GET_USER_PROFILE_STARTED });
   try {
     const response = await client().get(`/users/fetch/${id}`);
-    console.log(response.data);
     dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: response.data });
   } catch (err) {
     console.log(err);

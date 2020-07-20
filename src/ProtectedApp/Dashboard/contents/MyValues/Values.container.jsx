@@ -1,16 +1,16 @@
 import React from 'react';
-import { CurrentValuesComponent } from './current.component';
-import running from '../../../Components/assets/athletic.svg'
-import moments from '../../../Components/assets/moments.svg'
-import art from '../../../Components/assets/education.svg';
-import bulb from '../../../Components/assets/bulb.svg';
-import career from '../../../Components/assets/career.svg';
-import kindness from '../../../Components/assets/kindness.svg';
-export function CurrentValues(props) {
+import { CurrentValuesComponent } from './Values.ui';
+import running from '../../../../Components/assets/athletic.svg'
+import moments from '../../../../Components/assets/moments.svg'
+import art from '../../../../Components/assets/education.svg';
+import bulb from '../../../../Components/assets/bulb.svg';
+import career from '../../../../Components/assets/career.svg';
+import kindness from '../../../../Components/assets/kindness.svg';
+export function MyValues(props) {
     return <CurrentValuesComponent values={props.values} {...props} />
 }
 
-CurrentValues.defaultProps = {
+MyValues.defaultProps = {
     values: [
         {
             id: 1,

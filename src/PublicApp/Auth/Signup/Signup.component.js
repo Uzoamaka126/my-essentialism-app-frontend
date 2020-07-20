@@ -1,22 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@chakra-ui/core";
 import { SignupForm } from "./SignupForm";
+import { useToast, useDisclosure } from "@chakra-ui/core";
+import { ToastBox } from "../../../Components";
+import { RegistrationSuccess } from "./RegistrationSuccess";
+import * as types from "../../../redux-store/actions/action.types";
 
 export function SignupComponent({
+  register,
+  register_success,
+  error_message,
+  register_error,
   isLoading,
-  onSubmit,
-  error_message
+  history,
 }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+
+  function handleSubmit(values) {
+    register(values)
+    if (!!register_error) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={error_message} />,
+      });
+    } else if (!!register_success) {
+      onOpen();
+    } else {
+      console.log(values);
+    }
+  }
 
   return (
-    <Box>
-      <Box width="100%" margin="0 auto" maxWidth="448px">
-        <SignupForm
-          isLoading={isLoading}
-          onSubmit={(values) => onSubmit(values)}
-          error_message={error_message}
-        />
+    <>
+      <Box background="#efefef" height="100%" border="1px solid red">
+        <Box width="100%" margin="0 auto" maxWidth="448px">
+          <SignupForm
+            isLoading={isLoading}
+            onSubmit={handleSubmit}
+            error_message={error_message}
+          />
+        </Box>
       </Box>
-    </Box>
+      <RegistrationSuccess
+        isOpen={isOpen}
+        history={history}
+      />
+    </>
   );
 }

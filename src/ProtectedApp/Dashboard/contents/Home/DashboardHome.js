@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { OnboardingComponent } from "./Onboarding/onboarding.component";
+import { OnboardingComponent } from "./onboarding.component";
 import { Box } from "@chakra-ui/core";
 import { fetchUserProfile, logout } from "../../../../redux-store/actions/";
 
 function DashboardHome(props) {
-  const { user, auth, logout, fetchUserProfile } = props;
-
   return (
     <Box width="100%">
       <OnboardingComponent {...props} />

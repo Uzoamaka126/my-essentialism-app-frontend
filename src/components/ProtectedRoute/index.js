@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import {getToken} from '../../Utilities/authenticationChecker'
+import {getToken} from '../../Utilities/localStorage'
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
   const token = getToken();
-  console.log(token)
   return (
     <Route
       {...props}

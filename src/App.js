@@ -7,28 +7,8 @@ import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
 import Signup from "./PublicApp/Auth/Signup/Signup";
 import ProtectedApp from "./ProtectedApp";
-import { getUser, getToken } from './Utilities/authenticationChecker';
 
 function App(props) {
-  const getPreloadedState = () => {
-    try {
-      const user = getUser()
-      const token = getToken()
-
-      if (!user && !token) {
-        return {}
-      }
-      return {
-        auth: {
-          user,
-          token
-        }
-      }
-    } catch (e) {
-      return {}
-    }
-  }
-
   return (
     <ThemeProvider theme={customTheme}>
       <CSSReset />

@@ -1,5 +1,5 @@
 import * as types from '../actions/action.types';
-import { setState, clearAppState } from '../../Utilities/authenticationChecker';
+import { setState } from '../../Utilities/localStorage';
 
 const initialState = {
     user: {},
@@ -19,16 +19,20 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
+                login_success: false,
+                login_error: false,
+                isAuth: false
             }
         case types.LOGIN_SUCCEDED:
-            const { user: oldUser, payload: oldP } = action;
-            setState({ oldUser, oldP })
+            const { user: userInfo } = action.payload;
+            setState({ userInfo })
             return {
                 ...state,
                 isLoading: false,
                 login_success: true,
-                user: action.user,
-                token: action.payload,
+                login_error: false,
+                user: action.payload,
+                token: action.payload.token,
                 isAuthUser: true
             }
         case types.LOGIN_FAILED:
@@ -36,6 +40,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 error_message: action.payload,
+                login_success: false,
                 login_error: true,
                 isAuthUser: false,
             }
@@ -45,26 +50,26 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: true
             }
         case types.REGISTER_SUCCEDED: 
-            const { user: { response: newUser, token } } = action;
-            setState({ newUser, token })
+            setState(action.payload)
             return {
                 ...state,
                 isLoading: false,
                 register_success: true,
-                user: newUser,
-                token: token,
-                isAuthUser: true
+                register_error: false,
+                user: action.payload.response,
+                token: action.payload.token,
+                isAuthUser: true,
             }
         case types.REGISTER_FAILED:
             return {
                 ...state,
                 isLoading: false,
                 register_error: true,
+                register_success: false,
                 isAuthUser: false,
                 error_message: action.payload
             }
         case types.LOGOUT:
-            clearAppState();
             return {
                 ...state,
                 user: {},

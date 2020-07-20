@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Search } from "../../../Components/Search";
+import { Search } from "../../../../Components/Search";
 import {
   Image,
   Flex,
@@ -13,16 +13,16 @@ import {
   Link,
 } from "@chakra-ui/core";
 import { AddValueModal } from "./components/values.modal";
-import { EmptyPage } from "../../../Components/EmptyPage";
-import EmptyImage from '../../../Components/assets/empty.svg'
+import { EmptyPage } from "../../../../Components/EmptyPage";
+import EmptyImage from "../../../../Components/assets/empty.svg";
 
 export function CurrentValuesComponent({ values, history }) {
   const [myValuesList, setMyValuesList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, onClose, onOpen } = useDisclosure();
-  
+
   function handleAddValues(values) {
-    setMyValuesList(prev => ([...values]))
+    setMyValuesList((prev) => [...values]);
     // then sort the array after, then close the modal function
     onClose();
   }

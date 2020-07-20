@@ -1,15 +1,22 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { getToken } from "../../Utilities/authenticationChecker";
+import { getToken } from "../../Utilities/localStorage";
 import { Flex, Box, Stack, Link, Text } from "@chakra-ui/core";
 
 function NavLink({ to, label }) {
   return (
     <Link
+      marginRight="1.25rem"
+      // color="#659893"
+      color="#b3cbcd"
+      fontSize="1rem"
+      fontWeight="normal"
       _hover={{
-        borderBottom: "3px solid #e91e63",
+        // borderBottom: "2px solid #095c60",
+        borderBottom: "2px solid #fff",
+        fontWeight: "medium",
         textDecoration: "none",
-        color: "#333",
+        color: "#fff",
       }}
       as={RouterLink}
       to={to}
@@ -22,11 +29,11 @@ export function Navbar(props) {
   const token = getToken();
 
   return (
-    <Flex justifyContent="space-between" padding="1rem 1.5rem">
+    <Flex justifyContent="space-between" padding="2rem 1.5rem" minHeight="60px" alignContent="center">
       <Box>
-        <Text>Essentialism</Text>
+        <Text color="#b3cbcd" fontSize="1.5rem">Essentialism</Text>
       </Box>
-      <Stack isInline spacing={10} paddingRight="1rem">
+      <Stack isInline paddingRight="1rem">
         <NavLink to="/" label="Home" />
         <NavLink to="/about" label="About Us" />
         {token ? (

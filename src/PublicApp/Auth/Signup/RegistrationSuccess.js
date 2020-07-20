@@ -12,13 +12,13 @@ import {
 } from "@chakra-ui/core";
 import { ModalContainer } from "../../../Components/ModalContainer";
 
-export function RegistrationSuccess({ history, isOpen, onClose }) {
+export function RegistrationSuccess({ history, isOpen }) {
   function goToDashboard() {
     history.push("/dashboard/home");
   }
 
   return (
-    <ModalContainer isOpen={isOpen} onClose={onClose} initialFocusRef>
+    <ModalContainer isOpen={isOpen} initialFocusRef title="Registration Successful">
       <ModalBody>
         <Flex
           width="fit-content"
