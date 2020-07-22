@@ -12,7 +12,7 @@ import {
   Select
 } from "@chakra-ui/core";
 
-export function AddProjectModal({ history, isOpen, onClose, values }) {
+export function AddProjectModal({ history, isOpen, onClose, values, onSubmit }) {
 
   const [value, setValue] = useState("");
 

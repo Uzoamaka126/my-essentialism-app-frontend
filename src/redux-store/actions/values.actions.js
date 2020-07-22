@@ -1,6 +1,4 @@
-// import Axios from 'axios';
 import { client } from '../../Utilities/axiosHelper';
-// import { getState } from '../../Utilities/authenticationChecker';
 import * as types from './action.types';
 
 export const fetchValues = () => async dispatch => {

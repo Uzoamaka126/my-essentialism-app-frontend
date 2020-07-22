@@ -29,13 +29,11 @@ export function LoginForm({ isLoading, onSubmit }) {
     },
     onSubmit: (values) => onSubmit(values),
   });
-  const { values } = formik;
 
   return (
     <Box>
       <Box width="100%" margin="0 auto" maxWidth="448px">
         <form
-          onSubmit={formik.handleSubmit}
           style={{
             width: "100%",
             margin: "10rem auto 0",
@@ -80,12 +78,13 @@ export function LoginForm({ isLoading, onSubmit }) {
               size="lg"
               variant="solid"
               marginBottom="0.875rem"
-              background="#e91e63"
+              background="#035257"
               color="#fff"
               border="none"
               width="100%"
-              isLoading={isLoading}
-              onClick={() => onSubmit(values)}
+              isLoading={!!isLoading}
+              isDisabled={!formik.values.email && !formik.values.password}
+              onClick={() => onSubmit(formik.values)}
             >
               Login
             </Button>

@@ -28,16 +28,3 @@ export const addUserProjects = (project) => async (dispatch) => {
         dispatch({ type: ADD_USER_PROJECTS_FAILURE, payload: err });
     }
 };
-// export const updateUserProfile = (data) => (dispatch) => {
-//     dispatch({ type: UPDATE_USER_PROFILE_STARTED });
-//     client()
-//         .put(`/uodate`, data)
-//         .then((res) => {
-//             console.log(res);
-//             dispatch({ type: UPDATE_USER_PROFILE_SUCCEEDED, payload: res.data });
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             dispatch({ type: UPDATE_USER_PROFILE_FAILED });
-//         });
-// };
