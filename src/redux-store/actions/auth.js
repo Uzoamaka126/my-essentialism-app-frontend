@@ -1,65 +1,49 @@
 import * as types from "./action.types";
-import { client } from "../../Utilities/axiosHelper";
+import Axios from "axios";
 
 export const register = (user) => (dispatch) => {
   dispatch({
     type: types.REGISTER_STARTED,
   });
-    client().post('/auth/register', user)
-    .then(res => {
-      console.log(res.data);
+  Axios.post(
+    "https://essentialism-user-app.herokuapp.com/api/auth/register", user)
+    .then((response) => {
       dispatch({
-          type: types.REGISTER_SUCCEDED,
-          payload: res.data.token,
-          user: res.data
-      })
-  })
-  .catch(err => {
-      console.log(err);
-      dispatch({
-          type: types.REGISTER_FAILED
+        type: types.REGISTER_SUCCEDED,
+        payload: response.data,
       });
-  });
+    })
+    .catch(err => {
+      console.log(err);
+        dispatch({
+          type: types.REGISTER_FAILED,
+          payload: err,
+        });
+    });
 };
 
 export const login = (user) => (dispatch) => {
   dispatch({
     type: types.LOGIN_STARTED,
   });
-    client().post('/auth/login', user)
-    .then((res) => {
-      console.log(res.data);
+  Axios.post("https://essentialism-user-app.herokuapp.com/api/auth/login", user)
+    .then((response) => {
       dispatch({
         type: types.LOGIN_SUCCEDED,
-        token: res.data.token,
-        user: res.data.user,
+        action: response.data,
       });
     })
     .catch((err) => {
       console.log(err);
       dispatch({
         type: types.LOGIN_FAILED,
+        payload: err,
       });
     });
 };
 
-// verify the token
-// export const verify = (token, id) => (dispatch) => {
-//   dispatch({
-//     type: types.VERIFICATION_START,
-//   });
-//   return axios
-//     .post(`${apiURL}/auth/verify/${id}/${token}`)
-//     .then((res) => {
-//       dispatch({
-//         type: types.VERIFICATION_SUCCESS,
-//         payload: res.data,
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       dispatch({
-//         type: types.VERIFICATION_FAILURE,
-//       });
-//     });
-// };
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: types.LOGOUT,
+  });
+};

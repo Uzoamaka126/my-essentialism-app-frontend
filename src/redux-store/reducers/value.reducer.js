@@ -1,8 +1,8 @@
 import * as types from '../actions/action.types'
 
 const initialState = {
-    values: [],
-    isFetching: false,
+    projects: [],
+    isLoading: false,
     error: ''
 };
 
@@ -11,17 +11,18 @@ export const valueReducer = (state = initialState, action) => {
         case types.GET_VALUES_STARTED: 
             return {
                 ...state,
-                isFetching: true 
+                isLoading: true 
             }
         case types.GET_VALUES_SUCCEDED:
             return {
                 ...state,
                 values: action.payload,
-                isFetching: false
+                isLoading: false
             }
         case types.GET_VALUES_FAILED:
             return {
                 ...state,
+                isLoading: false,
                 error: action.payload
             }
         default: 

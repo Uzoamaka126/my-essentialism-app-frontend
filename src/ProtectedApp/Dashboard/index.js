@@ -1,16 +1,14 @@
 import React from "react";
-import { getToken } from "../../../Utilities/authenticationChecker";
 import { Flex } from "@chakra-ui/core";
-import { Content, SideBar} from './components';
+import { Content, SideBar } from "./components";
 
 const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
-  { title: "Values", url: "/dashboard/values" },
   {
     title: "My Values",
     subItems: [
-      { title: "Current", url: "/dashboard/values/current" },
-      { title: "Top Three", url: "/dashboard/values/me/top-three" },
+      { title: "Current", url: "/dashboard/values" },
+      { title: "Top Three", url: "/dashboard/values/top-three" },
     ],
     url: "/dashboard/values/me",
   },
@@ -18,7 +16,6 @@ const menuList = [
     title: "Projects",
     subItems: [
       { title: "Current", url: "/dashboard/projects" },
-      // { title: "All", url: "/dashboard/projects/all" },
     ],
     url: "/dashboard/projects",
   },
@@ -29,24 +26,31 @@ const menuList = [
       { title: "Change Password", url: "/dashboard/settings/password" },
     ],
     url: "/dashboard/settings",
-  }
+  },
 ];
 
-export function Dashboard({ children }) {
-  const token = getToken();
-  console.log(token);
+export function Dashboard({
+  children,
+  user,
+  history,
+  logout,
+  userInfo,
+}) {
 
+const username = "Amaka"
   return (
     <>
       <Flex>
-        <SideBar menuList={menuList} />
-        <Content 
+        <SideBar username={username} menuList={menuList} user={user} />
+        <Content
           width="100%"
-          height="100vh"
+          height="calc(100vh -60px)"
           overflow="auto"
           position="fixed"
           paddingLeft="215px"
           backgroundColor="#fff"
+          logout={logout}
+          user={user}
         >
           {children}
         </Content>

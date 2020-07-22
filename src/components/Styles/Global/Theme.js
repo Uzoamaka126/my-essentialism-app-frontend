@@ -1,21 +1,24 @@
 import { theme } from "@chakra-ui/core";
-  
-// const customIcons = {
-//     icon1: {
-//     //   path: <path fill="currentColor" d="..." />,
-//       // If the icon's viewBox is `0 0 24 24`, you can ignore `viewBox`
-//       viewBox: "0 0 40 40",
-//     },
-//     // icon2: {
-//     //   path: (
-//     //     <g fill="currentColor">
-//     //       <path d="..."/>
-//     //     </g>
-//     //   )
-//     // }
-//   };
    export const customTheme = {
-      ...theme,
+     ...theme,
+     breakpoints: ["30em", "48em", "62em", "80em"],
+     fonts: {
+       heading: '"Avenir Next", sans-serif',
+       body: "system-ui, sans-serif",
+       mono: "Menlo, monospace",
+     },
+     fontSizes: {
+       xs: "0.75rem",
+       sm: "0.875rem",
+       md: "1rem",
+       lg: "1.125rem",
+       xl: "1.25rem",
+       "2xl": "1.5rem",
+       "3xl": "1.875rem",
+       "4xl": "2.25rem",
+       "5xl": "3rem",
+       "6xl": "4rem",
+     },
       colors: theme.colors,
       brand: {
         10: "#6772e5",
@@ -24,5 +27,8 @@ import { theme } from "@chakra-ui/core";
     icons: {
       ...theme.icons,
       // ...customIcons,
+     },
+     height: {
+      
     }
   }

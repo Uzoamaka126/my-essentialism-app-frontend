@@ -1,15 +1,16 @@
 import * as types from '../actions/action.types';
+import { setState } from '../../Utilities/localStorage';
 
 const initialState = {
-    user: null,
+    user: {},
     token: null,
     isLoading: false,
     register_error: false,
     register_success: false,
     login_error: false,
     login_success: false,
-    verification_error: false,
-    verification_success: false
+    isAuthUser: false,
+    error_message: ""
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -18,20 +19,30 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
+                login_success: false,
+                login_error: false,
+                isAuth: false
             }
         case types.LOGIN_SUCCEDED:
+            const { user: userInfo } = action.payload;
+            setState({ userInfo })
             return {
                 ...state,
                 isLoading: false,
                 login_success: true,
-                user: action.user,
-                token: action.token
+                login_error: false,
+                user: action.payload,
+                token: action.payload.token,
+                isAuthUser: true
             }
         case types.LOGIN_FAILED:
             return {
                 ...state,
                 isLoading: false,
+                error_message: action.payload,
+                login_success: false,
                 login_error: true,
+                isAuthUser: false,
             }
         case types.REGISTER_STARTED: 
             return {
@@ -39,19 +50,30 @@ export const authReducer = (state = initialState, action) => {
                 isLoading: true
             }
         case types.REGISTER_SUCCEDED: 
+            setState(action.payload)
             return {
                 ...state,
                 isLoading: false,
                 register_success: true,
-                user: action.user.response,
-                token: action.user.token
+                register_error: false,
+                user: action.payload.response,
+                token: action.payload.token,
+                isAuthUser: true,
             }
         case types.REGISTER_FAILED:
             return {
                 ...state,
                 isLoading: false,
+                register_error: true,
                 register_success: false,
-                register_error: true
+                isAuthUser: false,
+                error_message: action.payload
+            }
+        case types.LOGOUT:
+            return {
+                ...state,
+                user: {},
+                token: null
             }
         default:
             return state;

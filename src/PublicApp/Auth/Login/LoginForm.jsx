@@ -20,7 +20,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-export function LoginForm({ isLoading, login_success, onSubmit }) {
+export function LoginForm({ isLoading, onSubmit }) {
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -29,6 +29,7 @@ export function LoginForm({ isLoading, login_success, onSubmit }) {
     },
     onSubmit: (values) => onSubmit(values),
   });
+  const { values } = formik;
 
   return (
     <Box>
@@ -84,6 +85,7 @@ export function LoginForm({ isLoading, login_success, onSubmit }) {
               border="none"
               width="100%"
               isLoading={isLoading}
+              onClick={() => onSubmit(values)}
             >
               Login
             </Button>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -13,29 +13,67 @@ import {
 } from "@chakra-ui/core";
 import { DeleteProjectModal } from "./delete.modal";
 import { AddProjectModal } from "./add.modal";
-import { Search, EmptyPage } from "../../../Components";
-export function ProjectsComponent({ projects, history }) {
+import { Search, EmptyPage, FullPageSpinner } from "../../../../Components";
+import { getState } from "../../../../Utilities/localStorage";
+export function ProjectsComponent({ fetchProjects,
+  fetchValues,
+  addProjects,
+  isLoading,
+  error,
+  success,
+  history
+}) {
+
+  const { id } = getState()
   const [isDialogOpen, setIsDialogOpen] = useState();
   const onDialogClose = () => setIsDialogOpen(false);
   const cancelRef = useRef();
-  const [searchValue, setSearchValue] = useState("");
-  const [projectsList, setProjectsList] = useState(projects);
+  // const [searchValue, setSearchValue] = useState("");
+  const [values, setValues] = useState([]);
+  const [valuesLoading, setValuesLoading] = useState(false);
+  const [projectsList, setProjectsList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function handleValuesSearch(query) {
-    setSearchValue(query);
-
-    if (searchValue) {
-      const searchResult = projectsList.filter((item) =>
-        item.name.toLowerCase().startsWith(searchValue.toLowerCase())
-      );
-      setProjectsList(searchResult);
-      console.log(searchResult, searchValue);
-    } else {
-      setProjectsList(projectsList);
-    }
+  function getProjects(id) {
+    setLoading(true);
+    fetchProjects(id)
+      .then((response) => {
+        console.log(response);
+        setProjectsList(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false)
+        setIsError(error);
+    })
   }
 
+  function getValues() {
+    setValuesLoading(true);
+    fetchValues()
+      .then((response) => {
+        console.log(response);
+        setValues(response);
+        setValuesLoading(false);
+      })
+      .catch((error) => {
+        setValuesLoading(false)
+        setIsError(error);
+    })
+  }
+  useEffect(() => {
+    getValues()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
+  useEffect(() => {
+    getProjects(id);
+  }, [id]);
+
+  if (loading && isLoading) return <FullPageSpinner />
+  
   return (
     <Box>
       <Box>
@@ -194,7 +232,12 @@ export function ProjectsComponent({ projects, history }) {
           cancelRef={cancelRef}
           isOpen={isDialogOpen}
         />
-        <AddProjectModal isOpen={isOpen} onClose={onClose} history={history} />
+        <AddProjectModal 
+          isOpen={isOpen} 
+          onClose={onClose} 
+          history={history} 
+          values={values}
+        />
       </Box>
     </Box>
   );
