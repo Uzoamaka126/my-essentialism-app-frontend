@@ -18,8 +18,6 @@ function Login(props) {
 
   function handleSubmit(values) {
     login(values);
-    console.log(!!login_error, login_success)
-
     if (!!login_success) {
       toast({
         position: "bottom-left",

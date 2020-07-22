@@ -36,7 +36,7 @@ export function ProjectsComponent({ fetchProjects,
   const [isError, setIsError] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function getProjects(id) {
+  function handleGetProjects(id) {
     setLoading(true);
     fetchProjects(id)
       .then((response) => {
@@ -50,7 +50,20 @@ export function ProjectsComponent({ fetchProjects,
     })
   }
 
-  function getValues() {
+  function handleAddProject(data) {
+    addProjects(data)
+       .then((response) => {
+        console.log(response);
+         setLoading(false);
+         handleGetProjects(id);
+      })
+      .catch((error) => {
+        setLoading(false)
+        setIsError(error);
+    })
+  }
+
+  function handleGetValues() {
     setValuesLoading(true);
     fetchValues()
       .then((response) => {
@@ -64,12 +77,12 @@ export function ProjectsComponent({ fetchProjects,
     })
   }
   useEffect(() => {
-    getValues()
+    handleGetValues()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   useEffect(() => {
-    getProjects(id);
+    handleGetProjects(id);
   }, [id]);
 
   if (loading && isLoading) return <FullPageSpinner />
@@ -237,6 +250,7 @@ export function ProjectsComponent({ fetchProjects,
           onClose={onClose} 
           history={history} 
           values={values}
+          onSubmit={handleAddProject}
         />
       </Box>
     </Box>
