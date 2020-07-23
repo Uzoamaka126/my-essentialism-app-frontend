@@ -3,20 +3,24 @@ import { getState } from "./localStorage";
 
 console.log(`${process.env.REACT_APP_API_URL}`)
 export const client = () => {
-  const headers = {
-    'Authorization': "",
-    'Content-Type': "application/json",
-  };
+  // const headers = {
+  //   'Authorization': "",
+  //   'Content-Type': "application/json",
+  // };
 
-  const { token } = getState()
+  const { token } = getState();
 
   if (token) {
-    headers.Authorization = token;
+    // headers.Authorization = token;
+    return Axios.create({
+      headers: {
+        'Authorization': token,
+        'Content-Type': "application/json",
+      },
+      baseURL: `${process.env.REACT_APP_API_URL}/`,
+    });
   }
-  return Axios.create({
-    headers: headers,
-    baseURL: `${process.env.REACT_APP_API_URL}/`,
-  });
+  return null;
 };
 
 

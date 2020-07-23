@@ -24,15 +24,14 @@ export const authReducer = (state = initialState, action) => {
                 isAuth: false
             }
         case types.LOGIN_SUCCEDED:
-            const { user: userInfo } = action.payload;
-            setState({ userInfo })
+            setState(action.payload)
             return {
                 ...state,
                 isLoading: false,
                 login_success: true,
                 login_error: false,
                 user: action.payload,
-                token: action.payload.token,
+                // token: action.payload.token,
                 isAuthUser: true
             }
         case types.LOGIN_FAILED:
