@@ -32,7 +32,6 @@ function Login(props) {
 
   return (
     <LoginComponent
-      // error_message={error_message}
       isLoading={isLoading}
       onSubmit={handleSubmit}
       {...props}

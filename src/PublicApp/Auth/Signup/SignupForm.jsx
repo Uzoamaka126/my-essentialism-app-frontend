@@ -21,7 +21,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-export function SignupForm({ isLoading, onSubmit, error_message }) {
+export function SignupForm({ isLoading, onSubmit }) {
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -35,7 +35,6 @@ export function SignupForm({ isLoading, onSubmit, error_message }) {
   return (
     <Box width="100%" maxWidth="448px">
       <form
-        // onSubmit={formik.handleSubmit}
         style={{
           width: "100%",
           margin: "10rem auto 0",
@@ -60,13 +59,11 @@ export function SignupForm({ isLoading, onSubmit, error_message }) {
             placeholder="Enter username here"
           />
           <FormErrorMessage marginBottom="0.625rem">
-            {formik.errors.username}
+            {formik.errors.username || formik.touched.username}
           </FormErrorMessage>
         </FormControl>
         <FormControl
-          isInvalid={
-            !!formik.touched.email || !!formik.errors.email || error_message
-          }
+          isInvalid={!!formik.touched.email}
           marginBottom="1rem"
         >
           <FormLabel marginBottom="0rem">Email address</FormLabel>
@@ -81,7 +78,7 @@ export function SignupForm({ isLoading, onSubmit, error_message }) {
             onChange={formik.handleChange}
           />
           <FormErrorMessage marginBottom="0.625rem">
-            {formik.errors.email || error_message}
+            {formik.errors.email}
           </FormErrorMessage>
         </FormControl>
         <FormControl

@@ -30,7 +30,6 @@ export function ProjectsComponent({ fetchProjects,
   const cancelRef = useRef();
   // const [searchValue, setSearchValue] = useState("");
   const [values, setValues] = useState([]);
-  const [valuesLoading, setValuesLoading] = useState(false);
   const [projectsList, setProjectsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState("");
@@ -63,21 +62,8 @@ export function ProjectsComponent({ fetchProjects,
     })
   }
 
-  function handleGetValues() {
-    setValuesLoading(true);
-    fetchValues()
-      .then((response) => {
-        console.log(response);
-        setValues(response);
-        setValuesLoading(false);
-      })
-      .catch((error) => {
-        setValuesLoading(false)
-        setIsError(error);
-    })
-  }
   useEffect(() => {
-    handleGetValues()
+    fetchValues()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   

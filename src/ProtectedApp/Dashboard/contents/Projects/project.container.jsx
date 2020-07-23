@@ -33,6 +33,7 @@ const mapStateToProps = (store) => {
     project_success: store.projects.project_success,
     project_error: store.projects.project_error,
     error_message: store.projects.error_message,
+    values: store.values.values
   };
 };
 

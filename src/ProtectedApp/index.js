@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux-store/actions/auth";
 import { fetchUserProfile } from "../redux-store/actions/user.actions";
@@ -9,11 +9,18 @@ import { MyValues } from "./Dashboard/contents/MyValues/Values.container";
 import Projects from "./Dashboard/contents/Projects/project.container";
 import { Dashboard } from "./Dashboard";
 import { SingleProject } from "./Dashboard/contents/Projects/single.container";
-import { clearAppState } from "../Utilities/localStorage";
-import PreloadedStateProvider from "../Components/PreloadedStateProvider";
+import { clearAppState, getState } from "../Utilities/localStorage";
+import ProtectedRoute from "../Components/ProtectedRoute";
 
 const ProtectedApp = (props) => {
-  const { user, profile, history, fetchUserProfile } = props;
+  const { user, history, profile, fetchUserProfile } = props;
+
+  const { id } = getState().data;
+  
+  React.useEffect(() => {
+    fetchUserProfile(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   function onLogout() {
     logout();
@@ -21,60 +28,45 @@ const ProtectedApp = (props) => {
   }
 
   return (
-    // <PreloadedStateProvider>
       <Dashboard
         history={history}
         logout={onLogout}
-        profile={profile}
+        user={profile}
       >
         <Switch>
-          {/* <ProtectedRoute
-            path="/s/home"
-            isLoggedIn={!!user}
-            render={(props) => <Home {...props} />}
-          />
           <ProtectedRoute
-            path="/s/onboarding"
-            isLoggedIn={!!user}
-            render={(props) => <Onboarding {...{ user, profile, ...props }} />}
-          />
-          */}
-          <Route
             exact
             path="/dashboard/values"
-            isUserLoggedIn={!!user}
-            render={(props) => <MyValues {...props} />}
+            component={MyValues}
           />
-          <Route
+          <ProtectedRoute
+            exact
             path="/dashboard/projects"
-            // isUserLoggedIn={!!user}
-            render={(props) => <Projects {...props} />}
+            component={Projects}
           />
-          <Route
+          <ProtectedRoute
             path="/dashboard/project/:id"
             isUserLoggedIn={!!user}
-            render={(props) => <SingleProject {...props} />}
+            component={SingleProject}
           />
-          <Route
+          <ProtectedRoute
             path="/dashboard/home"
             isUserLoggedIn={!!user}
-            render={(props) => <DashboardHome {...props} />}
+            component={DashboardHome}
           />
-          <Route
+          <ProtectedRoute
             path="/dashboard/onboarding"
             isUserLoggedIn={!!user}
-            render={(props) => <OnboardingComponent {...props} />}
+            component={OnboardingComponent}
           />
         </Switch>
       </Dashboard>
-    // {/* </PreloadedStateProvider> */}
   );
 };
 
 const mapStateToProps = (store) => {
   return {
-    user: store.auth.user,
-    profile: store.user.profile,
+    profile: store.user,
   }
 }
 export default connect(mapStateToProps, { logout, fetchUserProfile })(ProtectedApp);
