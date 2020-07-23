@@ -22,24 +22,16 @@ export const register = (user) => (dispatch) => {
     });
 };
 
-export const login = (user) => (dispatch) => {
-  dispatch({
-    type: types.LOGIN_STARTED,
-  });
-  Axios.post("https://essentialism-user-app.herokuapp.com/api/auth/login", user)
-    .then((response) => {
-      dispatch({
-        type: types.LOGIN_SUCCEDED,
-        action: response.data,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch({
-        type: types.LOGIN_FAILED,
-        payload: err,
-      });
-    });
+export const login = (user) => async (dispatch) => {
+  dispatch({ type: types.LOGIN_STARTED });
+    try {
+      const response = await Axios.post("https://essentialism-user-app.herokuapp.com/api/auth/login", user);
+      console.log(response);
+      dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data });
+    } catch (err) {
+        console.log(err);
+        dispatch({ type: types.LOGIN_FAILED, payload: err });
+    }
 };
 
 export const logout = () => (dispatch) => {
