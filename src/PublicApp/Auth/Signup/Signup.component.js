@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/core";
 import { SignupForm } from "./SignupForm";
 import { useToast, useDisclosure } from "@chakra-ui/core";
 import { ToastBox } from "../../../Components";
 import { RegistrationSuccess } from "./RegistrationSuccess";
-import * as types from "../../../redux-store/actions/action.types";
 
 export function SignupComponent({
   register,
@@ -14,7 +13,7 @@ export function SignupComponent({
   isLoading,
   history,
 }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen } = useDisclosure();
   const toast = useToast();
 
   function handleSubmit(values) {

@@ -24,7 +24,7 @@ export function ProjectsComponent({ fetchProjects,
   history
 }) {
 
-  const { id } = getState()
+  const id = getState() && getState().id;
   const [isDialogOpen, setIsDialogOpen] = useState();
   const onDialogClose = () => setIsDialogOpen(false);
   const cancelRef = useRef();
@@ -82,7 +82,9 @@ export function ProjectsComponent({ fetchProjects,
   }, [])
   
   useEffect(() => {
-    handleGetProjects(id);
+    if (id) {
+      handleGetProjects(id);
+    }
   }, [id]);
 
   if (loading && isLoading) return <FullPageSpinner />
@@ -100,11 +102,11 @@ export function ProjectsComponent({ fetchProjects,
             <Text color="" fontSize="1.2rem" fontWeight="medium">
               My Projects
             </Text>
-            <Search
+            {/* <Search
               value={searchValue}
               placeholder="Search for values"
               onChange={handleValuesSearch}
-            />
+            /> */}
           </Flex>
         </Box>
         {projectsList && !projectsList.length ? (

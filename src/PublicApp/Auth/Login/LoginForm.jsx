@@ -80,6 +80,10 @@ export function LoginForm({ isLoading, onSubmit }) {
               marginBottom="0.875rem"
               background="#035257"
               color="#fff"
+              _hover={{
+                background:"#fff",
+                color: "#035257"
+              }}
               border="none"
               width="100%"
               isLoading={!!isLoading}
