@@ -11,15 +11,44 @@ import {
   Switch,
   Select
 } from "@chakra-ui/core";
+import { getState } from "../../../../Utilities/localStorage";
 
-export function AddProjectModal({ history, isOpen, onClose, values, onSubmit }) {
+export function AddProjectModal({ 
+  history, 
+  isOpen, 
+  onClose, 
+  values, 
+  onSubmit,
+  onSwitchChange,
+  switchValue,
+  addSuccess,
+  addError,
+  addLoading
+}) {
 
-  const [value, setValue] = useState("");
+  const { id } = getState() && getState().data;
 
-  function handleChange(event) {
-    setValue(event.target.value)
+  const[value, setValue] = useState(null);
+  const[projectName, setProjectName] = useState("");
+  
+  function handleProjectNameChange(event) {
+    setProjectName(event.target.value)
   };
 
+  function handleSelectValueChange(event) {
+    setValue(event.target.value);
+  }
+
+  function combinedValues() {
+    if (!!value && !!projectName && !!id) {
+      const newValues = {
+        user_id: id,
+        value_id: value,
+        project_name: projectName
+      };
+      return newValues;
+    }
+  }
   return (
     <ModalContainer
       title="Create a new project"
@@ -30,18 +59,24 @@ export function AddProjectModal({ history, isOpen, onClose, values, onSubmit }) 
       <ModalBody>
         <FormControl marginTop="1rem">
           <FormLabel fontSize="0.8rem">Name of Project</FormLabel>
-          <Input value={value} onChange={handleChange} />
+          <Input value={projectName} onChange={handleProjectNameChange} />
         </FormControl>
-        <FormControl marginTop="1rem">
+        <FormControl marginTop="0.875rem">
           <FormLabel fontSize="0.8rem">Associated Value</FormLabel>
-          <Select>
+          <Select value={value} onChange={handleSelectValueChange}>
             {values && values.map((item, index) => (
-              <option value={item.value_name} />
+              <option key={index} value={item.id}>{item.value_name}</option>
             ))}
           </Select>
         </FormControl>
         <Flex align="center" marginTop="1.25rem">
-          <Switch size="md" color="pink" id="email-alerts" />
+          <Switch
+            size="sm"
+            color="teal"
+            id="email-alerts"
+            value={switchValue}
+            onChange={onSwitchChange}
+          />
           <FormLabel
             marginLeft="0.625rem"
             htmlFor="email-alerts"
@@ -63,9 +98,10 @@ export function AddProjectModal({ history, isOpen, onClose, values, onSubmit }) 
         <Button
           marginLeft="0.625rem"
           background="#e91e63"
-                  fontSize="0.8rem"
-                  color="#fff"
+          fontSize="0.8rem"
+          color="#fff"
           mr={3}
+          onClick={() => onSubmit(combinedValues())}
         >
           Add
         </Button>

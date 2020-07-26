@@ -10,71 +10,98 @@ import {
   Button,
   Badge,
   useDisclosure,
+  useToast
 } from "@chakra-ui/core";
-import { DeleteProjectModal } from "./delete.modal";
 import { AddProjectModal } from "./add.modal";
-import { Search, EmptyPage, FullPageSpinner } from "../../../../Components";
+import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
 import { getState } from "../../../../Utilities/localStorage";
-export function ProjectsComponent({ fetchProjects,
+export function ProjectsComponent({
   fetchValues,
-  addProjects,
+  addUserProject,
   isLoading,
   error,
   success,
-  history
+  history,
+  fetchUserProjects,
+  values,
+  projects,
+  addError,
+  addSuccess,
+  addLoading
 }) {
 
-  const id = getState() && getState().id;
-  const [isDialogOpen, setIsDialogOpen] = useState();
-  const onDialogClose = () => setIsDialogOpen(false);
-  const cancelRef = useRef();
-  // const [searchValue, setSearchValue] = useState("");
-  const [values, setValues] = useState([]);
-  const [projectsList, setProjectsList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [isError, setIsError] = useState("");
+  const id = getState() && getState().data.id;
+  const [important, setImportant] = useState("unimportant")
+  const[isSwitch, setIsSwitch] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  const toast = useToast();
 
-  function handleGetProjects(id) {
-    setLoading(true);
-    fetchProjects(id)
-      .then((response) => {
-        console.log(response);
-        setProjectsList(response);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false)
-        setIsError(error);
-    })
+  console.log(id, projects);
+  console.log(isSwitch);
+
+  function handleSwitchChange(event) {
+    setIsSwitch(!isSwitch);
+  }
+
+  function markProjectAsImportant() {
+    if(isSwitch) {
+      setImportant("important")
+    }
   }
 
   function handleAddProject(data) {
-    addProjects(data)
-       .then((response) => {
-        console.log(response);
-         setLoading(false);
-         handleGetProjects(id);
-      })
-      .catch((error) => {
-        setLoading(false)
-        setIsError(error);
-    })
+    addUserProject(data);
+    if (addError) {
+      // toast notification here
+       toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Unable to add project"} />,
+      });
+    }
+    if (addSuccess) {
+      // toast notification here
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Project added"} />,
+      });
+      fetchUserProjects();
+      onClose();
+    }
   }
+
+  useEffect(() => {
+    markProjectAsImportant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSwitch]);
 
   useEffect(() => {
     fetchValues()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id])
   
   useEffect(() => {
-    if (id) {
-      handleGetProjects(id);
-    }
-  }, [id]);
+      fetchUserProjects();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (loading && isLoading) return <FullPageSpinner />
+  if (isLoading) return <FullPageSpinner />
   
+  if (error) {
+    return (
+      <Box width="50%" margin="auto" height="auto">
+        <Text>Unable to load project. Please try again!</Text>
+        <Button
+          rightIcon="repeat"
+          variantColor="teal"
+          variant="solid"
+          onClick={fetchUserProjects}
+        >
+          Reload
+        </Button>
+      </Box>
+  )
+  }
   return (
     <Box>
       <Box>
@@ -95,12 +122,12 @@ export function ProjectsComponent({ fetchProjects,
             /> */}
           </Flex>
         </Box>
-        {projectsList && !projectsList.length ? (
+        {projects && projects.length < 0 ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
               width="500px"
-              //   image={EmptyImage}
+                // image={EmptyImage}
               imageSize="50%"
               heading="You don't have any projects yet"
               subheading="What kind of projects do you want to do?"
@@ -126,8 +153,8 @@ export function ProjectsComponent({ fetchProjects,
               paddingRight="1.25rem"
               paddingTop="1rem"
             >
-              <Text>
-                Total no. of Projects: {projectsList && projectsList.length}
+              <Text fontSize="0.875rem">
+                Total no. of Projects: {projects && projects.length}
               </Text>
               <Button
                 variant="outline"
@@ -142,6 +169,7 @@ export function ProjectsComponent({ fetchProjects,
                 Add a project
               </Button>
             </Flex>
+            {/* Project List */}
             <Stack
               flexWrap="wrap"
               width="fit-content"
@@ -149,14 +177,13 @@ export function ProjectsComponent({ fetchProjects,
               spacing={6}
               isInline
             >
-              {projectsList &&
-                projectsList.map((item, index) => (
+              {projects &&
+                projects.map((item, index) => (
                   <Flex
                     borderRadius="5px"
                     marginX="0.625rem"
                     border="1px solid #e8f5f9"
                     height="auto"
-                    // maxHeight="50px"
                     marginBottom="1.5rem"
                     maxWidth="100%"
                     width="30%"
@@ -175,7 +202,7 @@ export function ProjectsComponent({ fetchProjects,
                           fontWeight="normal"
                           lineHeight="1.5"
                         >
-                          {item.name}
+                          {item.project_name}
                         </Text>
                         <Box>
                           <Badge
@@ -184,8 +211,18 @@ export function ProjectsComponent({ fetchProjects,
                             textTransform="capitalize"
                             borderRadius="10px"
                           >
-                            {item.valueName}
+                            {item.value_name}
                           </Badge>
+                          {important === "important" ? (
+                             <Badge
+                            variantColor="purple"
+                            fontSize="0.8rem"
+                            textTransform="capitalize"
+                            borderRadius="10px"
+                          >
+                            {important}
+                          </Badge>
+                         ): null}
                         </Box>
                       </Flex>
                       <Flex
@@ -211,7 +248,6 @@ export function ProjectsComponent({ fetchProjects,
                           icon="delete"
                           height="fit-content"
                           color="#e91e63"
-                          onClick={() => setIsDialogOpen(true)}
                           _selected={{
                             border: "none",
                             background: "transparent",
@@ -228,17 +264,17 @@ export function ProjectsComponent({ fetchProjects,
             </Stack>
           </Box>
         )}
-        <DeleteProjectModal
-          onClose={onDialogClose}
-          cancelRef={cancelRef}
-          isOpen={isDialogOpen}
-        />
         <AddProjectModal 
           isOpen={isOpen} 
           onClose={onClose} 
           history={history} 
           values={values}
           onSubmit={handleAddProject}
+          onSwitchChange={handleSwitchChange}
+          switchValue={isSwitch}
+          addError={addError}
+          addSuccess={addSuccess}
+          addLoading={addLoading}
         />
       </Box>
     </Box>

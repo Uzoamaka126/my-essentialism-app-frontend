@@ -1,27 +1,37 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { ProjectsComponent } from "./project.component";
-import { fetchUserProjects, addUserProjects } from '../../../../redux-store/actions/project.actions'
+import { fetchUserProjects, addUserProject } from '../../../../redux-store/actions/project.actions'
 import { fetchValues } from '../../../../redux-store/actions/values.actions'
 
 function Projects(props) {
   const {
     fetchUserProjects,
     fetchValues,
-    addUserProjects,
+    addUserProject,
     isLoading,
     project_error,
-    project_success
+    project_success,
+    values,
+    projects,
+    add_project_success,
+    add_project_error,
+    isAddLoading
   } = props;
   
   return (
     <ProjectsComponent
-      fetchProjects={fetchUserProjects}
+      fetchUserProjects={fetchUserProjects}
       fetchValues={fetchValues}
-      addProjects={addUserProjects}
+      addUserProject={addUserProject}
       isLoading={isLoading}
       error={project_error}
       success={project_success}
+      values={values}
+      projects={projects}
+      addSuccess={add_project_success}
+      addError={add_project_error}
+      addLoading={isAddLoading}
       {...props}
     />
   );
@@ -33,14 +43,18 @@ const mapStateToProps = (store) => {
     project_success: store.projects.project_success,
     project_error: store.projects.project_error,
     error_message: store.projects.error_message,
-    values: store.values.values
+    values: store.values.values,
+    projects: store.projects.projects,
+    add_project_success: store.projects.add_project_success,
+    add_project_error: store.projects.add_project_error,
+    isAddLoading: store.projects.isAddLoading
   };
 };
 
 export default connect(
   mapStateToProps, {
     fetchUserProjects,
-    addUserProjects,
+    addUserProject,
     fetchValues
   }
 )(Projects);

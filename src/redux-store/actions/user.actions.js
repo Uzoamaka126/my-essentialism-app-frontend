@@ -7,17 +7,17 @@ import {
   UPDATE_USER_PROFILE_FAILED,
 } from "../actions/action.types";
 import { client } from "../../Utilities/axiosHelper";
+
 export const fetchUserProfile = (id) => async (dispatch) => {
   dispatch({ type: GET_USER_PROFILE_STARTED });
   try {
-    const response = await client().get(`users/${id}`);
+    const response = await client().get(`/users/${id}`)
     dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: response.data });
   } catch (err) {
-    console.log(err);
+    console.log(err.response);
     dispatch({ type: GET_USER_PROFILE_FAILED, payload: err });
   }
 };
-
 export const updateUserProfile = (data) => async (dispatch) => {
   dispatch({ type: UPDATE_USER_PROFILE_STARTED });
   try {

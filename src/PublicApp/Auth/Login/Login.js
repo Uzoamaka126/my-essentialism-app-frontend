@@ -16,7 +16,7 @@ function Login(props) {
   function handleSubmit(values) {
     login(values)
       .then((response) => {
-         toast({
+      toast({
         position: "bottom-left",
         render: () => <ToastBox message={"Welcome"} />,
       });
