@@ -36,12 +36,13 @@ export function Dashboard({
   logout,
   userInfo,
 }) {
+  
+  console.log(user);
 
-const username = "Amaka"
   return (
     <>
       <Flex>
-        <SideBar username={username} menuList={menuList} user={user} />
+        <SideBar username={user && user.username} menuList={menuList} user={user} />
         <Content
           width="100%"
           height="calc(100vh -60px)"

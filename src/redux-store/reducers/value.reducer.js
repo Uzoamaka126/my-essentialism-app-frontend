@@ -1,7 +1,7 @@
 import * as types from '../actions/action.types'
 
 const initialState = {
-    projects: [],
+    values: [],
     isLoading: false,
     error: ''
 };

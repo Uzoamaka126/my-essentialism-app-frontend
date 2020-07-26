@@ -16,9 +16,7 @@ function App(props) {
         <Route path="/about" component={AboutUs} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {/* <Route exact component={NotFound} /> */}
         <Route exact path="/" component={Home} />
-        {/* <Redirect to="/not" /> */}
         <Route
           path="/dashboard"
           render={(props) => <ProtectedApp {...props} />}

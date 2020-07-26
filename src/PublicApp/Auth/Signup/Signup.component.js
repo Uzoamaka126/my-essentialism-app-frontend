@@ -7,9 +7,6 @@ import { RegistrationSuccess } from "./RegistrationSuccess";
 
 export function SignupComponent({
   register,
-  register_success,
-  error_message,
-  register_error,
   isLoading,
   history,
 }) {
@@ -18,16 +15,20 @@ export function SignupComponent({
 
   function handleSubmit(values) {
     register(values)
-    if (!!register_error) {
+    .then((response) => {
       toast({
         position: "bottom-left",
-        render: () => <ToastBox message={error_message} />,
+        render: () => <ToastBox message={"Welcome"} />,
       });
-    } else if (!!register_success) {
       onOpen();
-    } else {
-      console.log(values);
-    }
+      // history.push("/dashboard/home");
+      })
+      .catch((err) => {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={err} />,
+      });
+    })
   }
 
   return (
@@ -37,7 +38,7 @@ export function SignupComponent({
           <SignupForm
             isLoading={isLoading}
             onSubmit={handleSubmit}
-            error_message={error_message}
+            // error_message={error_message}
           />
         </Box>
       </Box>

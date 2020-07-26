@@ -10,8 +10,6 @@ import { getState, setState } from "../../Utilities/localStorage";
 
 export const initialState = {
   loading: false,
-  values: [],
-  projects: [],
   profile: {},
   error: "",
 };
@@ -30,7 +28,7 @@ export const userProfileReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        profile: action.payload,
+        profile: action.payload.data,
       };
     case UPDATE_USER_PROFILE_SUCCEEDED:
       return {

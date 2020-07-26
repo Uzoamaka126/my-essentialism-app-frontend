@@ -1,12 +1,11 @@
 import { client } from '../../Utilities/axiosHelper';
 import * as types from './action.types';
-
 export const fetchValues = () => async dispatch => {
     dispatch({
         type: types.GET_VALUES_STARTED
     });
     try {
-        const response = await client().get('values')
+        const response = await client().get('/values');
         dispatch({
             type: types.GET_VALUES_SUCCEDED,
             payload: response.data
@@ -19,4 +18,3 @@ export const fetchValues = () => async dispatch => {
         })
     }
 }
-console.log(client)
