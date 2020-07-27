@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -22,8 +23,8 @@ function CustomCheckbox({ label, date }) {
         rounded="sm"
         borderRadius="20px"
         padding="10px"
-        _checked={{ bg: "white", color: "pink.500", borderColor: "pink.500" }}
-        _focus={{ borderColor: "green.600", boxShadow: "outline" }}
+        _checked={{ bg: "white", color: "teal", borderColor: "teal" }}
+        _focus={{ borderColor: "teal", boxShadow: "none" }}
       >
         <Icon name="check" size="16px" />
       </ControlBox>
@@ -44,6 +45,8 @@ function CustomCheckbox({ label, date }) {
   );
 }
 export function SingleProjectComponent(props) {
+  let { id } = useParams();
+  
   return (
     <Box>
       <Box>
