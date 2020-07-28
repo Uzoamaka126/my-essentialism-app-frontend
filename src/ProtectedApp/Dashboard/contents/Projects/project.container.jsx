@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { ProjectsComponent } from "./project.component";
-import { fetchUserProjects, addUserProject } from '../../../../redux-store/actions/project.actions'
+import {
+  fetchUserProjects,
+  addUserProject,
+  fetchSingleProject
+} from '../../../../redux-store/actions/project.actions'
 import { fetchValues } from '../../../../redux-store/actions/values.actions'
 
 function Projects(props) {
@@ -16,7 +20,8 @@ function Projects(props) {
     projects,
     add_project_success,
     add_project_error,
-    isAddLoading
+    isAddLoading,
+    fetchSingleProject
   } = props;
   
   return (
@@ -32,6 +37,7 @@ function Projects(props) {
       addSuccess={add_project_success}
       addError={add_project_error}
       addLoading={isAddLoading}
+      fetchSingleProject={fetchSingleProject}
       {...props}
     />
   );
@@ -47,7 +53,8 @@ const mapStateToProps = (store) => {
     projects: store.projects.projects,
     add_project_success: store.projects.add_project_success,
     add_project_error: store.projects.add_project_error,
-    isAddLoading: store.projects.isAddLoading
+    isAddLoading: store.projects.isAddLoading,
+    project: store.projects.project
   };
 };
 
@@ -55,6 +62,7 @@ export default connect(
   mapStateToProps, {
     fetchUserProjects,
     addUserProject,
-    fetchValues
+    fetchValues,
+    fetchSingleProject
   }
 )(Projects);

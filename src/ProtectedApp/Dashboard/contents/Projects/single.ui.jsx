@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -11,7 +11,11 @@ import {
   Icon,
   VisuallyHidden,
   ControlBox,
+  Button,
+  useToast
 } from "@chakra-ui/core";
+import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
+
 
 function CustomCheckbox({ label, date }) {
   return (
@@ -44,38 +48,84 @@ function CustomCheckbox({ label, date }) {
     </label>
   );
 }
-export function SingleProjectComponent(props) {
+export function SingleProjectComponent({
+  fetchSingleProject,
+  project,
+  project_success,
+  project_error,
+  isLoading,
+  error_message
+}) {
   let { id } = useParams();
+  const toast = useToast();
+
+  function handleFetchProjectData(id) {
+    fetchSingleProject(id);
+
+    if (project_error && isLoading === false) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Unable to fetch project"} />,
+      });
+    }
+  }
   
+  useEffect(() => {
+    handleFetchProjectData(id)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+    if (isLoading) return <FullPageSpinner />
+
+  if (project_error || !project) {
+    return (
+      <Box width="50%" margin="auto" height="auto">
+        <Text fontSize="1.15rem">
+          Unable to load project and tasks. Please try again!
+        </Text>
+        <Button
+          rightIcon="repeat"
+          variantColor="teal"
+          variant="solid"
+          onClick={handleFetchProjectData}
+        >
+          Reload
+        </Button>
+      </Box>
+    )
+  }
   return (
     <Box>
       <Box>
-        <Flex
-          padding="1rem 0"
-          paddingLeft="1.25rem"
-          paddingRight="1.25rem"
-          justifyContent="space-between"
-          borderBottom="1px solid #eee"
-          alignItems="center"
-        >
-          <Flex alignItems="center">
-            <Link
-              marginRight="0.625rem"
-              as={RouterLink}
-              to="/dashboard/projects"
-              _focus={{ borderColor: "none", border: "none" }}
-              _selected={{ borderColor: "none", border: "none" }}
-            >
-              <Icon name="arrow-back" />
-            </Link>
-            <Text color="#333" fontSize="1.2rem" fontWeight="medium">
-              Test Project 1
+        {/* Project Heading */}
+        {!!project ? (
+           <Flex
+            padding="1rem 0"
+            paddingLeft="1.25rem"
+            paddingRight="1.25rem"
+            justifyContent="space-between"
+            borderBottom="1px solid #eee"
+            alignItems="center"
+          >
+            <Flex alignItems="center">
+              <Link
+                marginRight="0.625rem"
+                as={RouterLink}
+                to="/dashboard/projects"
+                _focus={{ borderColor: "none", border: "none" }}
+                _selected={{ borderColor: "none", border: "none" }}
+              >
+                <Icon name="arrow-back" />
+              </Link>
+              <Text color="#333" fontSize="1.2rem" fontWeight="medium">
+                Test Project 1
+              </Text>
+            </Flex>
+            <Text fontSize="0.8rem" fontWeight="normal" color="red">
+              Date Created here
             </Text>
           </Flex>
-          <Text fontSize="0.8rem" fontWeight="normal" color="red">
-            Date Created here
-          </Text>
-        </Flex>
+       ): null}
         <Stack marginTop="2rem" paddingX="1.25rem">
           <ListItem
             listStyleType="none"

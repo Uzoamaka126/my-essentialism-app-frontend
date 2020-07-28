@@ -12,6 +12,16 @@ export const fetchUserProjects = () => async (dispatch) => {
     }
 };
 
+export const fetchSingleProject = (id) => async (dispatch) => {
+    dispatch({ type: types.GET_SINGLE_PROJECT_STARTED });
+    try {
+        const response = await client().get(`/projects/${id}`);
+        dispatch({ type: types.GET_SINGLE_PROJECT_SUCCEEDED, payload: response.data.project });
+    } catch (err) {
+        console.log(err);
+        dispatch({ type: types.GET_SINGLE_PROJECT_FAILED, payload: err.response });
+    }
+};
 export const addUserProject = (project) => async (dispatch) => {
     dispatch({ type: types.ADD_USER_PROJECTS_STARTED });
     try {
@@ -34,10 +44,10 @@ export const deleteUserProject = (id) => async (dispatch) => {
     }
 };
 
-export const updateUserProject = (project) => async (dispatch) => {
+export const updateUserProject = (project, id) => async (dispatch) => {
     dispatch({ type: types.UPDATE_PROJECT_STARTED });
     try {
-        const response = await client().delete(`/projects/update`, project);
+        const response = await client().put(`/projects/update/${id}`, project);
         dispatch({ type: types.UPDATE_PROJECT_SUCCEEDED, payload: response.data });
     } catch (err) {
         console.log(err);

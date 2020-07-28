@@ -27,18 +27,11 @@ export function ProjectsComponent({
   projects,
   addError,
   addSuccess,
-  addLoading
+  addLoading,
+  fetchSingleProject
 }) {
 
-  const id = getState() && getState().data.id;
-
-  // function setProjectArray() {
-  //   if(projects.length > 0) {
-  //     return projects;
-  //   } else {
-  //     return []
-  //   }
-  // }
+  const id = getState() && getState().data.id; 
   const [projectsList, setProjectsList] = useState([
     {
       id: 1,
