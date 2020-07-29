@@ -54,7 +54,12 @@ export function SingleProjectComponent({
   project_success,
   project_error,
   isLoading,
-  error_message
+  addTask,
+  deleteTask,
+  updateTask,
+  fetchTasks,
+  error_message,
+  tasks
 }) {
   let { id } = useParams();
   const toast = useToast();
@@ -69,9 +74,20 @@ export function SingleProjectComponent({
       });
     }
   }
+
+  function handleFetchTasks(id) {
+    fetchTasks(id);
+     if (project_error && isLoading === false) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Unable to fetch project"} />,
+      });
+    }
+  }
   
   useEffect(() => {
-    handleFetchProjectData(id)
+    handleFetchProjectData(id);
+    handleFetchTasks(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -79,19 +95,31 @@ export function SingleProjectComponent({
 
   if (project_error || !project) {
     return (
-      <Box width="50%" margin="auto" height="auto">
-        <Text fontSize="1.15rem">
-          Unable to load project and tasks. Please try again!
-        </Text>
-        <Button
-          rightIcon="repeat"
-          variantColor="teal"
-          variant="solid"
-          onClick={handleFetchProjectData}
+      <Flex 
+        width="100%"
+        height="100%" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box
+          margin="10rem auto"
+          padding="1rem"
         >
-          Reload
-        </Button>
+          <Text fontSize="1.5rem">
+            Unable to load project and tasks.
+          </Text>
+          <Text fontSize="1.15rem" marginTop="0.625rem">Please try again!</Text>
+          <Button
+            rightIcon="repeat"
+            variantColor="teal"
+              variant="solid"
+              marginTop="1rem"
+            onClick={handleFetchProjectData}
+          >
+            Reload
+          </Button>
       </Box>
+      </Flex>
     )
   }
   return (
@@ -118,7 +146,7 @@ export function SingleProjectComponent({
                 <Icon name="arrow-back" />
               </Link>
               <Text color="#333" fontSize="1.2rem" fontWeight="medium">
-                Test Project 1
+                {project.project_name}
               </Text>
             </Flex>
             <Text fontSize="0.8rem" fontWeight="normal" color="red">
@@ -126,24 +154,32 @@ export function SingleProjectComponent({
             </Text>
           </Flex>
        ): null}
-        <Stack marginTop="2rem" paddingX="1.25rem">
-          <ListItem
-            listStyleType="none"
-            borderBottom="1px solid #f0f0f0"
-            paddingY="10px"
-          >
-            <CustomCheckbox
-              label="Lorem ipsum dolor sit amet, consectetur adipisicing elit"
-              date="Nov 2019"
-            />
-          </ListItem>
-          <ListItem listStyleType="none" borderBottom="1px solid #f0f0f0">
-            <CustomCheckbox
-              label="Lorem ipsum dolor sit amet, consectetur adipisicing elit"
-              date="Nov 2019"
-            />
-          </ListItem>
+        {tasks && tasks.length === 0 ? (
+          <Box width="100%" marginTop="3rem">
+            <EmptyPage
+              height="auto"
+              width="500px"
+                // image={EmptyImage}
+              imageSize="50%"
+              heading="You don't have any tasks yet"
+              subheading="What kind of projects do you want to do?"
+            >
+            </EmptyPage>
+          </Box>
+        ) : (
+            <Stack marginTop="2rem" paddingX="1.25rem">
+              <ListItem
+                listStyleType="none"
+                borderBottom="1px solid #f0f0f0"
+                paddingY="10px"
+              >
+                <CustomCheckbox
+                  label="Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+                  date="Nov 2019"
+                />
+              </ListItem>
         </Stack>
+        )}
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -94,10 +94,10 @@ export function ProjectsComponent({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
   
-  // useEffect(() => {
-  //   handleFetchProjects();
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    handleFetchProjects();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) return <FullPageSpinner />
   
@@ -129,14 +129,9 @@ export function ProjectsComponent({
             <Text color="" fontSize="1.2rem" fontWeight="medium">
               My Projects
             </Text>
-            {/* <Search
-              value={searchValue}
-              placeholder="Search for values"
-              onChange={handleValuesSearch}
-            /> */}
           </Flex>
         </Box>
-        {projectsList && projectsList.length === 0 ? (
+        {projects && projects.length === 0 ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
@@ -201,8 +196,8 @@ export function ProjectsComponent({
               border="1px solid red"
               marginTop="1rem"
             >
-              {projectsList &&
-                projectsList.map((item, index) => (
+              {projects &&
+                projects.map((item, index) => (
                   <Flex
                     borderRadius="5px"
                     border="1px solid #eee"

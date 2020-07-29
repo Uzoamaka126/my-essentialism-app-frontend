@@ -4,7 +4,6 @@ import { ProjectsComponent } from "./project.component";
 import {
   fetchUserProjects,
   addUserProject,
-  fetchSingleProject
 } from '../../../../redux-store/actions/project.actions'
 import { fetchValues } from '../../../../redux-store/actions/values.actions'
 
@@ -37,7 +36,6 @@ function Projects(props) {
       addSuccess={add_project_success}
       addError={add_project_error}
       addLoading={isAddLoading}
-      fetchSingleProject={fetchSingleProject}
       {...props}
     />
   );
@@ -63,6 +61,5 @@ export default connect(
     fetchUserProjects,
     addUserProject,
     fetchValues,
-    fetchSingleProject
   }
 )(Projects);

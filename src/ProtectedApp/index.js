@@ -8,7 +8,7 @@ import { OnboardingComponent } from "./Dashboard/contents/Home/onboarding.compon
 import { MyValues } from "./Dashboard/contents/MyValues/Values.container";
 import Projects from "./Dashboard/contents/Projects/project.container";
 import { Dashboard } from "./Dashboard";
-import { SingleProject } from "./Dashboard/contents/Projects/single.container";
+import SingleProject from "./Dashboard/contents/Projects/single.container";
 import { clearAppState, getState } from "../Utilities/localStorage";
 import ProtectedRoute from "../Components/ProtectedRoute";
 

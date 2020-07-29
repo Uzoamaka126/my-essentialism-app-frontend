@@ -16,7 +16,7 @@ export const fetchSingleProject = (id) => async (dispatch) => {
     dispatch({ type: types.GET_SINGLE_PROJECT_STARTED });
     try {
         const response = await client().get(`/projects/${id}`);
-        dispatch({ type: types.GET_SINGLE_PROJECT_SUCCEEDED, payload: response.data.project });
+        dispatch({ type: types.GET_SINGLE_PROJECT_SUCCEEDED, payload: response.data.data.project });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.GET_SINGLE_PROJECT_FAILED, payload: err.response });

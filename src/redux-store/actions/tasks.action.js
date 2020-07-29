@@ -6,6 +6,7 @@ export const fetchTasks = (id) => async (dispatch) => {
     dispatch({ type: types.GET_TASKS_STARTED });
     try {
         const response = await client().get(`/tasks/${id}`);
+        // debugger;
         dispatch({ type: types.GET_TASKS_SUCCEEDED, payload: response.data.data.projects });
     } catch (err) {
         console.log(err);
@@ -38,10 +39,10 @@ export const deleteTask = (id) => async (dispatch) => {
 };
 
 // @TODO: update task based on user, project and task id
-export const updateTask = (name, id) => async (dispatch) => {
+export const updateTask = (task) => async (dispatch) => {
     dispatch({ type: types.UPDATE_TASK_STARTED });
     try {
-        const response = await client().put(`/tasks/update/${id}`, name);
+        const response = await client().put(`/tasks/update`, task);
         dispatch({ type: types.UPDATE_TASK_SUCCEEDED, payload: response.data });
     } catch (err) {
         console.log(err);
