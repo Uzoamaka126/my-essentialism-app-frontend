@@ -19,8 +19,8 @@ export function AddProjectModal({
   onClose, 
   values, 
   onSubmit,
-  onSwitchChange,
-  switchValue,
+  // onSwitchChange,
+  // switchValue,
   addSuccess,
   addError,
   addLoading
@@ -28,7 +28,7 @@ export function AddProjectModal({
 
   const { id } = getState() && getState().data;
 
-  const[value, setValue] = useState(null);
+  const[value, setValue] = useState("");
   const[projectName, setProjectName] = useState("");
   
   function handleProjectNameChange(event) {
@@ -69,7 +69,7 @@ export function AddProjectModal({
             ))}
           </Select>
         </FormControl>
-        <Flex align="center" marginTop="1.25rem">
+        {/* <Flex align="center" marginTop="1.25rem">
           <Switch
             size="sm"
             color="teal"
@@ -84,7 +84,7 @@ export function AddProjectModal({
           >
             Mark as important
           </FormLabel>
-        </Flex>
+        </Flex> */}
       </ModalBody>
       <ModalFooter
         fontWeight="medium"
@@ -97,9 +97,10 @@ export function AddProjectModal({
         </Button>
         <Button
           marginLeft="0.625rem"
-          background="#e91e63"
+          variantColor="teal"
           fontSize="0.8rem"
-          color="#fff"
+          variant="solid"
+          isLoading={addLoading}
           mr={3}
           onClick={() => onSubmit(combinedValues())}
         >

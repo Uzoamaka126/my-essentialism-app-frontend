@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -27,53 +27,67 @@ export function ProjectsComponent({
   projects,
   addError,
   addSuccess,
-  addLoading
+  addLoading,
+  fetchSingleProject
 }) {
 
-  const id = getState() && getState().data.id;
-  const [important, setImportant] = useState("unimportant")
-  const[isSwitch, setIsSwitch] = useState(false)
+  const id = getState() && getState().data.id; 
+  const [projectsList, setProjectsList] = useState([
+    {
+      id: 1,
+      project_name: "jaye",
+      value_name: "creativity"
+    },
+    {
+      id: 2,
+      project_name: "jaye",
+      value_name: "creativity"
+    },
+    {
+      id: 3,
+      project_name: "jaye",
+      value_name: "creativity"
+    }
+  ]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const toast = useToast();
 
-  console.log(id, projects);
-  console.log(isSwitch);
+  function handleFetchProjects() {
+    fetchUserProjects();
+    // setProjectsList(projects);
 
-  function handleSwitchChange(event) {
-    setIsSwitch(!isSwitch);
-  }
-
-  function markProjectAsImportant() {
-    if(isSwitch) {
-      setImportant("important")
+    if (error && isLoading === false) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Unable to fetch project"} />,
+      });
     }
   }
 
   function handleAddProject(data) {
-    addUserProject(data);
-    if (addError) {
-      // toast notification here
-       toast({
-        position: "bottom-left",
-        render: () => <ToastBox message={"Unable to add project"} />,
-      });
-    }
-    if (addSuccess) {
-      // toast notification here
-      toast({
-        position: "bottom-left",
-        render: () => <ToastBox message={"Project added"} />,
-      });
-      fetchUserProjects();
-      onClose();
-    }
+    addUserProject(data)
+      .then((response) => {
+        console.log(response);
+        toast({
+          position: "bottom-left",
+          render: () => <ToastBox message={"New project added"} />,
+        });
+        onClose();
+        handleFetchProjects();
+        })
+        .catch(() => {
+          toast({
+            position: "bottom-left",
+            render: () => <ToastBox message={"Unable to add project"} />,
+          });
+        })
   }
 
-  useEffect(() => {
-    markProjectAsImportant();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSwitch]);
+  // useEffect(() => {
+  //   markProjectAsImportant();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isSwitch]);
 
   useEffect(() => {
     fetchValues()
@@ -81,7 +95,7 @@ export function ProjectsComponent({
   }, [id])
   
   useEffect(() => {
-      fetchUserProjects();
+    handleFetchProjects();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -115,14 +129,9 @@ export function ProjectsComponent({
             <Text color="" fontSize="1.2rem" fontWeight="medium">
               My Projects
             </Text>
-            {/* <Search
-              value={searchValue}
-              placeholder="Search for values"
-              onChange={handleValuesSearch}
-            /> */}
           </Flex>
         </Box>
-        {projects && projects.length < 0 ? (
+        {projects && projects.length === 0 ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
@@ -149,50 +158,61 @@ export function ProjectsComponent({
             <Flex
               width="100%"
               justifyContent="space-between"
-              marginBottom="1.5rem"
+              marginBottom="2rem"
               paddingRight="1.25rem"
-              paddingTop="1rem"
             >
               <Text fontSize="0.875rem">
                 Total no. of Projects: {projects && projects.length}
               </Text>
-              <Button
+              {/* <Button
                 variant="outline"
-                color="#e91e63"
+                // color="#e91e63"
+                  variantColor="teal"
                 fontSize="0.875rem"
                 fontWeight="medium"
                 leftIcon="add"
-                borderColor="#e91e63"
+                borderColor="teal"
                 _hover={{ background: "none" }}
                 onClick={onOpen}
               >
                 Add a project
-              </Button>
+              </Button> */}
+              <IconButton
+                variant="outline"
+                variantColor="teal"
+                aria-label="Send email"
+                icon="add"
+                isRound
+                  onClick={onOpen}
+                  size="sm"
+              />
             </Flex>
             {/* Project List */}
             <Stack
               flexWrap="wrap"
-              width="fit-content"
-              padding="1rem 1rem 3rem"
+              width="100%"
               spacing={6}
               isInline
+              border="1px solid red"
+              marginTop="1rem"
             >
               {projects &&
                 projects.map((item, index) => (
                   <Flex
                     borderRadius="5px"
-                    marginX="0.625rem"
-                    border="1px solid #e8f5f9"
+                    border="1px solid #eee"
                     height="auto"
                     marginBottom="1.5rem"
-                    maxWidth="100%"
+                    maxWidth="30%"
                     width="30%"
                     background="transparent"
                     key={index}
+                    rounded="md"
+                    borderWidth="1px"
                   >
                     <Box flex={4} padding="5px 10px">
                       <Flex
-                        marginBottom="0.625rem"
+                        marginBottom="1.5rem"
                         alignItems="center"
                         justifyContent="space-between"
                       >
@@ -213,22 +233,11 @@ export function ProjectsComponent({
                           >
                             {item.value_name}
                           </Badge>
-                          {important === "important" ? (
-                             <Badge
-                            variantColor="purple"
-                            fontSize="0.8rem"
-                            textTransform="capitalize"
-                            borderRadius="10px"
-                          >
-                            {important}
-                          </Badge>
-                         ): null}
                         </Box>
                       </Flex>
                       <Flex
                         justifyContent="space-between"
                         alignItems="flex-end"
-                        marginTop="0.3rem"
                       >
                         <Link
                           variant="link"
@@ -270,8 +279,8 @@ export function ProjectsComponent({
           history={history} 
           values={values}
           onSubmit={handleAddProject}
-          onSwitchChange={handleSwitchChange}
-          switchValue={isSwitch}
+          // onSwitchChange={handleSwitchChange}
+          // switchValue={isSwitch}
           addError={addError}
           addSuccess={addSuccess}
           addLoading={addLoading}
