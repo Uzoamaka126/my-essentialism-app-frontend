@@ -28,35 +28,18 @@ export function ProjectsComponent({
   addError,
   addSuccess,
   addLoading,
-  fetchSingleProject
+  fetchSingleProject,
+  updateUserProject,
+  deleteUserProject
 }) {
 
   const id = getState() && getState().data.id; 
-  const [projectsList, setProjectsList] = useState([
-    {
-      id: 1,
-      project_name: "jaye",
-      value_name: "creativity"
-    },
-    {
-      id: 2,
-      project_name: "jaye",
-      value_name: "creativity"
-    },
-    {
-      id: 3,
-      project_name: "jaye",
-      value_name: "creativity"
-    }
-  ]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const toast = useToast();
 
   function handleFetchProjects() {
     fetchUserProjects();
-    // setProjectsList(projects);
-
     if (error && isLoading === false) {
       toast({
         position: "bottom-left",
@@ -65,10 +48,9 @@ export function ProjectsComponent({
     }
   }
 
-  function handleAddProject(data) {
-    addUserProject(data)
+  function handleUpdateProject(data) {
+    updateUserProject(data)
       .then((response) => {
-        console.log(response);
         toast({
           position: "bottom-left",
           render: () => <ToastBox message={"New project added"} />,
@@ -84,10 +66,39 @@ export function ProjectsComponent({
         })
   }
 
-  // useEffect(() => {
-  //   markProjectAsImportant();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isSwitch]);
+  function handleDeleteProject(id) {
+    deleteUserProject(id)
+      .then((response) => {
+        toast({
+          position: "bottom-left",
+          render: () => <ToastBox message={"Project has been deleted"} />,
+        });
+        handleFetchProjects();
+      })
+      .catch((error) => {
+        toast({
+          position: "bottom-left",
+          render: () => <ToastBox message={"Unable to add project"} />,
+        });
+      })
+  }
+
+  function handleAddProject(data) {
+    addUserProject(data)
+      .then((response) => {
+        toast({
+          position: "bottom-left",
+          render: () => <ToastBox message={"New project added"} />,
+        });
+        onClose();
+        })
+        .catch(() => {
+          toast({
+            position: "bottom-left",
+            render: () => <ToastBox message={"Unable to add project"} />,
+          });
+        })
+  }
 
   useEffect(() => {
     fetchValues()
@@ -154,7 +165,11 @@ export function ProjectsComponent({
             </EmptyPage>
           </Box>
         ) : (
-          <Box marginTop="1.75rem" paddingLeft="1.25rem" paddingRight="1.25rem">
+            <Box
+              marginTop="1.75rem"
+              paddingLeft="1.25rem"
+              paddingRight="1.25rem"
+            >
             <Flex
               width="100%"
               justifyContent="space-between"
@@ -164,28 +179,19 @@ export function ProjectsComponent({
               <Text fontSize="0.875rem">
                 Total no. of Projects: {projects && projects.length}
               </Text>
-              {/* <Button
-                variant="outline"
-                // color="#e91e63"
-                  variantColor="teal"
+              <Button
+                variant="ghost"
+                variantColor="teal"
                 fontSize="0.875rem"
                 fontWeight="medium"
                 leftIcon="add"
                 borderColor="teal"
                 _hover={{ background: "none" }}
-                onClick={onOpen}
+                  onClick={onOpen}
+                  marginRight="1.3rem"
               >
                 Add a project
-              </Button> */}
-              <IconButton
-                variant="outline"
-                variantColor="teal"
-                aria-label="Send email"
-                icon="add"
-                isRound
-                  onClick={onOpen}
-                  size="sm"
-              />
+              </Button>
             </Flex>
             {/* Project List */}
             <Stack
@@ -193,7 +199,6 @@ export function ProjectsComponent({
               width="100%"
               spacing={6}
               isInline
-              border="1px solid red"
               marginTop="1rem"
             >
               {projects &&
@@ -212,7 +217,7 @@ export function ProjectsComponent({
                   >
                     <Box flex={4} padding="5px 10px">
                       <Flex
-                        marginBottom="1.5rem"
+                        marginBottom="1rem"
                         alignItems="center"
                         justifyContent="space-between"
                       >
@@ -237,7 +242,7 @@ export function ProjectsComponent({
                       </Flex>
                       <Flex
                         justifyContent="space-between"
-                        alignItems="flex-end"
+                        alignItems="center"
                       >
                         <Link
                           variant="link"
@@ -251,6 +256,14 @@ export function ProjectsComponent({
                         >
                           View project
                         </Link>
+                        <Button
+                          variant="ghost"
+                          variantColor="teal"
+                          fontSize="14px"
+                          fontWeight="medium"
+                          padding="0"
+                          paddingBottom="0"
+                        >Edit project</Button>
                         <IconButton
                           aria-label="delete"
                           variant="ghost"
@@ -265,6 +278,7 @@ export function ProjectsComponent({
                             border: "none",
                             background: "transparent",
                           }}
+                          onClick={() => handleDeleteProject(`${item.id}`)}
                         />
                       </Flex>
                     </Box>

@@ -4,6 +4,8 @@ import { ProjectsComponent } from "./project.component";
 import {
   fetchUserProjects,
   addUserProject,
+  deleteUserProject,
+  updateUserProject
 } from '../../../../redux-store/actions/project.actions'
 import { fetchValues } from '../../../../redux-store/actions/values.actions'
 
@@ -20,7 +22,8 @@ function Projects(props) {
     add_project_success,
     add_project_error,
     isAddLoading,
-    fetchSingleProject
+    deleteUserProject,
+    updateUserProject
   } = props;
   
   return (
@@ -36,6 +39,8 @@ function Projects(props) {
       addSuccess={add_project_success}
       addError={add_project_error}
       addLoading={isAddLoading}
+      deleteUserProject={deleteUserProject}
+      updateUserProject={updateUserProject}
       {...props}
     />
   );
@@ -61,5 +66,7 @@ export default connect(
     fetchUserProjects,
     addUserProject,
     fetchValues,
+    deleteUserProject,
+    updateUserProject
   }
 )(Projects);

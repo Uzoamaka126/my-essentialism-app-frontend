@@ -26,7 +26,8 @@ export const addUserProject = (project) => async (dispatch) => {
     dispatch({ type: types.ADD_USER_PROJECTS_STARTED });
     try {
         const response = await client().post(`/projects/create`, project);
-        dispatch({ type: types.ADD_USER_PROJECTS_SUCCESS, payload: response.data });
+        debugger;
+        dispatch({ type: types.ADD_USER_PROJECTS_SUCCESS, payload: response.data.data.response });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.ADD_USER_PROJECTS_FAILURE, payload: err.response });

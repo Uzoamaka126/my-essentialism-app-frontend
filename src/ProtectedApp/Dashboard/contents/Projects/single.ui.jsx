@@ -15,6 +15,7 @@ import {
   useToast
 } from "@chakra-ui/core";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
+import { TaskForm } from "./add.task";
 
 
 function CustomCheckbox({ label, date }) {
@@ -63,6 +64,13 @@ export function SingleProjectComponent({
 }) {
   let { id } = useParams();
   const toast = useToast();
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [hideAddBtn, setHideAddBtn] = useState(false);
+
+  function handleShowTaskForm() {
+    setShowTaskForm(true);
+    setHideAddBtn(true);
+  }
 
   function handleFetchProjectData(id) {
     fetchSingleProject(id);
@@ -179,6 +187,23 @@ export function SingleProjectComponent({
                 />
               </ListItem>
         </Stack>
+          )}
+          
+        {!hideAddBtn && (
+          <Button
+          leftIcon="add"
+          variantColor="pink"
+          variant="ghost"
+          onClick={handleShowTaskForm}
+        >
+          Add task
+        </Button>
+        )}
+        {!!showTaskForm && (
+          <TaskForm
+            addTask={addTask}
+            onHide={() => { setShowTaskForm(false); setHideAddBtn(false); }}
+          />
         )}
       </Box>
     </Box>
