@@ -15,9 +15,10 @@ import {
   useToast
 } from "@chakra-ui/core";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
+import { TaskForm } from "./add.task";
 
 
-function CustomCheckbox({ label, date }) {
+function CustomCheckbox({ label, date, id }) {
   return (
     <label style={{ display: "flex" }}>
       <VisuallyHidden as="input" type="checkbox" />
@@ -29,6 +30,7 @@ function CustomCheckbox({ label, date }) {
         padding="10px"
         _checked={{ bg: "white", color: "teal", borderColor: "teal" }}
         _focus={{ borderColor: "teal", boxShadow: "none" }}
+        
       >
         <Icon name="check" size="16px" />
       </ControlBox>
@@ -63,6 +65,25 @@ export function SingleProjectComponent({
 }) {
   let { id } = useParams();
   const toast = useToast();
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [hideAddBtn, setHideAddBtn] = useState(false);
+  const [list, setList] = useState([
+    {
+      id: 1,
+      name: "Lorem ipsium wan tin wan tin",
+      date: "Nov 2019"
+    },
+    {
+      id: 2,
+      name: "Lorem ipsium wan tin wan tin",
+      date: "Nov 2020"
+    },
+  ]);
+
+  function handleShowTaskForm() {
+    setShowTaskForm(true);
+    setHideAddBtn(true);
+  }
 
   function handleFetchProjectData(id) {
     fetchSingleProject(id);
@@ -84,6 +105,25 @@ export function SingleProjectComponent({
       });
     }
   }
+
+  function handleAddTask(data) {
+    const obj = {
+      id: 3,
+      name: data.name,
+      date: "Aug 2019"
+    }
+    const newList = [obj, ...list]
+    setList(newList);
+    setShowTaskForm(false);
+    setHideAddBtn(false)
+  }
+
+  function handleDeleteTask(id, event) {
+    if (event.target.checked) {
+      const newList = list.filter(item => item.id !== id)
+      setList(newList);
+    }
+  }
   
   useEffect(() => {
     handleFetchProjectData(id);
@@ -91,7 +131,7 @@ export function SingleProjectComponent({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-    if (isLoading) return <FullPageSpinner />
+  if (isLoading) return <FullPageSpinner />
 
   if (project_error || !project) {
     return (
@@ -168,17 +208,41 @@ export function SingleProjectComponent({
           </Box>
         ) : (
             <Stack marginTop="2rem" paddingX="1.25rem">
-              <ListItem
+              {list && list.map((item, index) => (
+                <ListItem
                 listStyleType="none"
                 borderBottom="1px solid #f0f0f0"
                 paddingY="10px"
               >
                 <CustomCheckbox
-                  label="Lorem ipsum dolor sit amet, consectetur adipisicing elit"
-                  date="Nov 2019"
+                  label={item.name}
+                  date={item.date}
+                    onSubmit={handleDeleteTask}
+                    id={item.id}
                 />
               </ListItem>
+              ))}
         </Stack>
+          )}
+          
+        {!hideAddBtn && (
+          <Button
+          leftIcon="add"
+          variantColor="teal"
+          variant="ghost"
+          onClick={handleShowTaskForm}
+            marginLeft="10px"
+            marginTop="10px"
+        >
+          Add task
+        </Button>
+        )}
+        {!!showTaskForm && (
+          <TaskForm
+            addTask={addTask}
+            onHide={() => { setShowTaskForm(false); setHideAddBtn(false); }}
+            onSubmit={handleAddTask}
+          />
         )}
       </Box>
     </Box>

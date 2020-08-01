@@ -25,7 +25,7 @@ export const projectsReducer = (state = initialState, action) => {
                 isAddLoading: false,
                 add_project_success: true,
                 add_project_error: false,
-                project: action.payload
+                projects: [...state.projects, action.payload]
             }
         case types.ADD_USER_PROJECTS_FAILURE:
             return {
@@ -52,7 +52,7 @@ export const projectsReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 project_error: false,
-                error_message: action.payload
+                error_message: action.payload,
             }
          case types.GET_SINGLE_PROJECT_STARTED:
             return {
@@ -75,20 +75,18 @@ export const projectsReducer = (state = initialState, action) => {
             }
         case types.DELETE_PROJECT_STARTED:
             return {
-                ...state,
-                isLoading: true
+                ...state
             }
         case types.DELETE_PROJECT_SUCCEEDED:
+            const { id } = action.payload;
+            debugger;
             return {
                 ...state,
-                project_success: true,
-                isLoading: false,
+                projects: state.projects.filter(item => item.id !== id)
             }
         case types.DELETE_PROJECT_FAILED:
             return {
                 ...state,
-                isLoading: false,
-                project_error: false,
                 error_message: action.payload
             }
         default:

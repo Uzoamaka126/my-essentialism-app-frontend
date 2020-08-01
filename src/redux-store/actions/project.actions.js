@@ -26,7 +26,7 @@ export const addUserProject = (project) => async (dispatch) => {
     dispatch({ type: types.ADD_USER_PROJECTS_STARTED });
     try {
         const response = await client().post(`/projects/create`, project);
-        dispatch({ type: types.ADD_USER_PROJECTS_SUCCESS, payload: response.data });
+        dispatch({ type: types.ADD_USER_PROJECTS_SUCCESS, payload: response.data.data.response });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.ADD_USER_PROJECTS_FAILURE, payload: err.response });
@@ -36,8 +36,9 @@ export const addUserProject = (project) => async (dispatch) => {
 export const deleteUserProject = (id) => async (dispatch) => {
     dispatch({ type: types.DELETE_PROJECT_STARTED });
     try {
-        const response = await client().delete(`/projects/delete/${id}`);
-        dispatch({ type: types.DELETE_PROJECT_SUCCEEDED, payload: response.data });
+        await client().delete(`/projects/delete/${id}`);
+
+        dispatch({ type: types.DELETE_PROJECT_SUCCEEDED, payload: { id: id } });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.DELETE_PROJECT_SUCCEEDED, payload: err.response });
