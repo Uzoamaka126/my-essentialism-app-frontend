@@ -9,17 +9,13 @@ import {
   ButtonGroup
 } from "@chakra-ui/core";
 
-export function TaskForm({ addTask, onHide }) {
+export function TaskForm({ addTask, onHide, onSubmit }) {
     const [taskValue, setTaskValue] = useState("");
 
     function handleChange(event) {
         setTaskValue(event.target.value);
     }
-    function handleAddTask(task) {
-        addTask({
 
-        })
-    }
     return (
         <form
             style={{
@@ -27,6 +23,7 @@ export function TaskForm({ addTask, onHide }) {
                 border:"1px solid #c4c4c4",
                 borderRadius:"5px",
                 width: "70%",
+                marginLeft: "1rem"
     
             }}
             >
@@ -41,7 +38,7 @@ export function TaskForm({ addTask, onHide }) {
                     isDisabled={taskValue === null}
                     variant="solid"
                     variantColor="teal"
-                    onClick={handleAddTask}
+                    onClick={() => onSubmit({ name: taskValue })}
                 >
                     Add
                 </Button>

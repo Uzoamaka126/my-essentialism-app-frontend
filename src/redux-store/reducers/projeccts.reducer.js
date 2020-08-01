@@ -75,21 +75,18 @@ export const projectsReducer = (state = initialState, action) => {
             }
         case types.DELETE_PROJECT_STARTED:
             return {
-                ...state,
-                isLoading: true
+                ...state
             }
         case types.DELETE_PROJECT_SUCCEEDED:
+            const { id } = action.payload;
+            debugger;
             return {
                 ...state,
-                project_success: true,
-                isLoading: false,
-                // projects: state.projects.filter((item) => item.id === id)
+                projects: state.projects.filter(item => item.id !== id)
             }
         case types.DELETE_PROJECT_FAILED:
             return {
                 ...state,
-                isLoading: false,
-                project_error: false,
                 error_message: action.payload
             }
         default:

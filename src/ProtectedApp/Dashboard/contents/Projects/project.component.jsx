@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -10,11 +10,81 @@ import {
   Button,
   Badge,
   useDisclosure,
-  useToast
+  useToast,
+  ButtonGroup,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  Divider
 } from "@chakra-ui/core";
 import { AddProjectModal } from "./add.modal";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
 import { getState } from "../../../../Utilities/localStorage";
+
+
+export function EditProjectText({ name, val, onChange }) {
+  
+  function EditableControls({ isEditing, onSubmit, onCancel, onRequestEdit }) {
+    return isEditing ? (
+      <ButtonGroup justifyContent="center" size="sm">
+        <Button
+          variant="ghost" variantColor="teal" fontSize="14px"
+          padding="0"
+          paddingBottom="0"
+        >
+          Save
+        </Button>
+        <Button
+          variant="ghost" variantColor="teal" fontSize="14px"
+          padding="0"
+          paddingBottom="0"
+          onClick={onCancel}
+        >
+          Cancel
+        </Button>
+      </ButtonGroup>
+    ) : (
+      <Flex justifyContent="flex-end">
+        <IconButton
+          variant="ghost"
+          variantColor="gray"
+          fontSize="14px"
+          fontWeight="medium"
+            padding="0"
+            aria-label="edit"
+            paddingBottom="0"
+            icon="edit"
+            onClick={onRequestEdit}
+         />
+      </Flex>
+    );
+  }
+
+  return (
+    <Editable
+      textAlign="center"
+      defaultValue={name}
+      value={name}
+      onChange={onChange}
+      fontSize="14px"
+      isPreviewFocusable={false}
+      submitOnBlur={false}
+      alignItems="center"
+      display="flex"
+      justifyContent="space-between"
+      width="100%"
+      marginTop="14px"
+    >
+      {props => (
+        <>
+          <EditablePreview marginLeft="0" marginRight="0" />
+          <EditableInput marginLeft="0" marginRight="0" />
+          <EditableControls {...props} />
+        </>
+      )}
+    </Editable>
+  );
+}
 export function ProjectsComponent({
   fetchValues,
   addUserProject,
@@ -37,6 +107,20 @@ export function ProjectsComponent({
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const toast = useToast();
+
+  const [projectList, setProjectList] = React.useState([
+    {
+      id: 1,
+      value_name: "creativity",
+      project_name: "Start something"
+    }
+  ])
+
+  const [val, setVal] = React.useState("");
+
+  function handleChange(event) {
+    setVal(event.target.value)
+  }
 
   function handleFetchProjects() {
     fetchUserProjects();
@@ -73,7 +157,6 @@ export function ProjectsComponent({
           position: "bottom-left",
           render: () => <ToastBox message={"Project has been deleted"} />,
         });
-        handleFetchProjects();
       })
       .catch((error) => {
         toast({
@@ -100,15 +183,15 @@ export function ProjectsComponent({
         })
   }
 
-  useEffect(() => {
-    fetchValues()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  // useEffect(() => {
+  //   fetchValues()
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [id])
   
-  useEffect(() => {
-    handleFetchProjects();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   handleFetchProjects();
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   if (isLoading) return <FullPageSpinner />
   
@@ -142,7 +225,7 @@ export function ProjectsComponent({
             </Text>
           </Flex>
         </Box>
-        {projects && projects.length === 0 ? (
+        {projectList && projectList.length === 0 ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
@@ -201,8 +284,8 @@ export function ProjectsComponent({
               isInline
               marginTop="1rem"
             >
-              {projects &&
-                projects.map((item, index) => (
+              {projectList &&
+                projectList.map((item, index) => (
                   <Flex
                     borderRadius="5px"
                     border="1px solid #eee"
@@ -216,33 +299,31 @@ export function ProjectsComponent({
                     borderWidth="1px"
                   >
                     <Box flex={4} padding="5px 10px">
-                      <Flex
-                        marginBottom="1rem"
-                        alignItems="center"
-                        justifyContent="space-between"
-                      >
-                        <Text
-                          fontSize="1rem"
-                          marginBottom="0"
-                          fontWeight="normal"
-                          lineHeight="1.5"
+                      <Flex justifyContent="center">
+                        <Badge
+                          variantColor="purple"
+                          fontSize="0.8rem"
+                          textTransform="capitalize"
+                          borderRadius="10px"
                         >
-                          {item.project_name}
-                        </Text>
-                        <Box>
-                          <Badge
-                            variantColor="purple"
-                            fontSize="0.8rem"
-                            textTransform="capitalize"
-                            borderRadius="10px"
-                          >
-                            {item.value_name}
-                          </Badge>
-                        </Box>
+                          {item.value_name}
+                        </Badge>
                       </Flex>
+                      {/* <Divider /> */}
+                      <Flex
+                        marginBottom="0.625rem"
+                      >
+                        <EditProjectText
+                          name={item.project_name}
+                          val={val}
+                          onChange={handleChange}
+                        />
+                      </Flex>
+                      <Divider />
                       <Flex
                         justifyContent="space-between"
                         alignItems="center"
+                        marginBottom="0.625rem"
                       >
                         <Link
                           variant="link"
@@ -256,14 +337,6 @@ export function ProjectsComponent({
                         >
                           View project
                         </Link>
-                        <Button
-                          variant="ghost"
-                          variantColor="teal"
-                          fontSize="14px"
-                          fontWeight="medium"
-                          padding="0"
-                          paddingBottom="0"
-                        >Edit project</Button>
                         <IconButton
                           aria-label="delete"
                           variant="ghost"
@@ -278,7 +351,7 @@ export function ProjectsComponent({
                             border: "none",
                             background: "transparent",
                           }}
-                          onClick={() => handleDeleteProject(`${item.id}`)}
+                          onClick={() => handleDeleteProject(item.id)}
                         />
                       </Flex>
                     </Box>
