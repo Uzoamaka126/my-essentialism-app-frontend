@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { ModalContainer } from "../../../../Components/ModalContainer";
 import {
   ModalFooter,
-  Flex,
   FormLabel,
   FormControl,
   Input,
   Button,
   ModalBody,
-  Switch,
   Select
 } from "@chakra-ui/core";
 import { getState } from "../../../../Utilities/localStorage";
@@ -19,8 +17,6 @@ export function AddProjectModal({
   onClose, 
   values, 
   onSubmit,
-  // onSwitchChange,
-  // switchValue,
   addSuccess,
   addError,
   addLoading
@@ -69,22 +65,6 @@ export function AddProjectModal({
             ))}
           </Select>
         </FormControl>
-        {/* <Flex align="center" marginTop="1.25rem">
-          <Switch
-            size="sm"
-            color="teal"
-            id="email-alerts"
-            value={switchValue}
-            onChange={onSwitchChange}
-          />
-          <FormLabel
-            marginLeft="0.625rem"
-            htmlFor="email-alerts"
-            fontSize="0.8rem"
-          >
-            Mark as important
-          </FormLabel>
-        </Flex> */}
       </ModalBody>
       <ModalFooter
         fontWeight="medium"

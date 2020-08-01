@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -21,16 +21,59 @@ import { AddProjectModal } from "./add.modal";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
 import { getState } from "../../../../Utilities/localStorage";
 
+const id = getState() && getState().data.id; 
 
-export function EditProjectText({ name, val, onChange }) {
+export function EditProjectText({ name, onSubmit, projectId, value_id }) {
+  const toast = useToast();
+  const [nameValue, setNameValue] = useState(name || "");
   
-  function EditableControls({ isEditing, onSubmit, onCancel, onRequestEdit }) {
+  function handleChange(value) {
+    setNameValue(value);
+  }
+  
+  function EditableControls({
+    isEditing,
+    onSubmit,
+    onCancel,
+    onRequestEdit,
+    nameValue,
+    value_id
+  }) {
+    
+    const [isLoading, setIsLoading] = useState(false);
+
+    function handleUpdateProject(data, id) {
+      setIsLoading(true);
+      onSubmit(data, id)
+        .then((response) => {
+          toast({
+            position: "bottom-left",
+            render: () => <ToastBox message={"Project updated"} />,
+          });
+          setIsLoading(false);
+          onCancel();
+        })
+        .catch(() => {
+          toast({
+            position: "bottom-left",
+            render: () => <ToastBox message={"Unable to update project"} />,
+          });
+          setIsLoading(false);
+        })
+  }
+
     return isEditing ? (
       <ButtonGroup justifyContent="center" size="sm">
         <Button
           variant="ghost" variantColor="teal" fontSize="14px"
           padding="0"
           paddingBottom="0"
+          onClick={() => handleUpdateProject({
+            user_id: id,
+            value_id: value_id,
+            project_name: nameValue
+          })}
+          isLoading={isLoading}
         >
           Save
         </Button>
@@ -63,9 +106,8 @@ export function EditProjectText({ name, val, onChange }) {
   return (
     <Editable
       textAlign="center"
-      defaultValue={name}
-      value={name}
-      onChange={onChange}
+      value={nameValue}
+      onChange={handleChange}
       fontSize="14px"
       isPreviewFocusable={false}
       submitOnBlur={false}
@@ -79,7 +121,12 @@ export function EditProjectText({ name, val, onChange }) {
         <>
           <EditablePreview marginLeft="0" marginRight="0" />
           <EditableInput marginLeft="0" marginRight="0" />
-          <EditableControls {...props} />
+          <EditableControls
+            onSubmit={onSubmit}
+            nameValue={nameValue}
+            value_id={value_id}
+            {...props}
+          />
         </>
       )}
     </Editable>
@@ -103,24 +150,17 @@ export function ProjectsComponent({
   deleteUserProject
 }) {
 
-  const id = getState() && getState().data.id; 
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   const toast = useToast();
 
-  const [projectList, setProjectList] = React.useState([
+  const [projectList, setProjectList] = useState([
     {
       id: 1,
       value_name: "creativity",
       project_name: "Start something"
     }
   ])
-
-  const [val, setVal] = React.useState("");
-
-  function handleChange(event) {
-    setVal(event.target.value)
-  }
 
   function handleFetchProjects() {
     fetchUserProjects();
@@ -130,24 +170,6 @@ export function ProjectsComponent({
         render: () => <ToastBox message={"Unable to fetch project"} />,
       });
     }
-  }
-
-  function handleUpdateProject(data) {
-    updateUserProject(data)
-      .then((response) => {
-        toast({
-          position: "bottom-left",
-          render: () => <ToastBox message={"New project added"} />,
-        });
-        onClose();
-        handleFetchProjects();
-        })
-        .catch(() => {
-          toast({
-            position: "bottom-left",
-            render: () => <ToastBox message={"Unable to add project"} />,
-          });
-        })
   }
 
   function handleDeleteProject(id) {
@@ -315,8 +337,9 @@ export function ProjectsComponent({
                       >
                         <EditProjectText
                           name={item.project_name}
-                          val={val}
-                          onChange={handleChange}
+                          onSubmit={updateUserProject}
+                          projectId={item.id}
+                          value_id={item.value_id}
                         />
                       </Flex>
                       <Divider />
