@@ -43,9 +43,10 @@ export function LoginForm({ isLoading, onSubmit }) {
           }}
         >
           <FormControl
+            marginBottom="1.2rem"
             isInvalid={!!formik.touched.email && !!formik.errors.email}
           >
-            <FormLabel htmlFor="email">Email address</FormLabel>
+            <FormLabel htmlFor="email" marginBottom="0.3rem">Email address</FormLabel>
             <Input
               type="email"
               name="email"
@@ -58,10 +59,11 @@ export function LoginForm({ isLoading, onSubmit }) {
             <FormErrorMessage>{formik.errors.email}</FormErrorMessage>{" "}
           </FormControl>
           <FormControl
+            paddingBottom="0rem"
             isInvalid={!!formik.touched.password && !!formik.errors.password}
-            marginBottom="1rem"
+            marginBottom="1.2rem"
           >
-            <FormLabel htmlFor="password">Password</FormLabel>
+            <FormLabel htmlFor="password" marginBottom="0.1rem">Password</FormLabel>
             <Input
               type="password"
               background="#f7fbfb"

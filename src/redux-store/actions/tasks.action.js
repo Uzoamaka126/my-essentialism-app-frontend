@@ -6,8 +6,7 @@ export const fetchTasks = (id) => async (dispatch) => {
     dispatch({ type: types.GET_TASKS_STARTED });
     try {
         const response = await client().get(`/tasks/${id}`);
-        // debugger;
-        dispatch({ type: types.GET_TASKS_SUCCEEDED, payload: response.data.data.projects });
+        dispatch({ type: types.GET_TASKS_SUCCEEDED, payload: response.data.data.tasks });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.GET_TASKS_FAILED, payload: err.response });

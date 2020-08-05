@@ -6,17 +6,13 @@ const menuList = [
   { title: "Onboarding", url: "/dashboard/home" },
   {
     title: "My Values",
-    subItems: [
-      { title: "Current", url: "/dashboard/values" },
-      { title: "Top Three", url: "/dashboard/values/top-three" },
-    ],
-    url: "/dashboard/values/me",
+    url: "/dashboard/values",
   },
   {
     title: "Projects",
-    subItems: [
-      { title: "Current", url: "/dashboard/projects" },
-    ],
+    // subItems: [
+    //   { title: "Current", url: "/dashboard/projects" },
+    // ],
     url: "/dashboard/projects",
   },
   {

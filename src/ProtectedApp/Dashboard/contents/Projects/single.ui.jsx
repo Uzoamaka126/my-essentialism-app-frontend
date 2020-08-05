@@ -162,6 +162,9 @@ export function SingleProjectComponent({
       </Flex>
     )
   }
+
+  console.log(tasks);
+  
   return (
     <Box>
       <Box>

@@ -37,7 +37,8 @@ export function EditProjectText({ name, onSubmit, projectId, value_id }) {
     onCancel,
     onRequestEdit,
     nameValue,
-    value_id
+    value_id,
+    projectId
   }) {
     
     const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +73,7 @@ export function EditProjectText({ name, onSubmit, projectId, value_id }) {
             user_id: id,
             value_id: value_id,
             project_name: nameValue
-          })}
+          }, projectId)}
           isLoading={isLoading}
         >
           Save
@@ -125,6 +126,7 @@ export function EditProjectText({ name, onSubmit, projectId, value_id }) {
             onSubmit={onSubmit}
             nameValue={nameValue}
             value_id={value_id}
+            projectId={projectId}
             {...props}
           />
         </>
@@ -154,13 +156,13 @@ export function ProjectsComponent({
   
   const toast = useToast();
 
-  const [projectList, setProjectList] = useState([
-    {
-      id: 1,
-      value_name: "creativity",
-      project_name: "Start something"
-    }
-  ])
+  // const [projectList, setProjectList] = useState([
+  //   {
+  //     id: 1,
+  //     value_name: "creativity",
+  //     project_name: "Start something"
+  //   }
+  // ])
 
   function handleFetchProjects() {
     fetchUserProjects();
@@ -205,15 +207,15 @@ export function ProjectsComponent({
         })
   }
 
-  // useEffect(() => {
-  //   fetchValues()
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id])
+  useEffect(() => {
+    fetchValues()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
-  // useEffect(() => {
-  //   handleFetchProjects();
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    handleFetchProjects();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) return <FullPageSpinner />
   
@@ -247,7 +249,7 @@ export function ProjectsComponent({
             </Text>
           </Flex>
         </Box>
-        {projectList && projectList.length === 0 ? (
+        {projects && projects.length === 0 ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
@@ -264,6 +266,7 @@ export function ProjectsComponent({
                 fontWeight="medium"
                 borderColor="#e91e63"
                 _hover={{ background: "none" }}
+                onClick={onOpen}
               >
                 Add a project
               </Button>
@@ -306,8 +309,8 @@ export function ProjectsComponent({
               isInline
               marginTop="1rem"
             >
-              {projectList &&
-                projectList.map((item, index) => (
+              {projects &&
+                projects.map((item, index) => (
                   <Flex
                     borderRadius="5px"
                     border="1px solid #eee"
