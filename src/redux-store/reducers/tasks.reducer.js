@@ -25,6 +25,7 @@ export const tasksReducer = (state = initialState, action) => {
                 isAddLoading: false,
                 add_task_success: true,
                 add_task_error: false,
+                tasks: [...state.tasks, action.payload]
             }
         case types.ADD_TASK_FAILED:
             return {

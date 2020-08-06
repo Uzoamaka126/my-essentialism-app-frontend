@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import { Box, Text, Stack, Flex, Icon } from "@chakra-ui/core";
+import { getState } from '../../../Utilities/localStorage'
 
 const StyledSidebar = styled(Box)`
   a {
@@ -19,7 +20,9 @@ const StyledSidebar = styled(Box)`
   }
 `;
 
-export function SideBar({ menuList, user, username }) {
+export function SideBar({ menuList }) {
+  const { username } = getState() && getState().data;
+
   const [selected, setSelected] = React.useState({
     isToggled: true,
     title: "Overview",
@@ -53,7 +56,7 @@ export function SideBar({ menuList, user, username }) {
       width="215px"
     >
       <Box marginLeft="2.125rem" marginY="1rem">
-        <Text color="#1a1f36" fontSize="1.3rem" fontWeight="medium">
+        <Text color="#1a1f36" fontSize="1rem" fontWeight="medium">
           {username}
         </Text>
       </Box>
@@ -76,9 +79,9 @@ export function SideBar({ menuList, user, username }) {
                   {/* <Image src={src} size="4" /> */}
                   <Text
                     ml="1.125rem"
-                    fontSize="xs"
-                    fontWeight="bold"
-                    textTransform="uppercase"
+                    fontSize="0.875rem"
+                      fontWeight="400"
+                    textTransform="capitalize"
                     minWidth="6.5625rem"
                     color={title === t ? "#6554c0" : "#1a1f36"}
                     _hover={{ textDecoration: "none" }}
@@ -123,10 +126,10 @@ export function SideBar({ menuList, user, username }) {
                     {/* <Image src={src} size="4" /> */}
                     <Text
                       ml="1.125rem"
-                      fontSize="xs"
-                      fontWeight="bold"
+                      fontSize="0.875rem"
+                      fontWeight="400"
                       minWidth="6.5625rem"
-                      textTransform="uppercase"
+                      textTransform="capitaize"
                     >
                       {t}
                     </Text>

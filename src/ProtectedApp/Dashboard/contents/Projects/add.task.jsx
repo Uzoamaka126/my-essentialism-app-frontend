@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
+import { getState } from '../../../../Utilities/localStorage'
 import {
-  Box,
-  Flex,
-  Text,
     FormControl,
     Input,
     Button,
   ButtonGroup
 } from "@chakra-ui/core";
 
-export function TaskForm({ addTask, onHide, onSubmit }) {
+export function TaskForm({ addTask, onHide, onSubmit, isLoading }) {
+    let { id } = useParams();
+    const { id: userId } = getState() && getState().data;
+
     const [taskValue, setTaskValue] = useState("");
 
     function handleChange(event) {
         setTaskValue(event.target.value);
     }
+
+    console.log(id, userId)
 
     return (
         <form
@@ -38,7 +42,14 @@ export function TaskForm({ addTask, onHide, onSubmit }) {
                     isDisabled={taskValue === null}
                     variant="solid"
                     variantColor="teal"
-                    onClick={() => onSubmit({ name: taskValue })}
+                    onClick={() => onSubmit(
+                        { 
+                            userId: userId, 
+                            project_id: id, 
+                            task_name: taskValue 
+                        }
+                    )}
+                    isLoading={isLoading}
                 >
                     Add
                 </Button>

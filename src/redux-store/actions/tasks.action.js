@@ -18,7 +18,7 @@ export const addTask = (task) => async (dispatch) => {
     dispatch({ type: types.ADD_TASK_STARTED });
     try {
         const response = await client().post(`/tasks/create`, task);
-        dispatch({ type: types.ADD_TASK_SUCCEEDED, payload: response.data });
+        dispatch({ type: types.ADD_TASK_SUCCEEDED, payload: response.data.data.task });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.ADD_TASK_FAILED, payload: err.response });

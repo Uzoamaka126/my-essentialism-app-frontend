@@ -156,14 +156,6 @@ export function ProjectsComponent({
   
   const toast = useToast();
 
-  // const [projectList, setProjectList] = useState([
-  //   {
-  //     id: 1,
-  //     value_name: "creativity",
-  //     project_name: "Start something"
-  //   }
-  // ])
-
   function handleFetchProjects() {
     fetchUserProjects();
     if (error && isLoading === false) {
