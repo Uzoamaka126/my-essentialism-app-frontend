@@ -10,19 +10,24 @@ import {
   ListItem,
   Link,
   Icon,
-  VisuallyHidden,
-  ControlBox,
+  IconButton,
   Button,
   useToast,
-  Checkbox
+  Checkbox,
+  useDisclosure
 } from "@chakra-ui/core";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
 import { TaskForm } from "./add.task";
+import { EditTaskModal } from "./edit.task";
 
 
 function CustomCheckbox({ label, date, id }) {
   const [checked, setChecked] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // var formattedDate = format(date, 'DD/MMMM/YYYY')
+
+  console.log(date);
   function handleCheckAndDelete(event) {
     setChecked(true);
     if(checked) {
@@ -31,63 +36,54 @@ function CustomCheckbox({ label, date, id }) {
   }
   
   return (
-  //   <label style={{ display: "flex" }}>
-  //     <VisuallyHidden as="input" type="checkbox"  />
-  //     <ControlBox
-  //       borderWidth="1px"
-  //       size="16px"
-  //       rounded="sm"
-  //       borderRadius="20px"
-  //       padding="10px"
-  //       _checked={{ 
-  //         bg: "white", 
-  //         color: "teal.500", 
-  //         borderColor: "teal.500", 
-  //         textDecoration: "line-through" 
-  //       }}
-  //       _focus={{ borderColor: "teal", boxShadow: "none" }}
-        
-        
-  //     >
-  //       <Icon name="check" size="16px" />
-  //     </ControlBox>
-  //     <Flex width="100%" as="span" verticalAlign="top" ml={3}>
-  //       <Box>
-  //         <Text as="span" color="#333" fontSize="0.875rem" fontWeight="normal">
-  //           {label}
-  //         </Text>
-  //         <Box>
-  //           {date && (
-  //             <Text fontSize="0.75rem" color="#f44336">
-  //               {format(date, 'DD/MMMM/YYYY')}
-  //             </Text>
-  //           )}
-  //         </Box>
-  //       </Box>
-  //       <Box>{/* Action Buttons here */}</Box>
-  //     </Flex>
-  //   </label>
-  // );
-    <Flex flexDirection="column">
-        <Checkbox 
-          size="md" 
-          variantColor="teal"
-          isChecked={checked}
-          textDecoration={checked ? "line-through" : "none"}
-          onChange={handleCheckAndDelete}
-          fontSize="1rem" 
-          fontWeight="normal"
-        >
-          {label}
-        </Checkbox>
+    <>
+      <Flex justifyContent="space-between">
+        <Flex flexDirection="column">
+          <Checkbox 
+            size="md" 
+            variantColor="teal"
+            isChecked={checked}
+            textDecoration={checked ? "line-through" : "none"}
+            onChange={handleCheckAndDelete}
+            fontSize="1rem" 
+            fontWeight="normal"
+          >
+            {label}
+          </Checkbox>
+          <Box>
+            {date && (
+              <Text fontSize="0.75rem" color="#f44336">
+                {/* {formattedDate} */}
+              </Text>
+            )}
+          </Box>
+        </Flex>
         <Box>
-          {date && (
-            <Text fontSize="0.75rem" color="#f44336">
-              {format(date, 'DD/MMMM/YYYY')}
-            </Text>
-          )}
+          <IconButton
+            aria-label="delete"
+            variant="ghost"
+            icon="edit"
+            height="fit-content"
+            variantColor="gray"
+            _selected={{
+              border: "none",
+              background: "transparent",
+            }}
+            _focus={{
+              border: "none",
+              background: "transparent",
+            }}
+            onClick={onOpen}
+          />
         </Box>
-      </Flex>
+        </Flex>
+      <EditTaskModal 
+        id={id} 
+        label={label} 
+        isOpen={isOpen} 
+        onClose={onClose}
+      />
+  </>
   )
 }
 
@@ -107,15 +103,9 @@ export function SingleProjectComponent({
 }) {
   let { id } = useParams();
   const toast = useToast();
+
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [hideAddBtn, setHideAddBtn] = useState(false);
-  const [list, setList] = useState([
-    {
-      id: 1,
-      name: "Lorem ipsium wan tin wan tin",
-      date: "Nov 2019"
-    }
-  ]);
 
   function handleShowTaskForm() {
     setShowTaskForm(true);
@@ -161,10 +151,7 @@ export function SingleProjectComponent({
   }
 
   function handleDeleteTask(id, event) {
-    if (event.target.checked) {
-      const newList = list.filter(item => item.id !== id)
-      setList(newList);
-    }
+    
   }
   
   useEffect(() => {
@@ -254,7 +241,7 @@ export function SingleProjectComponent({
         ) : (
           <Stack marginTop="2rem" paddingX="1.25rem">
             {tasks && tasks.map((item, index) => (
-                <ListItem
+              <ListItem
                 listStyleType="none"
                 borderBottom="1px solid #f0f0f0"
                 paddingY="10px"

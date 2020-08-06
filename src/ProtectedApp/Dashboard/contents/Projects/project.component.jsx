@@ -326,7 +326,6 @@ export function ProjectsComponent({
                           {item.value_name}
                         </Badge>
                       </Flex>
-                      {/* <Divider /> */}
                       <Flex
                         marginBottom="0.625rem"
                       >
