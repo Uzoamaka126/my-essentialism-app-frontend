@@ -35,7 +35,7 @@ export function Navbar(props) {
       </Box>
       <Stack isInline paddingRight="1rem">
         <NavLink to="/" label="Home" />
-        <NavLink to="/about" label="About Us" />
+        {/* <NavLink to="/about" label="About Us" /> */}
         {token ? (
           <NavLink to="/dashboard/home" label="Go to Dashboard" />
         ) : (
