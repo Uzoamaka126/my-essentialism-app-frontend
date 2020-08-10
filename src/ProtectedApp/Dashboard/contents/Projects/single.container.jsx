@@ -19,8 +19,11 @@ function SingleProject(props) {
     addTask,
     fetchTasks,
     deleteTask,
-    updateTask  ,
-    tasks      
+    updateTask,
+    tasks,
+    isTaskLoading ,
+    task_success,
+    task_error     
 } = props;
 
     return (
@@ -36,6 +39,9 @@ function SingleProject(props) {
         deleteTask={deleteTask}
         updateTask={updateTask}
         tasks={tasks}
+        isTaskLoading={isTaskLoading}
+        task_error={task_error}
+        task_success={task_success}
         {...props}
       />
     )
@@ -48,7 +54,10 @@ const mapStateToProps = (store) => {
     project_error: store.projects.project_error,
     error_message: store.projects.error_message,
     project: store.projects.project,
-    tasks: store.tasks.tasks
+    tasks: store.tasks.tasks,
+    isTaskLoading: store.tasks.isLoading,
+    task_success: store.tasks.task_success,
+    task_error: store.tasks.task_error
   };
 };
 

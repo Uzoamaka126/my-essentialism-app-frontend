@@ -89,7 +89,7 @@ export function LoginForm({ isLoading, onSubmit }) {
               border="none"
               width="100%"
               isLoading={!!isLoading}
-              isDisabled={!formik.values.email && !formik.values.password}
+              isDisabled={(!formik.values.email && !formik.values.password ? true : false)}
               onClick={() => onSubmit(formik.values)}
             >
               Login

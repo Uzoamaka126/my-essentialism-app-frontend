@@ -9,7 +9,7 @@ const initialState = {
     task_error: false,
     isAddLoading: false,
     add_task_success: false,
-    add_task_error: false
+    add_task_error: false,
 };
 
 export const tasksReducer = (state = initialState, action) => {
@@ -54,22 +54,44 @@ export const tasksReducer = (state = initialState, action) => {
                 task_error: false,
                 error_message: action.payload,
             }
+        case types.UPDATE_TASK_STARTED:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case types.UPDATE_TASK_SUCCEEDED:
+            return {
+                ...state,
+                task_success: true,
+                isLoading: false,
+                task_error: false
+            }
+        case types.UPDATE_TASK_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                task_error: true,
+                error_message: action.payload
+            }
         case types.DELETE_TASK_STARTED:
             return {
                 ...state,
                 isLoading: true
             }
         case types.DELETE_TASK_SUCCEEDED:
+            const { id } = action.payload;
+
             return {
                 ...state,
                 task_success: true,
                 isLoading: false,
+                tasks: state.tasks.filter(item => item.id !== id)
             }
         case types.DELETE_PROJECT_FAILED:
             return {
                 ...state,
                 isLoading: false,
-                task_error: false,
+                task_error: true,
                 error_message: action.payload
             }
         default:

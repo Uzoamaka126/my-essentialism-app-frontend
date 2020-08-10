@@ -113,7 +113,9 @@ export function SignupForm({ isLoading, onSubmit }) {
             width="100%"
             isLoading={!!isLoading}
             disabled={
-              !formik.values.email && !formik.values.username && !formik.values.password
+              (!formik.values.email && !formik.values.username && !formik.values.password)
+              ? true
+              : false
             }
             onClick={() => onSubmit(formik.values)}
           >

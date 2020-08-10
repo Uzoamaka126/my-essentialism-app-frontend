@@ -14,13 +14,16 @@ export function EditTaskModal({
   isOpen,
   onClose,
   id,
-  label
+  label,
+  onEdit,
+  projectId,
+  isLoading,
 }) {
 
   const { id: userId } = getState() && getState().data;
   const[value, setValue] = useState(label || '');
 
-  function handleUpdateTask(event) {
+  function handleChange(event, data) {
       setValue(event.target.value);
   }
  
@@ -36,7 +39,7 @@ export function EditTaskModal({
           <FormLabel fontSize="0.8rem">Name of Project</FormLabel>
           <Input 
             value={value} 
-            onChange={handleUpdateTask} 
+            onChange={handleChange} 
           />
         </FormControl>
       </ModalBody>
@@ -55,6 +58,13 @@ export function EditTaskModal({
           fontSize="0.8rem"
           variant="solid"
           mr={3}
+          isLoaidng={isLoading}
+          onClick={() => onEdit({
+            id: id,
+            userId: userId,
+            project_id: projectId,
+            task_name: value
+          })}
         >
           Update
         </Button>

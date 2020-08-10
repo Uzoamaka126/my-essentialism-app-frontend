@@ -1,7 +1,7 @@
 import * as types from "../actions/action.types";
 import { client } from "../../Utilities/axiosHelper";
 
-// @TODO: Fetch list of tasks based on user and project id
+// @TODO: Fetch list of tasks based on project id
 export const fetchTasks = (id) => async (dispatch) => {
     dispatch({ type: types.GET_TASKS_STARTED });
     try {
@@ -29,8 +29,8 @@ export const addTask = (task) => async (dispatch) => {
 export const deleteTask = (id) => async (dispatch) => {
     dispatch({ type: types.DELETE_TASK_STARTED });
     try {
-        const response = await client().delete(`/task/delete/${id}`);
-        dispatch({ type: types.DELETE_TASK_SUCCEEDED, payload: response.data });
+        await client().delete(`/task/delete/${id}`);
+        dispatch({ type: types.DELETE_TASK_SUCCEEDED, payload: { id: id } });
     } catch (err) {
         console.log(err);
         dispatch({ type: types.DELETE_TASK_FAILED, payload: err.response });

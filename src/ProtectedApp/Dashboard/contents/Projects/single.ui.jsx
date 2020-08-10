@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
-import format from 'date-fns/esm/format'
+// import format from 'date-fns/esm/format'
 import {
   Box,
   Flex,
@@ -21,18 +21,28 @@ import { TaskForm } from "./add.task";
 import { EditTaskModal } from "./edit.task";
 
 
-function CustomCheckbox({ label, date, id }) {
+function CustomCheckbox({ 
+  label, 
+  date, 
+  id, 
+  onDelete, 
+  onEdit, 
+  projectId,
+  isLoading
+}) {
   const [checked, setChecked] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // var formattedDate = format(date, 'DD/MMMM/YYYY')
 
   console.log(date);
+
   function handleCheckAndDelete(event) {
     setChecked(true);
-    if(checked) {
-
-    }
+    console.log(event)
+    // if(checked) {
+    //   onDelete(id);
+    // }
   }
   
   return (
@@ -82,6 +92,9 @@ function CustomCheckbox({ label, date, id }) {
         label={label} 
         isOpen={isOpen} 
         onClose={onClose}
+        onEdit={onEdit}
+        projectId={projectId}
+        isLoading={isLoading}
       />
   </>
   )
@@ -99,7 +112,10 @@ export function SingleProjectComponent({
   updateTask,
   fetchTasks,
   error_message,
-  tasks
+  tasks,
+  isTaskLoading,
+  task_error,
+  task_success
 }) {
   let { id } = useParams();
   const toast = useToast();
@@ -125,7 +141,7 @@ export function SingleProjectComponent({
 
   function handleFetchTasks(id) {
     fetchTasks(id);
-     if (project_error && isLoading === false) {
+     if (task_error && isLoading === false) {
       toast({
         position: "bottom-left",
         render: () => <ToastBox message={"Unable to fetch project"} />,
@@ -150,8 +166,25 @@ export function SingleProjectComponent({
       })
   }
 
-  function handleDeleteTask(id, event) {
-    
+  function handleDeleteTask(id) {
+    deleteTask(id)
+  }
+
+  function handleUpdateTask(data) {
+    updateTask(data)
+    .then((response) => {
+      handleFetchTasks(id);
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Task update successful"} />,
+      });
+    })
+    .catch(() => {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Task update failed"} />,
+      });
+    })
   }
   
   useEffect(() => {
@@ -159,8 +192,6 @@ export function SingleProjectComponent({
     handleFetchTasks(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
-  if (isLoading) return <FullPageSpinner />
 
   if (project_error || !project) {
     return (
@@ -193,7 +224,10 @@ export function SingleProjectComponent({
   }
 
   console.log(tasks);
-  
+
+  if (isLoading) return <FullPageSpinner />
+  if (isTaskLoading) return <FullPageSpinner />
+
   return (
     <Box>
       <Box>
@@ -250,8 +284,11 @@ export function SingleProjectComponent({
                 <CustomCheckbox
                   label={item.task_name}
                   date={item.createdAt}
-                    onSubmit={handleDeleteTask}
-                    id={item.id}
+                  onDelete={handleDeleteTask}
+                  id={item.id}
+                  onEdit={handleUpdateTask}
+                  projectId={id}
+                  isLoading={isLoading}
                 />
               </ListItem>
               ))}

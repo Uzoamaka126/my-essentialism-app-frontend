@@ -6,8 +6,8 @@ export function ToastBox({ message }) {
         <Box
             m={3}
             p={3}
-            bg="violet"
-            color="white"
+            bg="#d2eef3"
+            color="#007489"
             roundedLeft="4px"
             roundedRight="4px"
         >
