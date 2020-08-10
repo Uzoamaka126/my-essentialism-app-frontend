@@ -25,7 +25,7 @@ export const addTask = (task) => async (dispatch) => {
     }
 };
 
-// @TODO: Delete task based on user, project and task id
+// @TODO: Delete task based on a specific ask id
 export const deleteTask = (id) => async (dispatch) => {
     dispatch({ type: types.DELETE_TASK_STARTED });
     try {
