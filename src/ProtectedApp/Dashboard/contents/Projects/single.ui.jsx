@@ -57,6 +57,9 @@ function CustomCheckbox({
             onChange={handleCheckAndDelete}
             fontSize="1rem" 
             fontWeight="normal"
+            id="task"
+            name="task"
+            value={id}
           >
             {label}
           </Checkbox>
