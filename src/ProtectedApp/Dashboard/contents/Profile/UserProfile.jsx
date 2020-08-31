@@ -5,10 +5,14 @@ import {
     Flex,
     Text
   } from "@chakra-ui/core";
+  import { FullPageSpinner } from '../../../../Components/FullPageSpinner'
 
 
-  export function UserProfile({ user }) {
-     
+  export function UserProfile(props) {
+      const { profile, loading } = props; 
+
+      if (loading) return <FullPageSpinner />
+
       return (
           <Box width="100%">
               <Box width="40%" margin="3rem auto 2rem">
@@ -20,25 +24,27 @@ import {
                         Your Profile
                     </Heading>
                   <Box marginTop="3rem">
-                     <Flex>
+                     <Flex alignItems="baseline">
                         <Text 
                             color="#636363" 
                             fontSize="14px"
                             marginBottom="0.8rem"
+                            marginRight="0.625rem"
                         >
                             Username:
                         </Text>
-                         <Text>{user && user.username}</Text>
+                         <Text>{profile && profile.username}</Text>
                      </Flex>
-                     <Flex>
+                     <Flex alignItems="baseline">
                          <Text 
                             color="#636363" 
                             fontSize="14px"
                             marginBottom="0.8rem"
+                            marginRight="0.625rem"
                         >
                             Email Address:
                         </Text>
-                         <Text>{user && user.email}</Text>
+                         <Text>{profile && profile.email}</Text>
                      </Flex>
                   </Box>
               </Box>

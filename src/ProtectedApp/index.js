@@ -11,7 +11,7 @@ import { Dashboard } from "./Dashboard";
 import SingleProject from "./Dashboard/contents/Projects/single.container";
 import { clearAppState, getState } from "../Utilities/localStorage";
 import ProtectedRoute from "../Components/ProtectedRoute";
-import { Profile } from "./Dashboard/contents/Profile/Profile";
+import Profile  from "./Dashboard/contents/Profile/Profile";
 
 const ProtectedApp = (props) => {
   const { user, history, profile, fetchUserProfile } = props;

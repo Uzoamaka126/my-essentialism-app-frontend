@@ -31,8 +31,6 @@ export function Dashboard({
   logout,
   userInfo,
 }) {
-  
-  console.log(user);
 
   return (
     <>

@@ -13,11 +13,9 @@ import { fetchUserProfile } from "../../../../redux-store/actions/user.actions";
 import { getState } from '../../../../Utilities/localStorage';
 
 
-  export function Profile(props) {
-    console.log(props);
-    const { profile } = props;
+function Profile(props) {
+    const { profile , loading } = props;
     const { id } = getState().data;
-    // const [userData, setUserData] = useState({})
   
     useEffect(() => {
       fetchUserProfile(id);
@@ -53,7 +51,7 @@ import { getState } from '../../../../Utilities/localStorage';
         
             <TabPanels>
                 <TabPanel>
-                    <UserProfile profile={profile} />
+                    <UserProfile profile={profile} loading={loading} />
                 </TabPanel>
                 <TabPanel>
                     <ChangePassword />
@@ -63,10 +61,11 @@ import { getState } from '../../../../Utilities/localStorage';
       )
   }
 
-  const mapStateToProps = (store) => {
+const mapStateToProps = (store) => {
     return {
         profile: store.user.profile,
+        loading: store.user.loading
     };
-  };
-  
-  export default connect(mapStateToProps, { fetchUserProfile })(Profile);
+};
+
+export default connect(mapStateToProps, { fetchUserProfile })(Profile);
