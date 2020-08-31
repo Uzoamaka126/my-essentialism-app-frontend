@@ -19,7 +19,6 @@ const menuList = [
     title: "Settings",
     subItems: [
       { title: "Profile", url: "/dashboard/settings/profile" },
-      { title: "Change Password", url: "/dashboard/settings/password" },
     ],
     url: "/dashboard/settings",
   },

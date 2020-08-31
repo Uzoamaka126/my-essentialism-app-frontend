@@ -28,7 +28,7 @@ export const userProfileReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        profile: action.payload.data,
+        profile: action.payload,
       };
     case UPDATE_USER_PROFILE_SUCCEEDED:
       return {

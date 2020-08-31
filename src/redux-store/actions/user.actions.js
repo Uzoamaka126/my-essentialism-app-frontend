@@ -11,10 +11,9 @@ import { client } from "../../Utilities/axiosHelper";
 export const fetchUserProfile = (id) => async (dispatch) => {
   dispatch({ type: GET_USER_PROFILE_STARTED });
   try {
-    const response = await client().get(`/users/${id}`)
-    dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: response.data });
+    const response = await client().get(`/users/${id}`);
+    dispatch({ type: GET_USER_PROFILE_SUCCEEDED, payload: response.data.data });
   } catch (err) {
-    console.log(err.response);
     dispatch({ type: GET_USER_PROFILE_FAILED, payload: err });
   }
 };
@@ -24,7 +23,6 @@ export const updateUserProfile = (data) => async (dispatch) => {
     const response = await client().patch(`/users/edit`, data);
     dispatch({ type: UPDATE_USER_PROFILE_SUCCEEDED, payload: response.data });
   } catch (err) {
-    console.log(err);
       dispatch({ type: UPDATE_USER_PROFILE_FAILED, payload: err });
   }
 };

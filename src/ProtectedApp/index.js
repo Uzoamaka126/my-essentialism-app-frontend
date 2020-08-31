@@ -11,6 +11,7 @@ import { Dashboard } from "./Dashboard";
 import SingleProject from "./Dashboard/contents/Projects/single.container";
 import { clearAppState, getState } from "../Utilities/localStorage";
 import ProtectedRoute from "../Components/ProtectedRoute";
+import { Profile } from "./Dashboard/contents/Profile/Profile";
 
 const ProtectedApp = (props) => {
   const { user, history, profile, fetchUserProfile } = props;
@@ -58,6 +59,10 @@ const ProtectedApp = (props) => {
             path="/dashboard/onboarding"
             isUserLoggedIn={!!user}
             component={OnboardingComponent}
+          />
+           <ProtectedRoute
+            path="/dashboard/settings/profile"
+            component={Profile}
           />
         </Switch>
       </Dashboard>
