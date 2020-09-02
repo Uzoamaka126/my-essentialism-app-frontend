@@ -1,27 +1,12 @@
-# my-essentialism-app-frontend
-- Work-in-progress
+# my-essentialism-app-frontend (Work-in-progress)
+A web app that helps you keep track of values that you'll like to intentionally cultivate. Think of it as a check list for building values that you'd like to have.
 
-### [Key Features](#Key-Features)
+#### Built using React with Chakra-UI as main styling library. Other third party libraries include:
+* [date-fns](date-fns.org/)
 
-- users can view a list of values
-- users can select from the list of displayed values above
-- users can create projects based on the values selected
-- users can check projects as completed or not and have them immediately moved to a completed page
+#### Backend was built with NodeJs + PostgreSQL and is hosted on Heroku.
 
-## [Tech Stack](#Tech-Stack)
-
-[Front end built using:](#Front-end-built-using)
-
-- *React/Redux*
-- *Styled Components* 
-- ChakraUI
-
-[Front end deployed to `Netlify`](#Front-end-deployed-to-Netlify) 
-
-# [APIs](#APIs)
-
-- I used an api that I created and hosted on Heroku
-
+#### Deployed Link: [here](https://jolly-pasteur-2fc198.netlify.app/) 
 
 ## [Getting Started](#Getting-started)
 
