@@ -1,5 +1,5 @@
 # my-essentialism-app-frontend (Work-in-progress)
-A web app that helps you keep track of values that you'll like to intentionally cultivate. Think of it as a check list for building values that you'd like to have.
+A web app that helps you keep track of values that you'll like to intentionally cultivate. Think of it as a check list for building the values that you'd like to have.
 
 Built using React with Chakra-UI as main styling library. Other third party libraries include:
 * [date-fns](date-fns.org/)
