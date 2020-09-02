@@ -1,12 +1,12 @@
 # my-essentialism-app-frontend (Work-in-progress)
 A web app that helps you keep track of values that you'll like to intentionally cultivate. Think of it as a check list for building values that you'd like to have.
 
-#### Built using React with Chakra-UI as main styling library. Other third party libraries include:
+Built using React with Chakra-UI as main styling library. Other third party libraries include:
 * [date-fns](date-fns.org/)
 
-#### Backend was built with NodeJs + PostgreSQL and is hosted on Heroku.
+Backend was built with NodeJs + PostgreSQL and is hosted on Heroku.
 
-#### Deployed Link: [here](https://jolly-pasteur-2fc198.netlify.app/) 
+Deployed Link: [here](https://jolly-pasteur-2fc198.netlify.app/) 
 
 ## [Getting Started](#Getting-started)
 
