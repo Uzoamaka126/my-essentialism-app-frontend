@@ -12,7 +12,7 @@ A web app that helps you keep track of values that you'll like to intentionally 
 Built using React with Chakra-UI as main styling library. Other third party libraries include:
 * [date-fns](date-fns.org/)
 
-Backend was built with NodeJs + PostgreSQL and is hosted on Heroku.
+Backend was built with NodeJs + PostgreSQL and is hosted on Heroku. You can view the code here: [here](https://github.com/Uzoamaka126/essentialism-backend) 
 
 Deployed Link: [here](https://jolly-pasteur-2fc198.netlify.app/) 
 
