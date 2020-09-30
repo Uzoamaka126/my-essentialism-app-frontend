@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 import { Route, Switch } from "react-router-dom";
-import Home from "./PublicApp/Home";
+import Home from "./PublicApp/Home_copy";
 import { customTheme } from "./Components/Styles/Global/Theme";
 import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
