@@ -1,27 +1,25 @@
-# my-essentialism-app-frontend
-- Work-in-progress
+# my-essentialism-app-frontend (Work-in-progress)
+A web app that helps you keep track of values that you'll like to intentionally cultivate. Think of it as a check list for building the values that you'd like to have. 
 
-### [Key Features](#Key-Features)
+### Functionalities
+* An onboarding feature for users.
+* Users can view created projects if any.
+* Users can create, modify or delete a selected project.
+* Users can create, modify or delete tasks under a project.
+* Users can set deadlines on a task (future implementation).
+* Users can turn on/off notifications (future implementation).
 
-- users can view a list of values
-- users can select from the list of displayed values above
-- users can create projects based on the values selected
-- users can check projects as completed or not and have them immediately moved to a completed page
+Built using React with Chakra-UI as main styling library. Other third party libraries include:
+* [date-fns](date-fns.org/)
 
-## [Tech Stack](#Tech-Stack)
+Backend was built with NodeJs + PostgreSQL and is hosted on Heroku. You can view the code here: [here](https://github.com/Uzoamaka126/essentialism-backend) 
 
-[Front end built using:](#Front-end-built-using)
+Deployed Link: [here](https://jolly-pasteur-2fc198.netlify.app/) 
 
-- *React/Redux*
-- *Styled Components* 
-- ChakraUI
-
-[Front end deployed to `Netlify`](#Front-end-deployed-to-Netlify) 
-
-# [APIs](#APIs)
-
-- I used an api that I created and hosted on Heroku
-
+## Roadmap for this application
+* Add a notification feature when a task is close to set deadline.
+* Add a password reset feature
+* Implement a mobile view.
 
 ## [Getting Started](#Getting-started)
 
