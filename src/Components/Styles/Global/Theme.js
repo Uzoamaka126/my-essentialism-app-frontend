@@ -27,8 +27,5 @@ import { theme } from "@chakra-ui/core";
     icons: {
       ...theme.icons,
       // ...customIcons,
-     },
-     height: {
-      
-    }
+     }
   }

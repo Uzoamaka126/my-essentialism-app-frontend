@@ -3,7 +3,8 @@ import { Box } from "@chakra-ui/core";
 import { SignupForm } from "./SignupForm";
 import { useToast, useDisclosure } from "@chakra-ui/core";
 import { ToastBox } from "../../../Components";
-import { RegistrationSuccess } from "./RegistrationSuccess";
+// import { RegistrationSuccess } from "./RegistrationSuccess";
+// import bg from '../../../Components/assets/auth_background.svg'
 
 export function SignupComponent({
   register,
@@ -32,20 +33,31 @@ export function SignupComponent({
   }
 
   return (
-    <>
-      <Box background="#efefef" height="100%" border="1px solid red">
-        <Box width="100%" margin="0 auto" maxWidth="448px">
-          <SignupForm
-            isLoading={isLoading}
-            onSubmit={handleSubmit}
-            // error_message={error_message}
-          />
+    // <>
+     <Box height="100%">
+        <Box border="1px solid blue">
+          <Box
+            width="450px"
+            position="relative"
+            right="0"
+            left="0"
+            max-width="95%"
+            margin="5rem auto"
+            perspective="1000px"
+            border="1px solid red"
+          >
+            <SignupForm
+              isLoading={isLoading}
+              onSubmit={handleSubmit}
+              // error_message={error_message}
+            />
+          </Box>
         </Box>
-      </Box>
-      <RegistrationSuccess
-        isOpen={isOpen}
-        history={history}
-      />
-    </>
+     </Box>
+    //   {/* <RegistrationSuccess
+    //     isOpen={isOpen}
+    //     history={history}
+    //   /> */}
+    // {/* </> */}
   );
 }

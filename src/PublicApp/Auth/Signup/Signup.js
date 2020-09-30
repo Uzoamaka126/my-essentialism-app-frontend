@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { register } from "../../../redux-store/actions/auth";
 import { SignupComponent } from "./Signup.component";
+import { Box } from "@chakra-ui/core";
+import bg from '../../../Components/assets/auth_background.svg'
 
 function Signup(props) {
   const {
@@ -14,7 +16,18 @@ function Signup(props) {
   } = props;
 
   return (
-    <SignupComponent
+   <Box bgImage={`url(${bg})`} 
+      minHeight="100%" 
+      margin="0"
+      backgroundSize="cover"
+      position="fixed"
+      left="0"
+      right="0"
+      top="0"
+      bottom="0"
+      overflow="auto"
+  >
+      <SignupComponent
       isLoading={isLoading}
       error_message={error_message}
       register={register}
@@ -23,6 +36,7 @@ function Signup(props) {
       register_success={register_success}
       {...props}
     />
+   </Box>
   );
 }
 

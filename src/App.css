@@ -1,68 +1,7 @@
-.navbar {
-  min-height: 60px;
-  width: 100%;
-  /* background: #6C63FF; */
-  margin-bottom: 30px;
-}
-
-.left-nav span {
-  font-size: large;
-  /* color: #6C63FF; */
-  color: #e06045;
-
-}
-
-.right-nav a {
-  color: #0e0e0e;
-  text-decoration: none;
-  padding: 14px 16px;
-  font-weight: 400;
-}
-
-.right-nav a:hover {
-  border-bottom: 2px solid #e06045;
-  color: #e06045;
-}
-
-.first-column {
-  text-align: left;
-  height: 100%;
-  /* align-self: center; */
-}
-
-.first-column h1 {
-  color: #0e0e0e;
-  margin: 1.7rem 0;
-  font-size: 2.8rem;
-}
-
-.first-column p {
-  margin-bottom: 2.5rem;
-  text-align: justify;
-}
-
-.second-column {
-  max-height: 300px;
-  height: 300px;
-
-  /* width:  */
+html, body, #app, #app>div {
+    height: 100%
 };
 
-.second-column .bg-img {
-  width: 100%!important;
-  height: 100%!important;
-}
-
-/* Sign up and login navbar */
-.auth-nav {
-  width: 100%;
-  min-height: 60px;
-  background: #e06045;
-  color: #fff;
-}
-
-.red.c-white {
-  color: #fff!important;
-}
-
-
+body > #root > div {
+    height: 100vh;
+  }

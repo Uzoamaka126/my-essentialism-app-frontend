@@ -33,11 +33,14 @@ export function SignupForm({ isLoading, onSubmit }) {
   });
 
   return (
-    <Box width="100%" maxWidth="448px">
+    <Box width="100%" maxWidth="448px"
+
+    
+    >
       <form
         style={{
           width: "100%",
-          margin: "10rem auto 0",
+          margin: "auto",
           background: "#fff",
           border: "1px solid rgb(248, 248, 248)",
           padding: "1.5rem 1rem",
