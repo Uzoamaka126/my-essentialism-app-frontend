@@ -35,16 +35,15 @@ export function SignupComponent({
   return (
     // <>
      <Box height="100%">
-        <Box border="1px solid blue">
+        <Box>
           <Box
             width="450px"
             position="relative"
             right="0"
             left="0"
             max-width="95%"
-            margin="5rem auto"
-            perspective="1000px"
-            border="1px solid red"
+            margin="5rem auto 1rem"
+            // perspective="1000px"
           >
             <SignupForm
               isLoading={isLoading}
