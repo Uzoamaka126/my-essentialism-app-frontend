@@ -43,7 +43,6 @@ export function SignupForm({ isLoading, onSubmit }) {
           margin: "auto",
           background: "#fff",
           border: "1px solid rgb(248, 248, 248)",
-          // padding: "1.5rem 1rem",
           boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
           borderRadius: "10px",
           padding: "1.5rem 2rem"
@@ -116,12 +115,8 @@ export function SignupForm({ isLoading, onSubmit }) {
           isInvalid={!!formik.touched.password || !!formik.errors.password}
           marginBottom="1rem"
         >
-          {/* <FormLabel marginBottom="0rem" htmlFor="password">
-            Password
-          </FormLabel> */}
           <Input
             type="password"
-            // background="#f7fbfb"
             name="password"
             variant="flushed"
             id="password"

@@ -10,7 +10,10 @@ import {
   Input,
   Box,
   FormErrorMessage,
+  Flex,
+  Image,
 } from "@chakra-ui/core";
+import lock from "../../../Components/assets/lock.svg";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -36,22 +39,49 @@ export function LoginForm({ isLoading, onSubmit }) {
         <form
           style={{
             width: "100%",
-            margin: "10rem auto 0",
+            margin: "auto",
             background: "#fff",
             border: "1px solid rgb(248, 248, 248)",
-            padding: "1.5rem 1rem",
+            boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
+            borderRadius: "10px",
+            padding: "1.5rem 2rem",
           }}
         >
+          <Box>
+            <Flex
+              margin="1.2rem auto 2rem"
+              flexDirection="column"
+              alignItems="center"
+              width="100%"
+            >
+              <Flex
+                borderRadius="50%"
+                width="80px"
+                height="80px"
+                padding="10px"
+                border="1px solid #8DAAA5"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Image width="40px" height="40px" src={lock} />
+              </Flex>
+              <Text marginTop="0.8rem" fontSize="12px">
+                Login
+              </Text>
+            </Flex>
+          </Box>
           <FormControl
-            marginBottom="1.2rem"
+            marginBottom="0.5rem"
             isInvalid={!!formik.touched.email && !!formik.errors.email}
           >
-            <FormLabel htmlFor="email" marginBottom="0.3rem">Email address</FormLabel>
+            {/* <FormLabel htmlFor="email" marginBottom="0.3rem">Email address</FormLabel> */}
             <Input
               type="email"
               name="email"
-              background="#f7fbfb"
               id="email"
+              variant="flushed"
+              placeholder="email"
+              focusBorderColor="blue.500"
               aria-describedby="email-helper-text"
               onChange={formik.handleChange}
               value={formik.values.email}
@@ -61,40 +91,42 @@ export function LoginForm({ isLoading, onSubmit }) {
           <FormControl
             paddingBottom="0rem"
             isInvalid={!!formik.touched.password && !!formik.errors.password}
-            marginBottom="1.2rem"
+            marginBottom="0.5rem"
           >
-            <FormLabel htmlFor="password" marginBottom="0.1rem">Password</FormLabel>
+            {/* <FormLabel htmlFor="password" marginBottom="0.1rem">Password</FormLabel> */}
             <Input
               type="password"
-              background="#f7fbfb"
               name="password"
+              variant="flushed"
               id="password"
+              placeholder="password"
+              focusBorderColor="blue.500"
               aria-describedby="password-helper-text"
               onChange={formik.handleChange}
               value={formik.values.password}
             />
             <FormErrorMessage>{formik.errors.password}</FormErrorMessage>{" "}
           </FormControl>
-          <Box width="100%">
+          <Box width="100%" marginTop="2rem">
             <Button
-              size="lg"
+              size="md"
               variant="solid"
               marginBottom="0.875rem"
               background="#035257"
               color="#fff"
               _hover={{
-                background:"#035257",
-                color: "#fff"
+                background: "#035257",
+                color: "#fff",
               }}
               border="none"
               width="100%"
               isLoading={!!isLoading}
-              isDisabled={(!formik.values.email && !formik.values.password ? true : false)}
+              // isDisabled={(!formik.values.email && !formik.values.password ? true : false)}
               onClick={() => onSubmit(formik.values)}
             >
               Login
             </Button>
-            <Text>
+            <Text fontSize="10px">
               Don't have an account?
               <Link
                 style={{

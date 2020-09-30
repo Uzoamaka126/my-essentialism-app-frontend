@@ -3,8 +3,6 @@ import { Box } from "@chakra-ui/core";
 import { SignupForm } from "./SignupForm";
 import { useToast, useDisclosure } from "@chakra-ui/core";
 import { ToastBox } from "../../../Components";
-// import { RegistrationSuccess } from "./RegistrationSuccess";
-// import bg from '../../../Components/assets/auth_background.svg'
 
 export function SignupComponent({
   register,
