@@ -11,7 +11,7 @@ export function SignupComponent({
   isLoading,
   history,
 }) {
-  const { isOpen, onOpen } = useDisclosure();
+  const { onOpen } = useDisclosure();
   const toast = useToast();
 
   function handleSubmit(values) {
