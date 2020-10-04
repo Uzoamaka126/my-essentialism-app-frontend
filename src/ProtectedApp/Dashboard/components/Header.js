@@ -17,10 +17,10 @@ export function Header({ logout }) {
   return (
     <Box
       height="60px"
-      // background="#e3e8ee"
       background="#fff"
       borderLeft="solid 1px rgba(0,0,0,.05)"
       padding="0.625rem 0"
+      border="1px solid #E0E2E2"
     >
       <Flex justifyContent="flex-end">
         <Stack isInline spacing={2} alignItems="center" paddingRight="2rem">

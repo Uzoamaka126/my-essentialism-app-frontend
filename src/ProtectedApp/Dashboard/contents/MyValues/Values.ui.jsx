@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Search } from "../../../../Components/Search";
 import {
   Image,
   Flex,
@@ -18,7 +17,6 @@ import EmptyImage from "../../../../Components/assets/empty.svg";
 
 export function CurrentValuesComponent({ values, history }) {
   const [myValuesList, setMyValuesList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   function handleAddValues(values) {
@@ -27,38 +25,37 @@ export function CurrentValuesComponent({ values, history }) {
     onClose();
   }
 
-  function handleValuesSearch(query) {
-    setSearchQuery(query);
+  // function handleValuesSearch(query) {
+  //   setSearchQuery(query);
 
-    if (searchQuery) {
-      const searchResult = myValuesList.filter((item) =>
-        item.label.toLowerCase().startsWith(searchQuery.toLowerCase())
-      );
-      setMyValuesList(searchResult);
-      console.log(searchResult, searchQuery);
-    } else {
-      setMyValuesList(myValuesList);
-    }
-  }
+  //   if (searchQuery) {
+  //     const searchResult = myValuesList.filter((item) =>
+  //       item.label.toLowerCase().startsWith(searchQuery.toLowerCase())
+  //     );
+  //     setMyValuesList(searchResult);
+  //     console.log(searchResult, searchQuery);
+  //   } else {
+  //     setMyValuesList(myValuesList);
+  //   }
+  // }
 
   return (
     <Box background="#fff">
       <Box>
-        <Box borderBottom="1px solid rgba(0,0,0,.05)">
-          <Flex
-            padding="1rem 0"
-            justifyContent="space-between"
-            paddingLeft="1.25rem"
-            paddingRight="1.25rem"
-          >
-            <Text color="" fontSize="1.2rem" fontWeight="medium">
-              My Values
+        <Box borderBottom="1px solid #E0E2E2" paddingY="1.25rem" paddingRight="2rem">
+          <Flex paddingX="1rem" justifyContent="space-between">
+            <Text color="#34403E" fontSize="20px" fontWeight="medium">
+              Top Three Values
             </Text>
-            <Search
-              value={searchQuery}
-              placeholder="Search for values"
-              onChange={handleValuesSearch}
-            />
+            <Text color="#34403E" fontSize="1.2rem" fontWeight="medium">
+              Week 45
+            </Text>
+          </Flex>
+          <Flex paddingX="1rem" justifyContent="space-between">
+            <Text color="#556663" fontSize="0.8rem">(select three values you’d like to cultivate this week)</Text>
+            <Text color="rgb(167,23,23,1)" fontSize="0.8rem" fontWeight="medium">
+              Sun 20th - Sat 27th
+            </Text>
           </Flex>
         </Box>
         {myValuesList && !myValuesList.length ? (
@@ -72,12 +69,12 @@ export function CurrentValuesComponent({ values, history }) {
               subheading="Click on the button below to add values to your list"
             >
               <Button
-                variant="outline"
-                color="#e91e63"
+                variant="solid"
+                color="#fff"
+                background="#025559"
                 fontSize="0.875rem"
                 fontWeight="medium"
-                borderColor="#e91e63"
-                _hover={{ background: "none" }}
+                _hover={{ background: "#e91e63" }}
                 onClick={onOpen}
               >
                 Add values
@@ -102,11 +99,11 @@ export function CurrentValuesComponent({ values, history }) {
                 borderColor="#e91e63"
                 _hover={{ background: "none" }}
                 onClick={onOpen}
+                _disabled={myValuesList.length >= 3 ? true : false}
               >
                 Add values
               </Button>
             </Flex>
-            <Text>No of Values: {myValuesList && myValuesList.length}</Text>
             <Stack
               flexWrap="wrap"
               width="fit-content"
