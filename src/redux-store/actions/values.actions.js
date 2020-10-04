@@ -11,9 +11,27 @@ export const fetchValues = () => async dispatch => {
             payload: response.data
         })
     } catch(error) {
-        console.log(error);
         dispatch({
             type: types.GET_VALUES_FAILED,
+            payload: error
+        })
+    }
+}
+
+export const fetchTopValues = (id) => async dispatch => {
+    dispatch({
+        type: types.GET_TOP_VALUES_STARTED
+    });
+    try {
+        const response = await client().get(`/values/fetch/${id}`);
+        dispatch({
+            type: types.GET_TOP_VALUES_SUCCEEDED,
+            payload: response.data
+        });
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: types.GET_TOP_VALUES_FAILED,
             payload: error
         })
     }
