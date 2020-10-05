@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { ModalContainer } from "../../../../../Components/ModalContainer";
-import { ModalBody, Box, Button } from "@chakra-ui/core";
-import Select from "react-select";
-export function AddValueModal({ values, isOpen, onClose, handleAddValues }) {
-  const [optionValue, setOptionValue] = useState(null);
-  const [inputValue, setInputValue] = useState("");
-  const newArr = values.map((value) => ({
-    label: value.name,
-    value: value.id,
-  }));
+import { ModalBody, Box, Button, Select } from "@chakra-ui/core";
+// import Select from "react-select";
+// import { getState } from "../../../../../Utilities/localStorage";
+
+
+export function AddValueModal({ isOpen, onClose, handleAddValues, values }) {
+  const [optionValue, setOptionValue] = useState("");
+  // const { id } = getState() && getState().data;
+
+  function handleChange(event) {
+    setOptionValue(event.target.value)
+  }
+
+  // function handleAddTopValues(name) {
+  //   handleAddValues({
+  //     userId: id,
+  //     name: name
+  //   })
+  // }
+
+  console.log(values);
 
   return (
     <ModalContainer
@@ -19,21 +31,11 @@ export function AddValueModal({ values, isOpen, onClose, handleAddValues }) {
       showCloseButton
     >
       <ModalBody>
-        <Select
-          name="values-form-field"
-          value={optionValue}
-          onChange={(value) => {
-            setOptionValue(value);
-          }}
-          inputValue={inputValue}
-          onInputChange={(inputValue) => setInputValue(inputValue)}
-          isMulti
-          options={newArr}
-          isClearable={false}
-          backspaceRemovesValue
-          removeSelected={false}
-          isSearchable
-        />
+        <Select placeholder="Select option" value={optionValue} onChange={handleChange}>
+          {values && values.map((item, index) => (
+             <option key={index} value={item.value_name}>{item.value_name}</option>
+          ))}
+        </Select>
         <Box margin="1.25rem 0 2rem">
           <Button
             variant="solid"
@@ -42,7 +44,7 @@ export function AddValueModal({ values, isOpen, onClose, handleAddValues }) {
             fontSize="0.875rem"
             fontWeight="medium"
             borderColor="#e91e63"
-            onClick={() => handleAddValues(optionValue)}
+            // onClick={handleAddTopValues(optionValue)}
           >
             Add Values
           </Button>

@@ -5,7 +5,8 @@ const initialState = {
   isLoading: false,
   error: "",
   topThreeValues: [],
-  error_maessage: ""
+  error_maessage: "",
+  success: false
 };
 
 export const valueReducer = (state = initialState, action) => {
@@ -36,12 +37,14 @@ export const valueReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        success: true,
         topThreeValues: action.payload,
       };
     case types.GET_TOP_VALUES_FAILED:
       return {
         ...state,
         isLoading: false,
+        success: false,
         error: action.payload,
       };
     case types.ADD_TOP_VALUES_STARTED:
@@ -53,12 +56,14 @@ export const valueReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        success: true,
         topThreeValues: [...state.topThreeValues, action.payload],
       };
     case types.ADD_TOP_VALUES_FAILED:
       return {
         ...state,
         isLoading: false,
+        success: false,
         error: action.payload,
       };
     case types.DELETE_PROJECT_STARTED:

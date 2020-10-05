@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect } from "react";
 import {
-  Image,
   Flex,
   Box,
   Text,
@@ -9,35 +7,30 @@ import {
   useDisclosure,
   IconButton,
   Button,
-  Link,
 } from "@chakra-ui/core";
 import { AddValueModal } from "./components/values.modal";
 import { EmptyPage } from "../../../../Components/EmptyPage";
 import EmptyImage from "../../../../Components/assets/empty.svg";
 
-export function CurrentValuesComponent({ values, history }) {
-  const [myValuesList, setMyValuesList] = useState([]);
+export function CurrentValuesComponent({ 
+  isLoading,
+  error_message,
+  fetchTopValues,
+  values,
+  success,
+  fetchValues,
+  topThreeValues,
+  createTopValues
+ }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  function handleAddValues(values) {
-    setMyValuesList((prev) => [...values]);
-    // then sort the array after, then close the modal function
-    onClose();
-  }
 
-  // function handleValuesSearch(query) {
-  //   setSearchQuery(query);
+  useEffect(() => {
+    fetchValues()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  //   if (searchQuery) {
-  //     const searchResult = myValuesList.filter((item) =>
-  //       item.label.toLowerCase().startsWith(searchQuery.toLowerCase())
-  //     );
-  //     setMyValuesList(searchResult);
-  //     console.log(searchResult, searchQuery);
-  //   } else {
-  //     setMyValuesList(myValuesList);
-  //   }
-  // }
+  console.log(values);
 
   return (
     <Box background="#fff">
@@ -58,7 +51,7 @@ export function CurrentValuesComponent({ values, history }) {
             </Text>
           </Flex>
         </Box>
-        {myValuesList && !myValuesList.length ? (
+        {topThreeValues && !topThreeValues.length ? (
           <Box width="100%" marginTop="3rem">
             <EmptyPage
               height="auto"
@@ -71,6 +64,7 @@ export function CurrentValuesComponent({ values, history }) {
               <Button
                 variant="solid"
                 color="#fff"
+                leftIcon="add"
                 background="#025559"
                 fontSize="0.875rem"
                 fontWeight="medium"
@@ -99,7 +93,7 @@ export function CurrentValuesComponent({ values, history }) {
                 borderColor="#e91e63"
                 _hover={{ background: "none" }}
                 onClick={onOpen}
-                _disabled={myValuesList.length >= 3 ? true : false}
+                _disabled={values.length >= 3 ? true : false}
               >
                 Add values
               </Button>
@@ -111,14 +105,13 @@ export function CurrentValuesComponent({ values, history }) {
               spacing={6}
               isInline
             >
-              {myValuesList &&
-                myValuesList.map((item, index) => (
+              {topThreeValues &&
+                topThreeValues.map((item, index) => (
                   <Flex
                     borderRadius="5px"
                     // boxShadow="0 6px 12px 0 rgba(51,51,51,0.1)"
                     marginX="0.625rem"
                     border="1px solid #e8f5f9"
-                    //   alignItems="center"
                     height="auto"
                     maxHeight="200px"
                     padding="15px 20px 5px"
@@ -127,9 +120,6 @@ export function CurrentValuesComponent({ values, history }) {
                     background="#fff"
                     key={index}
                   >
-                    <Box alignItems="center" flex={1}>
-                      <Image src={item.src} alt="" width="50px" height="50px" />
-                    </Box>
                     <Box flex={4}>
                       <Text
                         fontSize="1.2rem"
@@ -138,25 +128,13 @@ export function CurrentValuesComponent({ values, history }) {
                         lineHeight="1.5"
                         marginTop="0.625rem"
                       >
-                        {item.label}
+                        Name here
                       </Text>
                       <Flex
                         justifyContent="space-between"
                         alignItems="flex-end"
                         marginTop="1.5rem"
                       >
-                        <Link
-                          variant="link"
-                          color="#3bb75e"
-                          fontSize="14px"
-                          fontWeight="medium"
-                          padding="0"
-                          paddingBottom="0"
-                          as={RouterLink}
-                          to={`/dashboard/values/me/current/${item.value}`}
-                        >
-                          View Projects
-                        </Link>
                         <IconButton
                           aria-label="delete"
                           variant="ghost"
@@ -172,7 +150,7 @@ export function CurrentValuesComponent({ values, history }) {
           </Box>
         )}
         <AddValueModal
-          handleAddValues={handleAddValues}
+          handleAddValues={createTopValues}
           values={values}
           isOpen={isOpen}
           onClose={onClose}

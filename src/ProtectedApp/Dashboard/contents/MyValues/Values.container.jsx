@@ -1,35 +1,51 @@
-import React from 'react';
-import { CurrentValuesComponent } from './Values.ui';
-export function MyValues(props) {
-    return <CurrentValuesComponent values={props.values} {...props} />
+import React from "react";
+import { connect } from "react-redux";
+import { CurrentValuesComponent } from "./Values.ui";
+import {
+  fetchTopValues,
+  fetchValues,
+  createTopValues
+} from "../../../../redux-store/actions/values.actions";
+
+function MyValues(props) {
+  const {
+    fetchTopValues,
+    isLoading,
+    error_message,
+    topThreeValues,
+    success,
+    fetchValues,
+    values,
+    createTopValues
+  } = props;
+
+  return (
+    <CurrentValuesComponent
+      success={success}
+      error_message={error_message}
+      fetchTopValues={fetchTopValues}
+      topThreeValues={topThreeValues}
+      isLoading={isLoading}
+      fetchValues={fetchValues}
+      values={values}
+      createTopValues={createTopValues}
+      {...props}
+    />
+  );
 }
 
-MyValues.defaultProps = {
-    values: [
-        {
-            id: 1,
-            name: "Athletic Ability",
-        },
-        {
-            id: 2,
-            name: "Arts & Literature",
-        },
-        {
-            id: 3,
-            name: "Body Image",
-        },
-        {
-            id: 4,
-            name: "Career",
+const mapStateToProps = (store) => {
+  return {
+    isLoading: store.values.isLoading,
+    success: store.values.success,
+    error_message: store.values.error_message,
+    topThreeValues: store.values.topThreeValues,
+    values: store.values.values,
+  };
+};
 
-        },
-        {
-            id: 5,
-            name: "Creativity",
-        },
-        {
-            id: 6,
-            name: "Kindness & Generosity",
-        }
-    ]
-}
+export default connect(mapStateToProps, {
+  fetchTopValues,
+  fetchValues,
+  createTopValues
+})(MyValues);

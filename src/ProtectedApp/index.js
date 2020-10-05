@@ -5,7 +5,7 @@ import { logout } from "../redux-store/actions/auth";
 import { fetchUserProfile } from "../redux-store/actions/user.actions";
 import DashboardHome from "./Dashboard/contents/Home/DashboardHome";
 import { OnboardingComponent } from "./Dashboard/contents/Home/onboarding.component";
-import { MyValues } from "./Dashboard/contents/MyValues/Values.container";
+import MyValues from "./Dashboard/contents/MyValues/Values.container";
 import Projects from "./Dashboard/contents/Projects/project.container";
 import { Dashboard } from "./Dashboard";
 import SingleProject from "./Dashboard/contents/Projects/single.container";
