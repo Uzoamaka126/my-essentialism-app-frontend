@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Image, Link, Button, Stack } from "@chakra-ui/core";
+import { Box, Flex, Text, Image, Link, Stack } from "@chakra-ui/core";
 import BgImg from "../Components/assets/big-shoes.png";
 import { Link as RouterLink } from "react-router-dom";
 import { getToken } from "../Utilities/localStorage";
