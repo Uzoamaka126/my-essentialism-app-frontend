@@ -7,6 +7,7 @@ import Logo from "../Components/assets/Logo.svg";
 import Select from "../Components/assets/select_values.svg";
 import Create from "../Components/assets/create.svg";
 import Tick from "../Components/assets/Tick_Off.svg";
+import Family from "../Components/assets/family-values.svg";
 
 function NavLink({ to, label }) {
   return (
@@ -142,8 +143,13 @@ export default function Home(props) {
         >
           How Essentialism Works
         </Text>
-        <Stack isInline spacing={10} align="center" paddingX="50px"
-        marginTop="40px">
+        <Stack
+          isInline
+          spacing={10}
+          align="center"
+          paddingX="50px"
+          marginTop="40px"
+        >
           <ImageAndText
             alt="woman selecting stuff"
             src={Select}
@@ -163,6 +169,44 @@ export default function Home(props) {
             label="Tick off projects when you are done with them"
           />
         </Stack>
+      </Box>
+      <Box>
+        <Flex paddingY="100px" paddingX="100px">
+          <Flex width="40%" flexDirection="column">
+            <Text
+              fontSize="30px"
+              color="#585858"
+              fontWeight="semibold"
+              // lineHeight="60px"
+              textAlign="left"
+            >
+              A task manager for cultivating your values
+            </Text>
+            <Link
+              as={RouterLink}
+              to="/signup"
+              bg="#2D7992"
+              marginTop="30px"
+              color="#fff"
+              _hover={{
+                border: "1px solid #2D7992",
+                bg: "#fff",
+                color: "#2D7992",
+                textDecoration: "none",
+              }}
+              padding="1.2rem 0.5rem"
+              textAlign="center"
+              borderRadius="5px"
+              maxWidth="250px"
+
+            >
+              Sign up
+            </Link>
+          </Flex>
+          <Box width="40%">
+            <Image width="100%" height="auto" src={Family} alt="picture of a family" />
+          </Box>
+        </Flex>
       </Box>
     </Box>
   );
