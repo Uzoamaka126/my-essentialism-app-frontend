@@ -2,25 +2,19 @@ import React, { useState } from "react";
 import { ModalContainer } from "../../../../../Components/ModalContainer";
 import { ModalBody, Box, Button, Select } from "@chakra-ui/core";
 // import Select from "react-select";
-// import { getState } from "../../../../../Utilities/localStorage";
 
 
-export function AddValueModal({ isOpen, onClose, handleAddValues, values }) {
+export function AddValueModal({ isOpen, onClose, handleAddValues, values, id }) {
   const [optionValue, setOptionValue] = useState("");
-  // const { id } = getState() && getState().data;
 
   function handleChange(event) {
     setOptionValue(event.target.value)
   }
+  console.log(id);
 
-  // function handleAddTopValues(name) {
-  //   handleAddValues({
-  //     userId: id,
-  //     name: name
-  //   })
-  // }
-
-  console.log(values);
+  function handleAddTopValue(data) {
+    handleAddValues(data);
+  }
 
   return (
     <ModalContainer
@@ -44,7 +38,7 @@ export function AddValueModal({ isOpen, onClose, handleAddValues, values }) {
             fontSize="0.875rem"
             fontWeight="medium"
             borderColor="#e91e63"
-            // onClick={handleAddTopValues(optionValue)}
+            onClick={() => handleAddTopValue({value: optionValue})}
           >
             Add Values
           </Button>
