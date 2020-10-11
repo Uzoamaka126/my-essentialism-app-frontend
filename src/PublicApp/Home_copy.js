@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, Image, Link, Button, Stack } from "@chakra-ui/core";
-import BgImg from "../Components/assets/big-shoes-1.svg";
+import BgImg from "../Components/assets/big-shoes.png";
 import { Link as RouterLink } from "react-router-dom";
 import { getToken } from "../Utilities/localStorage";
 import Logo from "../Components/assets/Logo.svg";
@@ -8,6 +8,7 @@ import Select from "../Components/assets/select_values.svg";
 import Create from "../Components/assets/create.svg";
 import Tick from "../Components/assets/Tick_Off.svg";
 import Family from "../Components/assets/family-values.svg";
+import FooterBg from "../Components/assets/footer_bg.svg";
 
 function NavLink({ to, label }) {
   return (
@@ -16,10 +17,10 @@ function NavLink({ to, label }) {
       fontWeight="normal"
       color="#5A5A5A"
       _hover={{
-        borderBottom: "2px solid #5a5a5a",
+        borderBottom: "2px solid #025559",
         fontWeight: "medium",
         textDecoration: "none",
-        color: "#5A5A5A",
+        color: "#025559",
       }}
       as={RouterLink}
       to={to}
@@ -47,20 +48,36 @@ function Navbar(props) {
       <Box maxHeight="50px">
         <Image src={Logo} visibility="inherit" width="100%" height="100%" />
       </Box>
-      <Flex width="25%">
+      <Box width="25%">
         {token ? (
           <NavLink border="none" to="/dashboard/home" label="Go to Dashboard" />
         ) : (
           <>
             <NavLink border="none" to="/login" label="Login" />
-            <Button bg="#2D7992" color="#fff" _hover={{ bg: "teal" }} size="md">
-              <Link textDecoration="none" as={RouterLink} to="/signup">
-                Signup
-              </Link>
-            </Button>
+            <Link
+              as={RouterLink}
+              to="/signup"
+              bg="#025559"
+              color="#fff"
+              _hover={{
+                background: "teal",
+                color: "#fff",
+                textDecoration: "none",
+              }}
+              padding="10px 1rem"
+              marginLeft="20px"
+              display="inline-block"
+              textAlign="center"
+              borderRadius="5px"
+              fontSize="1rem"
+              transition="ease-in-out 0.3s all"
+              border="none"
+            >
+              Get Started
+            </Link>
           </>
         )}
-      </Flex>
+      </Box>
     </Flex>
   );
 }
@@ -117,9 +134,9 @@ export default function Home(props) {
               as={RouterLink}
               to="/signup"
               bg="#fff"
-              color="#2D7992"
-              border="1px solid #2D7992"
-              _hover={{ bg: "#2D7992", color: "#fff", textDecoration: "none" }}
+              color="#025559"
+              border="1px solid #025559"
+              _hover={{ bg: "#025559", color: "#fff", textDecoration: "none" }}
               padding="1.2rem 0.5rem"
               maxWidth="211px"
               textAlign="center"
@@ -129,7 +146,13 @@ export default function Home(props) {
             </Link>
           </Flex>
           <Box width="45%" paddingTop="1rem">
-            <Image src={BgImg} alt="background" width="100%" height="100%" />
+            <Image
+              objectFit="cover"
+              src={BgImg}
+              alt="background"
+              width="100%"
+              height="100%"
+            />
           </Box>
         </Flex>
       </Box>
@@ -185,28 +208,46 @@ export default function Home(props) {
             <Link
               as={RouterLink}
               to="/signup"
-              bg="#2D7992"
+              bg="#025559"
               marginTop="30px"
               color="#fff"
               _hover={{
-                border: "1px solid #2D7992",
-                bg: "#fff",
-                color: "#2D7992",
+                background: "teal",
+                color: "#fff",
                 textDecoration: "none",
               }}
+              transition="ease-in-out 0.3s all"
               padding="1.2rem 0.5rem"
               textAlign="center"
               borderRadius="5px"
               maxWidth="250px"
-
             >
               Sign up
             </Link>
           </Flex>
           <Box width="40%">
-            <Image width="100%" height="auto" src={Family} alt="picture of a family" />
+            <Image
+              width="100%"
+              height="auto"
+              src={Family}
+              alt="picture of a family"
+            />
           </Box>
         </Flex>
+      </Box>
+      <Box width="100%">
+        <Box width="100%" bgImage={`url(${FooterBg})`} backgroundSize="cover">
+          <Flex
+            justifyContent="space-between"
+            padding="50px"
+            alignItems="flex-end"
+          >
+            <Box maxHeight="50px" height="50px">
+              <Image objectFit="cover" src={Logo} width="100%" height="100%" />
+            </Box>
+            <Text fontSize="0.8rem">Copyright @2020</Text>
+          </Flex>
+        </Box>
       </Box>
     </Box>
   );
