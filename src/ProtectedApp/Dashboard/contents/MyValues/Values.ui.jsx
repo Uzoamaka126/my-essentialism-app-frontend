@@ -35,7 +35,11 @@ export function CurrentValuesComponent({
   return (
     <Box background="#fff">
       <Box>
-        <Box borderBottom="1px solid #E0E2E2" paddingY="1.25rem" paddingRight="2rem">
+        <Box
+          borderBottom="1px solid #E0E2E2"
+          paddingY="1.25rem"
+          paddingRight="2rem"
+        >
           <Flex paddingX="1rem" justifyContent="space-between">
             <Text color="#34403E" fontSize="20px" fontWeight="medium">
               Top Three Values
@@ -45,8 +49,14 @@ export function CurrentValuesComponent({
             </Text>
           </Flex>
           <Flex paddingX="1rem" justifyContent="space-between">
-            <Text color="#556663" fontSize="0.8rem">(select three values you’d like to cultivate this week)</Text>
-            <Text color="rgb(167,23,23,1)" fontSize="0.8rem" fontWeight="medium">
+            <Text color="#556663" fontSize="0.8rem">
+              (select three values you’d like to cultivate this week)
+            </Text>
+            <Text
+              color="rgb(167,23,23,1)"
+              fontSize="0.8rem"
+              fontWeight="medium"
+            >
               Sun 20th - Sat 27th
             </Text>
           </Flex>
@@ -68,7 +78,7 @@ export function CurrentValuesComponent({
                 background="#025559"
                 fontSize="0.875rem"
                 fontWeight="medium"
-                _hover={{ background: "#e91e63" }}
+                _hover={{ background: "#02393b" }}
                 onClick={onOpen}
               >
                 Add values
