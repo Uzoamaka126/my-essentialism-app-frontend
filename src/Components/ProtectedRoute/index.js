@@ -14,7 +14,6 @@ const ProtectedRoute = ({ component: Component, ...props }) => {
             <Component {...props} />
           );
         } else {
-          // Push the target route to local storage, to be accessed upon successful auth
           return (
             <Redirect
               to='/login'

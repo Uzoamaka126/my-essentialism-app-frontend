@@ -19,7 +19,12 @@ export function Wrapper({ children }) {
 
 export function Title({ heading }) {
   return (
-    <Text fontSize="1.3rem" color="rgb(0, 54, 72)" fontWeight="semibold">
+    <Text
+      fontSize="1.3rem"
+      color="rgb(0, 54, 72)"
+      fontWeight="semibold"
+      padding="0 1.2rem"
+    >
       {heading}
     </Text>
   );
@@ -27,7 +32,13 @@ export function Title({ heading }) {
 
 export function SubTitle({ text }) {
   return (
-    <Text color="#6666666" fontSize="1.1rem" fontWeight="normal">
+    <Text
+      color="#8f8f8f"
+      fontSize="1.1rem"
+      fontWeight="normal"
+      marginTop="1rem"
+      padding="0 1.2rem"
+    >
       {text}
     </Text>
   );

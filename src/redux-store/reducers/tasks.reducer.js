@@ -87,7 +87,7 @@ export const tasksReducer = (state = initialState, action) => {
                 isLoading: false,
                 tasks: state.tasks.filter(item => item.id !== id)
             }
-        case types.DELETE_PROJECT_FAILED:
+        case types.DELETE_TASK_FAILED:
             return {
                 ...state,
                 isLoading: false,

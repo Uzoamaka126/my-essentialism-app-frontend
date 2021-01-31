@@ -34,11 +34,17 @@ export function LoginForm({ isLoading, onSubmit }) {
 
   return (
     <Box>
-      <Box width="100%" margin="0 auto" maxWidth="448px">
+      <Flex
+        width="100%"
+        margin="0 auto"
+        maxWidth="448px"
+        justify="center"
+        align="center"
+      >
         <form
           style={{
             width: "100%",
-            margin: "auto",
+            margin: "70px auto",
             background: "#fff",
             border: "1px solid rgb(248, 248, 248)",
             boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
@@ -70,7 +76,7 @@ export function LoginForm({ isLoading, onSubmit }) {
             </Flex>
           </Box>
           <FormControl
-            marginBottom="0.5rem"
+            marginBottom="1.2rem"
             isInvalid={!!formik.touched.email && !!formik.errors.email}
           >
             {/* <FormLabel htmlFor="email" marginBottom="0.3rem">Email address</FormLabel> */}
@@ -90,7 +96,6 @@ export function LoginForm({ isLoading, onSubmit }) {
           <FormControl
             paddingBottom="0rem"
             isInvalid={!!formik.touched.password && !!formik.errors.password}
-            marginBottom="0.5rem"
           >
             {/* <FormLabel htmlFor="password" marginBottom="0.1rem">Password</FormLabel> */}
             <Input
@@ -106,7 +111,7 @@ export function LoginForm({ isLoading, onSubmit }) {
             />
             <FormErrorMessage>{formik.errors.password}</FormErrorMessage>{" "}
           </FormControl>
-          <Box width="100%" marginTop="2rem">
+          <Box width="100%" marginTop="3rem">
             <Button
               size="md"
               variant="solid"
@@ -125,7 +130,7 @@ export function LoginForm({ isLoading, onSubmit }) {
             >
               Login
             </Button>
-            <Text fontSize="10px">
+            <Text fontSize="12px" marginTop="0.8rem">
               Don't have an account?
               <Link
                 style={{
@@ -139,7 +144,7 @@ export function LoginForm({ isLoading, onSubmit }) {
             </Text>
           </Box>
         </form>
-      </Box>
+      </Flex>
     </Box>
   );
 }

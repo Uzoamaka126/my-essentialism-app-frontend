@@ -37,12 +37,6 @@ export function Dashboard({
       <Flex>
         <SideBar username={user && user.username} menuList={menuList} user={user} />
         <Content
-          width="100%"
-          height="calc(100vh -60px)"
-          overflow="auto"
-          position="fixed"
-          paddingLeft="215px"
-          backgroundColor="#fff"
           logout={logout}
           user={user}
         >
