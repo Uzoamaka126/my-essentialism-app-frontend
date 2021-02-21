@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { register } from "../../../redux-store/actions/auth";
+import { register } from "../../../redux-store/actions/auth.actions";
 import { SignupComponent } from "./Signup.component";
 import { Box } from "@chakra-ui/core";
 import bg from '../../../Components/assets/auth_background.svg'

@@ -36,6 +36,7 @@ export const login = (user) => async (dispatch) => {
       "https://essentialism-user-app.herokuapp.com/api/auth/login",
       user
     );
+    debugger;
     if (response.data.isSuccessful === true) {
       dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data });
       return true;
@@ -45,6 +46,9 @@ export const login = (user) => async (dispatch) => {
     } else if (response.data.isSuccessful === false) {
       dispatch({ type: types.LOGIN_FAILED });
       return false;
+    } else if (response.data.message === "User does not exist") {
+      dispatch({ type: types.LOGIN_FAILED });
+      return "You have no account with this email";
     } else {
       dispatch({ type: types.LOGIN_FAILED });
       return false;

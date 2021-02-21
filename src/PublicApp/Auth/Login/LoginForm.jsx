@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -11,8 +11,15 @@ import {
   FormErrorMessage,
   Flex,
   Image,
+  useToast,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  CloseButton
 } from "@chakra-ui/core";
 import lock from "../../../Components/assets/lock.svg";
+import { ToastBox } from "../../../Components";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -22,14 +29,37 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-export function LoginForm({ loginState, onSubmit }) {
+export function LoginForm({ loginState, login }) {
+  const [incorrectMsg, setIncorrectMsg] = useState("")
+  const toast = useToast();
+  const history = useHistory();
+
+  async function handleSubmit(values) {
+    const result = await login(values);
+    if (result) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Login successful!"} />,
+      });
+      history.push("/dashboard/home");
+    } else if (result === "You have no account with this email") {
+      setIncorrectMsg("You have no account with this email");
+    } else {
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <ToastBox message="An error occured. Please, try again" />
+        ),
+      });
+    }
+  }
   const formik = useFormik({
     validationSchema,
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: (values) => onSubmit(values),
+    onSubmit: (values) => handleSubmit(values),
   });
 
   return (
@@ -70,16 +100,29 @@ export function LoginForm({ loginState, onSubmit }) {
               >
                 <Image width="40px" height="40px" src={lock} />
               </Flex>
-              <Text marginTop="0.8rem" fontSize="12px">
+              <Text
+                marginTop="0.8rem"
+                fontSize="16px"
+                color="#333"
+                fontWeight="bold"
+              >
                 Login
               </Text>
             </Flex>
           </Box>
+          {incorrectMsg && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>
+                You have no account with this email!
+              </AlertTitle>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          )}
           <FormControl
             marginBottom="1.2rem"
             isInvalid={!!formik.touched.email && !!formik.errors.email}
           >
-            {/* <FormLabel htmlFor="email" marginBottom="0.3rem">Email address</FormLabel> */}
             <Input
               type="email"
               name="email"
@@ -125,7 +168,8 @@ export function LoginForm({ loginState, onSubmit }) {
               border="none"
               width="100%"
               isLoading={loginState === "loading"}
-              onClick={() => onSubmit(formik.values)}
+              isDisabled={!formik.values.email || !formik.values.password}
+              onClick={() => handleSubmit(formik.values)}
             >
               Login
             </Button>

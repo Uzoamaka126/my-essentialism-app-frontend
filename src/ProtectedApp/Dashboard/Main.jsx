@@ -3,7 +3,7 @@ import { Flex } from "@chakra-ui/core";
 import { Content, SideBar } from "./components";
 
 const menuList = [
-  { title: "Onboarding", url: "/dashboard/home" },
+  { title: "Onboarding", url: "/dashboard/get-started" },
   {
     title: "My Values",
     url: "/dashboard/values",

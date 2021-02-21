@@ -1,34 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useToast, Box } from "@chakra-ui/core";
-import { login } from "../../../redux-store/actions/auth";
-import { LoginComponent } from "./Login.component";
-import { ToastBox } from "../../../Components";
+import { Box } from "@chakra-ui/core";
+import { login } from "../../../redux-store/actions/auth.actions";
 import bg from "../../../Components/assets/auth_background.svg";
-import { useHistory } from "react-router-dom";
+import { LoginForm } from "./LoginForm";
 
 function Login(props) {
-  const toast = useToast();
-  const history = useHistory()
-
-  async function handleSubmit(values) {
-    const result = await login(values);
-    if (result) {
-      toast({
-        position: "bottom-left",
-        render: () => <ToastBox message={"Login successful!"} />,
-      });
-      history.push("/dashboard/home");
-    } else {
-      toast({
-        position: "bottom-left",
-        render: () => (
-          <ToastBox message="An error occured. Please, try again" />
-        ),
-      });
-    }
-  }
-
   return (
     <Box
       bgImage={`url(${bg})`}
@@ -41,7 +18,20 @@ function Login(props) {
       top="0"
       bottom="0"
     >
-      <LoginComponent onSubmit={handleSubmit} {...props} />
+      <Box height="100%">
+        <Box>
+          <Box
+            width="450px"
+            position="relative"
+            right="0"
+            left="0"
+            max-width="95%"
+            margin="5rem auto 1rem"
+          >
+            <LoginForm {...props} />
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 }
