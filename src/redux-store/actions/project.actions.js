@@ -1,4 +1,4 @@
-import * as types from "../actions/action.types";
+import * as types from "./types/projects.types";
 import { client } from "../../Utilities/axiosHelper";
 
 export const fetchUserProjects = () => async (dispatch) => {

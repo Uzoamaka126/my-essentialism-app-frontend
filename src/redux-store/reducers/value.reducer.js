@@ -1,4 +1,4 @@
-import * as types from "../actions/action.types";
+import * as types from "../actions/types/values.types";
 
 const initialState = {
   values: [],
@@ -28,63 +28,8 @@ export const valueReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
-    case types.GET_TOP_VALUES_STARTED:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case types.GET_TOP_VALUES_SUCCEEDED:
-      return {
-        ...state,
-        isLoading: false,
-        success: true,
-        topThreeValues: action.payload,
-      };
-    case types.GET_TOP_VALUES_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        success: false,
-        error: action.payload,
-      };
-    case types.ADD_TOP_VALUES_STARTED:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case types.ADD_TOP_VALUES_SUCCEEDED:
-      return {
-        ...state,
-        isLoading: false,
-        success: true,
-        topThreeValues: [...state.topThreeValues, action.payload],
-      };
-    case types.ADD_TOP_VALUES_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        success: false,
-        error: action.payload,
-      };
-    case types.DELETE_PROJECT_STARTED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-      };
-    case types.DELETE_PROJECT_SUCCEEDED:
-        const { id } = action.payload;
-      return {
-        ...state,
-        isLoading: false,
-        topThreeValues: state.topThreeValues.filter(item => item.id !== id)
-      };
-    case types.DELETE_PROJECT_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error_message: action.payload,
-      };
+    
+    
     default:
       return state;
   }

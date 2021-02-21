@@ -1,4 +1,4 @@
-import * as types from "./action.types";
+import * as types from "./types/auth.types";
 import Axios from "axios";
 
 export const register = (user) => async (dispatch) => {
@@ -9,10 +9,23 @@ export const register = (user) => async (dispatch) => {
       user
     );
     console.log(response);
-    dispatch({ type: types.REGISTER_SUCCEDED, payload: response.data });
+    if (response.data.isSuccessful === true) {
+      dispatch({ type: types.REGISTER_SUCCEDED, payload: response.data });
+      return true;
+    } else if (typeof response === "undefined") {
+      dispatch({ type: types.REGISTER_FAILED });
+      return false;
+    } else if (response.data.isSuccessful === false) {
+      dispatch({ type: types.REGISTER_FAILED });
+      return false;
+    } else {
+      dispatch({ type: types.REGISTER_FAILED });
+      return false;
+    }
   } catch (err) {
     console.log(err);
     dispatch({ type: types.REGISTER_FAILED, payload: err });
+    return false;
   }
 };
 
@@ -23,11 +36,22 @@ export const login = (user) => async (dispatch) => {
       "https://essentialism-user-app.herokuapp.com/api/auth/login",
       user
     );
-    console.log(response);
-    dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data });
+    if (response.data.isSuccessful === true) {
+      dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data });
+      return true;
+    } else if (typeof response === "undefined") {
+      dispatch({ type: types.LOGIN_FAILED });
+      return false;
+    } else if (response.data.isSuccessful === false) {
+      dispatch({ type: types.LOGIN_FAILED });
+      return false;
+    } else {
+      dispatch({ type: types.LOGIN_FAILED });
+      return false;
+    }
   } catch (err) {
-    console.log(err);
     dispatch({ type: types.LOGIN_FAILED, payload: err });
+    return false;
   }
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@chakra-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
-export default function HomeNavLink({ to, label }) {
+export default function HomeNavLink({ to, label, marginRight }) {
   return (
     <Link
       fontSize="1rem"
@@ -17,6 +17,7 @@ export default function HomeNavLink({ to, label }) {
       as={RouterLink}
       to={to}
       padding="8px 10px"
+      marginRight={marginRight}
     >
       {label}
     </Link>

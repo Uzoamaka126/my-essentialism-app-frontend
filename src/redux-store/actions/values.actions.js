@@ -1,55 +1,20 @@
-import { client } from '../../Utilities/axiosHelper';
-import * as types from './action.types';
+import { client } from "../../Utilities/axiosHelper";
+import * as types from "./types/values.types";
 
-export const fetchValues = () => async dispatch => {
+export const fetchValues = () => async (dispatch) => {
+  dispatch({
+    type: types.GET_VALUES_STARTED,
+  });
+  try {
+    const response = await client().get("/values");
     dispatch({
-        type: types.GET_VALUES_STARTED
+      type: types.GET_VALUES_SUCCEDED,
+      payload: response.data,
     });
-    try {
-        const response = await client().get('/values');
-        dispatch({
-            type: types.GET_VALUES_SUCCEDED,
-            payload: response.data
-        })
-    } catch(error) {
-        dispatch({
-            type: types.GET_VALUES_FAILED,
-            payload: error
-        })
-    }
-}
-
-export const fetchTopValues = (id) => async dispatch => {
+  } catch (error) {
     dispatch({
-        type: types.GET_TOP_VALUES_STARTED
+      type: types.GET_VALUES_FAILED,
+      payload: error,
     });
-    try {
-        const response = await client().get(`/values/fetch/${id}`);
-        dispatch({
-            type: types.GET_TOP_VALUES_SUCCEEDED,
-            payload: response.data
-        });
-    } catch (error) {
-        console.log(error);
-        dispatch({
-            type: types.GET_TOP_VALUES_FAILED,
-            payload: error
-        })
-    }
-}
-
-export const createTopValues = (value) => async (dispatch) => {
-    dispatch({
-        type: types.ADD_TOP_VALUES_STARTED
-    });
-    try {
-        const response = await client().post('/values/create', value);
-        dispatch({ type: types.ADD_TOP_VALUES_SUCCEEDED, payload: response});
-    } catch (error) {
-        console.log(error);
-        dispatch({
-            type: types.ADD_TOP_VALUES_FAILED,
-            payload: error
-        })
-    }
-}
+  }
+};

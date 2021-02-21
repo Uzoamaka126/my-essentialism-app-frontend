@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, Box, Image, Flex } from "@chakra-ui/core";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import {  Box, Image, Flex } from "@chakra-ui/core";
+import { useHistory } from "react-router-dom";
 import { getToken } from "../../../Utilities/localStorage";
 import HomeNavLink from "./NavLink";
 import Logo from "../../../Components/assets/Logo.svg";
@@ -41,7 +41,12 @@ export default function NavBar({ to, label }) {
             />
           ) : (
             <Flex alignContent="center">
-              <HomeNavLink border="none" to="/login" label="Login" />
+              <HomeNavLink
+                border="none"
+                to="/login"
+                label="Login"
+                marginRight="20px"
+              />
               <PrimaryButton
                 label="Sign up"
                 onClick={() => history.push("/signup")}

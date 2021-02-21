@@ -1,4 +1,4 @@
-import * as types from "../actions/action.types";
+import * as types from "../actions/types/projects.types";
 
 const initialState = {
   projects: [],

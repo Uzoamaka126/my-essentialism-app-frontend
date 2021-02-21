@@ -1,4 +1,4 @@
-import * as types from "../actions/action.types";
+import * as types from "./types/tasks.types";
 import { client } from "../../Utilities/axiosHelper";
 
 // @TODO: Fetch list of tasks based on project id
@@ -45,6 +45,6 @@ export const updateTask = (task) => async (dispatch) => {
         dispatch({ type: types.UPDATE_TASK_SUCCEEDED, payload: response.data });
     } catch (err) {
         console.log(err);
-        dispatch({ type: types.UPDATE_PROJECT_FAILED, payload: err.response });
+        dispatch({ type: types.UPDATE_TASK_FAILED, payload: err.response });
     }
 };

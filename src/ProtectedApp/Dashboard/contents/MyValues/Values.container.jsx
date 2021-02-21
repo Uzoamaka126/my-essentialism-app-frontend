@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { CurrentValuesComponent } from "./Values.ui";
+import { fetchValues } from "../../../../redux-store/actions/values.actions";
 import {
+  createTopValues,
   fetchTopValues,
-  fetchValues,
-  createTopValues
-} from "../../../../redux-store/actions/values.actions";
-
+} from "../../../../redux-store/actions/user.actions";
 function MyValues(props) {
   const {
     fetchTopValues,
@@ -16,7 +15,7 @@ function MyValues(props) {
     success,
     fetchValues,
     values,
-    createTopValues
+    createTopValues,
   } = props;
 
   return (
@@ -47,5 +46,5 @@ const mapStateToProps = (store) => {
 export default connect(mapStateToProps, {
   fetchTopValues,
   fetchValues,
-  createTopValues
+  createTopValues,
 })(MyValues);
