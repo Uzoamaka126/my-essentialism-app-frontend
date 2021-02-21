@@ -6,21 +6,23 @@ import { customTheme } from "./Components/Styles/Global/Theme";
 import Login from "./PublicApp/Auth/Login/Login";
 import AboutUs from "./PublicApp/Landing/AboutUs";
 import Signup from "./PublicApp/Auth/Signup/Signup";
-import ProtectedApp from "./ProtectedApp";
+import MainRoute from "./ProtectedApp/routes/Main.routes";
+import PrivateRoute from "./Components/ProtectedRoute";
 
-function App(props) {
+function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <CSSReset />
       <Switch>
-        <Route path="/about" component={AboutUs} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/" component={Home} />
-        <Route
-          path="/dashboard"
-          render={(props) => <ProtectedApp {...props} />}
-        />
+        <Route exact path="/about" component={AboutUs} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/home" component={Home} />
+        <PrivateRoute path="/" component={MainRoute} />
+
+        <Route path="*">
+          {/* <NoMatch /> */}
+        </Route>
       </Switch>
     </ThemeProvider>
   );

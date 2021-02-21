@@ -7,7 +7,7 @@ export const initialState = {
   error: "",
 };
 
-export const userProfileReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_USER_PROFILE_STARTED:
       return {

@@ -5,26 +5,28 @@ import { login } from "../../../redux-store/actions/auth";
 import { LoginComponent } from "./Login.component";
 import { ToastBox } from "../../../Components";
 import bg from "../../../Components/assets/auth_background.svg";
+import { useHistory } from "react-router-dom";
 
 function Login(props) {
-  const { isLoading, login, history } = props;
   const toast = useToast();
+  const history = useHistory()
 
-  function handleSubmit(values) {
-    login(values)
-      .then((response) => {
-        toast({
-          position: "bottom-left",
-          render: () => <ToastBox message={"Welcome"} />,
-        });
-        history.push("/dashboard/home");
-      })
-      .catch((err) => {
-        toast({
-          position: "bottom-left",
-          render: () => <ToastBox message={err} />,
-        });
+  async function handleSubmit(values) {
+    const result = await login(values);
+    if (result) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Login successful!"} />,
       });
+      history.push("/dashboard/home");
+    } else {
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <ToastBox message="An error occured. Please, try again" />
+        ),
+      });
+    }
   }
 
   return (
@@ -39,23 +41,14 @@ function Login(props) {
       top="0"
       bottom="0"
     >
-      <LoginComponent
-        isLoading={isLoading}
-        onSubmit={handleSubmit}
-        {...props}
-      />
+      <LoginComponent onSubmit={handleSubmit} {...props} />
     </Box>
   );
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
   return {
-    isLoading: store.auth.isLoading,
-    login_success: store.auth.login_success,
-    login_error: store.auth.login_error,
-    user: store.auth.user,
-    error_message: store.auth.error_message,
-    isAuthUser: store.auth.isAuthUser,
+    loginState: state.auth.loginState,
   };
 };
 export default connect(mapStateToProps, { login })(Login);

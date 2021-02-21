@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-export function LoginForm({ isLoading, onSubmit }) {
+export function LoginForm({ loginState, onSubmit }) {
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -124,8 +124,7 @@ export function LoginForm({ isLoading, onSubmit }) {
               }}
               border="none"
               width="100%"
-              isLoading={!!isLoading}
-              // isDisabled={(!formik.values.email && !formik.values.password ? true : false)}
+              isLoading={loginState === "loading"}
               onClick={() => onSubmit(formik.values)}
             >
               Login

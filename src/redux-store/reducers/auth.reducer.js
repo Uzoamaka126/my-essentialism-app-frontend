@@ -4,13 +4,9 @@ import { setState } from "../../Utilities/localStorage";
 const initialState = {
   user: {},
   token: null,
-  isLoading: false,
-  register_error: false,
-  register_success: false,
-  login_error: false,
-  login_success: false,
+  registerState: "idle",
+  loginState: "idle",
   isAuthUser: false,
-  error_message: "",
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -18,56 +14,40 @@ export const authReducer = (state = initialState, action) => {
     case types.LOGIN_STARTED:
       return {
         ...state,
-        isLoading: true,
-        login_success: false,
-        login_error: false,
-        isAuth: false,
+        loginState: "loading",
       };
     case types.LOGIN_SUCCEDED:
       setState(action.payload);
-      console.log(action.payload);
       return {
         ...state,
-        isLoading: false,
-        login_success: true,
-        login_error: false,
-        user: action.payload,
-        token: action.payload.token,
+        loginState: "success",
         isAuthUser: true,
       };
     case types.LOGIN_FAILED:
       return {
         ...state,
-        isLoading: false,
-        error_message: action.payload,
-        login_success: false,
-        login_error: true,
+        loginState: "failed",
         isAuthUser: false,
       };
     case types.REGISTER_STARTED:
       return {
         ...state,
-        isLoading: true,
+        registerState: "loading",
       };
     case types.REGISTER_SUCCEDED:
       setState(action.payload);
       return {
         ...state,
-        isLoading: false,
-        register_success: true,
-        register_error: false,
-        user: action.payload.response,
+        registerState: "success",
+        user: action.payload,
         token: action.payload.token,
         isAuthUser: true,
       };
     case types.REGISTER_FAILED:
       return {
         ...state,
-        isLoading: false,
-        register_error: true,
-        register_success: false,
+        registerState: "failed",
         isAuthUser: false,
-        error_message: action.payload,
       };
     case types.LOGOUT:
       return {
