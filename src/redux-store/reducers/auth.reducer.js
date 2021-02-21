@@ -9,6 +9,12 @@ const initialState = {
   isAuthUser: false,
 };
 
+// username,
+//         email,
+//         token,
+//         userId,
+//         id,
+
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN_STARTED:
@@ -22,6 +28,8 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loginState: "success",
         isAuthUser: true,
+        user: action.payload,
+        token: action.payload.token
       };
     case types.LOGIN_FAILED:
       return {

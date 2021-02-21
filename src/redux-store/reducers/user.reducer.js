@@ -1,10 +1,8 @@
 import * as types from "../actions/types/user.types";
-import { getState, setState } from "../../Utilities/localStorage";
 
 export const initialState = {
-  loading: false,
+  fetchUserProfileState: "idle",
   profile: {},
-  error: "",
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -12,16 +10,19 @@ export const userReducer = (state = initialState, action) => {
     case types.GET_USER_PROFILE_STARTED:
       return {
         ...state,
-        loading: true,
+        fetchUserProfileState: "loading",
       };
     case types.GET_USER_PROFILE_SUCCEEDED:
-      const { payload: userProfile } = action;
-      const previousLocalStorage = getState();
-      setState({ ...previousLocalStorage, userProfile });
+      localStorage.setItem("profile", JSON.stringify(action.payload));
       return {
         ...state,
-        loading: false,
+        fetchUserProfileState: "success",
         profile: action.payload,
+      };
+    case types.GET_USER_PROFILE_FAILED:
+      return {
+        ...state,
+        fetchUserProfileState: "failed",
       };
     case types.UPDATE_USER_PROFILE_SUCCEEDED:
       return {
@@ -29,12 +30,7 @@ export const userReducer = (state = initialState, action) => {
         loading: false,
         profile: action.payload,
       };
-    case types.GET_USER_PROFILE_FAILED:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+
     case types.GET_TOP_VALUES_STARTED:
       return {
         ...state,

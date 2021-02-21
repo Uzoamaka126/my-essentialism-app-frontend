@@ -1,20 +1,20 @@
-const STATE = 'ESSENTIALISM'
+const STATE = "ESSENTIALISM";
 
-export const setState = state => {
+export const setState = (state) => {
   try {
     const stringifiedState = JSON.stringify(state);
-    localStorage.setItem(STATE, stringifiedState)
+    localStorage.setItem(STATE, stringifiedState);
     return stringifiedState;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 export const getState = () => {
   try {
     const userObject = localStorage.getItem(STATE);
     if (userObject === null) {
       return undefined;
-    } 
+    }
     const parsedObj = JSON.parse(userObject);
     return parsedObj;
   } catch (err) {
@@ -23,18 +23,18 @@ export const getState = () => {
 };
 
 export const getToken = () => {
-  if (getState()) {
-    const { token } = getState().data;
+  const token = localStorage.getItem("token");
+  if (token) {
     return token;
   }
-  return null
-}
- export const clearAppState = () =>{
+  return null;
+};
+export const clearAppState = () => {
   try {
     localStorage.removeItem(STATE);
-    window.location.href = '/';
+    window.location.href = "/";
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 

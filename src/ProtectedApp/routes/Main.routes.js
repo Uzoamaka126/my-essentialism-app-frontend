@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect} from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../redux-store/actions/auth.actions";
@@ -13,7 +13,7 @@ import { clearAppState, getState } from "../../Utilities/localStorage";
 import Profile from "../Dashboard/contents/Profile/Profile";
 
 const MainRoute = (props) => {
-  //   const { user, profile, fetchUserProfile } = props;
+    const { user, profile, fetchUserProfile } = props;
 
   //   const { id } = getState().data;
 
@@ -26,6 +26,22 @@ const MainRoute = (props) => {
   //     logout();
   //     clearAppState();
   //   }
+
+  async function handleFetchProfile() {
+    const payload = {
+      id: user?.id,
+    };
+    const result = await fetchUserProfile(payload);
+    if (result) {
+      
+    }
+  }
+
+  useEffect(() => {
+    if (props.isAuthUser) {
+      localStorage.setItem("isAuthenticated", "true");
+    }
+  }, [props.isAuthUser]);
 
   return (
     <Dashboard>
@@ -53,6 +69,9 @@ const MainRoute = (props) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.user.profile,
+    user: state.auth.user,
+    isAuthUser: state.auth.isAuthUser,
+    fetchUserProfileState: state.user.fetchUserProfileState,
   };
 };
 export default connect(mapStateToProps, { logout, fetchUserProfile })(

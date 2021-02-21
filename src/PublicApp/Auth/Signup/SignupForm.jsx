@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -10,9 +10,15 @@ import {
   Box,
   FormErrorMessage,
   Image,
-  Flex
+  Flex,
+  useToast,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  CloseButton,
 } from "@chakra-ui/core";
-import lock from '../../../Components/assets/lock.svg'
+import lock from "../../../Components/assets/lock.svg";
+import { ToastBox } from "../../../Components";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -23,7 +29,30 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-export function SignupForm({ isLoading, onSubmit }) {
+export function SignupForm({ registerState, register }) {
+  const toast = useToast();
+  const [incorrectMsg, setIncorrectMsg] = useState("");
+  const history = useHistory();
+
+  async function handleSubmit(values) {
+    const result = await register(values);
+    if (result === true && result !== "You have an account with this email") {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Welcome!"} />,
+      });
+      history.push("/dashboard/home");
+    } else if (result === "You have an account with this email") {
+      setIncorrectMsg("You have an account with this email");
+    } else {
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <ToastBox message="An error occured. Please, try again" />
+        ),
+      });
+    }
+  }
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -31,12 +60,17 @@ export function SignupForm({ isLoading, onSubmit }) {
       email: "",
       password: "",
     },
-    onSubmit: (values) => onSubmit(values),
+    onSubmit: (values) => handleSubmit(values),
   });
 
+  useEffect(() => {
+    if (registerState === "loading" || registerState === "idle") {
+      setIncorrectMsg("");
+    }
+  }, [registerState]);
+
   return (
-    <Box width="100%" maxWidth="448px"
-    >
+    <Box width="100%" maxWidth="448px">
       <form
         style={{
           width: "100%",
@@ -45,30 +79,46 @@ export function SignupForm({ isLoading, onSubmit }) {
           border: "1px solid rgb(248, 248, 248)",
           boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.25)",
           borderRadius: "10px",
-          padding: "1.5rem 2rem"
+          padding: "1.5rem 2rem",
         }}
       >
         <Box>
-          <Flex 
-            margin="1.2rem auto 2rem" 
-            flexDirection="column" 
-            alignItems="center" 
+          <Flex
+            margin="1.2rem auto 2rem"
+            flexDirection="column"
+            alignItems="center"
             width="100%"
           >
-            <Flex 
-              borderRadius="50%" 
-              width="80px" 
-              height="80px" 
-              padding="10px" 
+            <Flex
+              borderRadius="50%"
+              width="80px"
+              height="80px"
+              padding="10px"
               border="1px solid #8DAAA5"
               justifyContent="center"
               alignItems="center"
             >
               <Image width="40px" height="40px" src={lock} />
             </Flex>
-            <Text marginTop="0.8rem" fontSize="12px">Signup</Text>
+            <Text marginTop="0.8rem" fontSize="12px">
+              Signup
+            </Text>
           </Flex>
         </Box>
+        {incorrectMsg && (
+          <Alert status="error" marginBottom="1rem">
+            <AlertIcon />
+            <AlertTitle mr={2} color="#7e7b7b" fontSize="12px">
+              You have no account with this email!
+            </AlertTitle>
+            <CloseButton
+              position="absolute"
+              right="8px"
+              top="8px"
+              onClick={() => setIncorrectMsg("")}
+            />
+          </Alert>
+        )}
         <FormControl
           isInvalid={!!formik.touched.username || !!formik.errors.username}
           marginBottom="0.5rem"
@@ -90,10 +140,7 @@ export function SignupForm({ isLoading, onSubmit }) {
             {formik.errors.username || formik.touched.username}
           </FormErrorMessage>
         </FormControl>
-        <FormControl
-          isInvalid={!!formik.touched.email}
-          marginBottom="0.5rem"
-        >
+        <FormControl isInvalid={!!formik.touched.email} marginBottom="0.5rem">
           {/* <FormLabel marginBottom="0rem">Email address</FormLabel> */}
           <Input
             id="email"
@@ -139,13 +186,13 @@ export function SignupForm({ isLoading, onSubmit }) {
             color="#fff"
             border="none"
             width="100%"
-            isLoading={!!isLoading}
-            // disabled={
-            //   (!formik.values.email && !formik.values.username && !formik.values.password)
-            //   ? true
-            //   : false
-            // }
-            onClick={() => onSubmit(formik.values)}
+            isLoading={registerState === "loading"}
+            disabled={
+              !formik.values.email ||
+              !formik.values.username ||
+              !formik.values.password
+            }
+            onClick={() => handleSubmit(formik.values)}
           >
             Sign up
           </Button>

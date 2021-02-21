@@ -8,16 +8,24 @@ export const register = (user) => async (dispatch) => {
       "https://essentialism-user-app.herokuapp.com/api/auth/register",
       user
     );
-    console.log(response);
     if (response.data.isSuccessful === true) {
-      dispatch({ type: types.REGISTER_SUCCEDED, payload: response.data });
+      dispatch({ type: types.REGISTER_SUCCEDED, payload: response.data.data });
       return true;
     } else if (typeof response === "undefined") {
       dispatch({ type: types.REGISTER_FAILED });
       return false;
-    } else if (response.data.isSuccessful === false) {
+    } else if (
+      response.data.isSuccessful === false &&
+      response.data.message !== "User already exists"
+    ) {
       dispatch({ type: types.REGISTER_FAILED });
       return false;
+    } else if (
+      response.data.isSuccessful === false &&
+      response.data.message === "User already exists"
+    ) {
+      dispatch({ type: types.REGISTER_FAILED });
+      return "You have an account with this email";
     } else {
       dispatch({ type: types.REGISTER_FAILED });
       return false;
@@ -37,7 +45,7 @@ export const login = (user) => async (dispatch) => {
       user
     );
     if (response.data.isSuccessful === true) {
-      dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data });
+      dispatch({ type: types.LOGIN_SUCCEDED, payload: response.data.data });
       return true;
     } else if (typeof response === "undefined") {
       dispatch({ type: types.LOGIN_FAILED });
