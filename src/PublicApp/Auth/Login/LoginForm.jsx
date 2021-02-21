@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -13,10 +13,9 @@ import {
   Image,
   useToast,
   Alert,
-  AlertDescription,
   AlertIcon,
   AlertTitle,
-  CloseButton
+  CloseButton,
 } from "@chakra-ui/core";
 import lock from "../../../Components/assets/lock.svg";
 import { ToastBox } from "../../../Components";
@@ -30,13 +29,13 @@ const validationSchema = yup.object().shape({
 });
 
 export function LoginForm({ loginState, login }) {
-  const [incorrectMsg, setIncorrectMsg] = useState("")
+  const [incorrectMsg, setIncorrectMsg] = useState("");
   const toast = useToast();
   const history = useHistory();
 
   async function handleSubmit(values) {
     const result = await login(values);
-    if (result) {
+    if (result === true && result !== "You have no account with this email") {
       toast({
         position: "bottom-left",
         render: () => <ToastBox message={"Login successful!"} />,
@@ -61,6 +60,12 @@ export function LoginForm({ loginState, login }) {
     },
     onSubmit: (values) => handleSubmit(values),
   });
+
+  useEffect(() => {
+    if (loginState === "loading" || loginState === "idle") {
+      setIncorrectMsg("");
+    }
+  }, [loginState]);
 
   return (
     <Box>
@@ -111,12 +116,17 @@ export function LoginForm({ loginState, login }) {
             </Flex>
           </Box>
           {incorrectMsg && (
-            <Alert status="error">
+            <Alert status="error" marginBottom="1rem">
               <AlertIcon />
-              <AlertTitle mr={2}>
+              <AlertTitle mr={2} color="#7e7b7b" fontSize="12px">
                 You have no account with this email!
               </AlertTitle>
-              <CloseButton position="absolute" right="8px" top="8px" />
+              <CloseButton
+                position="absolute"
+                right="8px"
+                top="8px"
+                onClick={() => setIncorrectMsg("")}
+              />
             </Alert>
           )}
           <FormControl
