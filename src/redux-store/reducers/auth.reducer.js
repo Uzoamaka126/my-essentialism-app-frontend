@@ -2,18 +2,17 @@ import * as types from "../actions/types/auth.types";
 import { setState } from "../../Utilities/localStorage";
 
 const initialState = {
-  user: {},
+  user: {
+    email: "",
+    token: "",
+    userId: "",
+    id: ""
+  },
   token: null,
   registerState: "idle",
   loginState: "idle",
   isAuthUser: false,
 };
-
-// username,
-//         email,
-//         token,
-//         userId,
-//         id,
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,8 +27,14 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loginState: "success",
         isAuthUser: true,
-        user: action.payload,
-        token: action.payload.token
+        user: {
+          ...state.user,
+          email: action.payload.email,
+          token: action.payload.token,
+          userId: action.payload.userId,
+          id: action.payload.id
+        },
+        token: action.payload.token,
       };
     case types.LOGIN_FAILED:
       return {
@@ -47,7 +52,13 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         registerState: "success",
-        user: action.payload,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+          token: action.payload.token,
+          userId: action.payload.userId,
+          id: action.payload.id,
+        },
         token: action.payload.token,
         isAuthUser: true,
       };
@@ -62,6 +73,11 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         user: {},
         token: null,
+      };
+    case types.SET_IS_AUTHENTICATED: 
+      return {
+        ...state,
+        isAuthUser: true,
       };
     default:
       return state;

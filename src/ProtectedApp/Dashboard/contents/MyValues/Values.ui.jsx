@@ -18,19 +18,10 @@ export function CurrentValuesComponent({
   fetchTopValues,
   values,
   success,
-  fetchValues,
   topThreeValues,
   createTopValues
  }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
-
-
-  useEffect(() => {
-    fetchValues()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  console.log(values);
 
   return (
     <Box background="#fff">

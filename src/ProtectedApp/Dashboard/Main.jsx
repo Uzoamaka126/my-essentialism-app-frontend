@@ -3,39 +3,37 @@ import { Flex } from "@chakra-ui/core";
 import { Content, SideBar } from "./components";
 
 const menuList = [
-  { title: "Onboarding", url: "/dashboard/get-started" },
+  { title: "Onboarding", url: "/get-started" },
   {
     title: "My Values",
-    url: "/dashboard/values",
+    url: "/values",
   },
   {
     title: "Projects",
     // subItems: [
     //   { title: "Current", url: "/dashboard/projects" },
     // ],
-    url: "/dashboard/projects",
+    url: "/projects",
   },
   {
     title: "Settings",
     subItems: [
-      { title: "Profile", url: "/dashboard/settings/profile" },
+      { title: "Profile", url: "/settings/profile" },
     ],
-    url: "/dashboard/settings",
+    url: "/settings",
   },
 ];
 
 export function Dashboard({
   children,
   user,
-  history,
   logout,
-  userInfo,
 }) {
 
   return (
     <>
       <Flex>
-        <SideBar username={user && user.username} menuList={menuList} user={user} />
+        <SideBar user={user} menuList={menuList} />
         <Content
           logout={logout}
           user={user}

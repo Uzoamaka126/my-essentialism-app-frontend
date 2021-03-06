@@ -23,7 +23,8 @@ export async function client(url, { data, method, ...customConfig }) {
     Authorization: "",
   };
 
-    const { token } = getState().data;
+  const getToken = JSON.parse(localStorage.getItem("ESSENTIALISM"));
+  const token = getToken?.token;
 
   if (token) {
     headers.Authorization = token;

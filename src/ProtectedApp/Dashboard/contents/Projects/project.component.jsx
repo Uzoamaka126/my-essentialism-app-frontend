@@ -19,10 +19,9 @@ import {
 } from "@chakra-ui/core";
 import { AddProjectModal } from "./add.modal";
 import { EmptyPage, FullPageSpinner, ToastBox } from "../../../../Components";
-import { getState } from "../../../../Utilities/localStorage";
 import PrimaryButton from "../../../../Components/Buttons/PrimaryButton";
 
-const id = getState() && getState().data.id;
+const id = "1";
 
 export function EditProjectText({ name, onSubmit, projectId, value_id }) {
   const toast = useToast();
@@ -44,23 +43,23 @@ export function EditProjectText({ name, onSubmit, projectId, value_id }) {
     const [isLoading, setIsLoading] = useState(false);
 
     function handleUpdateProject(data, id) {
-      setIsLoading(true);
-      onSubmit(data, id)
-        .then((response) => {
-          toast({
-            position: "bottom-left",
-            render: () => <ToastBox message={"Project updated"} />,
-          });
-          setIsLoading(false);
-          onCancel();
-        })
-        .catch(() => {
-          toast({
-            position: "bottom-left",
-            render: () => <ToastBox message={"Unable to update project"} />,
-          });
-          setIsLoading(false);
-        });
+      // setIsLoading(true);
+      // onSubmit(data, id)
+      //   .then((response) => {
+      //     toast({
+      //       position: "bottom-left",
+      //       render: () => <ToastBox message={"Project updated"} />,
+      //     });
+      //     setIsLoading(false);
+      //     onCancel();
+      //   })
+      //   .catch(() => {
+      //     toast({
+      //       position: "bottom-left",
+      //       render: () => <ToastBox message={"Unable to update project"} />,
+      //     });
+      //     setIsLoading(false);
+      //   });
     }
 
     return isEditing ? (

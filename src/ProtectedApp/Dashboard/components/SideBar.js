@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import { Box, Text, Stack, Flex, Icon } from "@chakra-ui/core";
-import { getState } from '../../../Utilities/localStorage'
 
 const StyledSidebar = styled(Box)`
   a {
@@ -20,8 +19,7 @@ const StyledSidebar = styled(Box)`
   }
 `;
 
-export function SideBar({ menuList }) {
-  const { username } = getState() && getState().data;
+export function SideBar({ menuList, user }) {
 
   const [selected, setSelected] = React.useState({
     isToggled: true,
@@ -57,7 +55,7 @@ export function SideBar({ menuList }) {
     >
       <Box marginLeft="2.125rem" marginY="1rem">
         <Text color="#1a1f36" fontSize="1rem" fontWeight="medium">
-          {username}
+          {user?.username}
         </Text>
       </Box>
       <Stack

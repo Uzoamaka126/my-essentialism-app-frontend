@@ -1,68 +1,103 @@
-import React, { useEffect} from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { lazy, useEffect, useState, Suspense } from "react";
+import Cookies from "js-cookie";
 import { connect } from "react-redux";
-import { logout } from "../../redux-store/actions/auth.actions";
+import { Route, Switch } from "react-router-dom";
+import {
+  logout,
+  setIsAuthenticated,
+} from "../../redux-store/actions/auth.actions";
+import { fetchValues } from "../../redux-store/actions/values.actions";
 import { fetchUserProfile } from "../../redux-store/actions/user.actions";
-import DashboardHome from "../Dashboard/contents/Home/DashboardHome";
+import { clearAppState } from "../../Utilities/localStorage";
 import { OnboardingComponent } from "../Dashboard/contents/Home/onboarding.component";
 import MyValues from "../Dashboard/contents/MyValues/Values.container";
 import Projects from "../Dashboard/contents/Projects/project.container";
 import { Dashboard } from "../Dashboard/Main";
-// import SingleProject from "../Dashboard/contents/Projects/single.container";
-import { clearAppState, getState } from "../../Utilities/localStorage";
 import Profile from "../Dashboard/contents/Profile/Profile";
+import FullPageSpinner from "../../Components/FullPageSpinner";
 
 const MainRoute = (props) => {
-    const { user, profile, fetchUserProfile } = props;
-
-  //   const { id } = getState().data;
-
-  //   React.useEffect(() => {
-  //     fetchUserProfile(id);
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [id]);
-
-  //   function onLogout() {
-  //     logout();
-  //     clearAppState();
-  //   }
+  const { user, profile, fetchUserProfile } = props;
+  const [errorModal, setErrorModal] = useState(false);
+  const getIsAuthenticated = localStorage.getItem("isAuthenticated");
+  function onLogout() {
+    logout();
+    clearAppState();
+    Cookies.remove("g");
+  }
 
   async function handleFetchProfile() {
     const payload = {
       id: user?.id,
     };
     const result = await fetchUserProfile(payload);
-    if (result) {
-      
+    if (!result) {
+      setErrorModal(true);
     }
   }
 
+  async function handleFetchValues() {
+    await props.fetchValues();
+  }
+
   useEffect(() => {
-    if (props.isAuthUser) {
-      localStorage.setItem("isAuthenticated", "true");
+    handleFetchProfile();
+    handleFetchValues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (getIsAuthenticated !== null) {
+      props.setIsAuthenticated();
     }
-  }, [props.isAuthUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getIsAuthenticated]);
+
+  if (props.fetchUserProfileState === "loading") {
+    return <FullPageSpinner />;
+  }
 
   return (
-    <Dashboard>
-      <Switch>
-        <Route exact path="/dashboard/values">
-          <MyValues {...props} />
-        </Route>
-        <Route exact path="/dashboard/projects">
-          <Projects {...props} />
-        </Route>
-        <Route exact path="/dashboard/home">
-          <DashboardHome {...props} />
-        </Route>
-        <Route exact path="/dashboard/settings">
-          <Profile {...props} />
-        </Route>
-        <Route exact path="/dashboard/get-started">
-          <OnboardingComponent {...props} />
-        </Route>
-      </Switch>
-    </Dashboard>
+    <Switch>
+      <Dashboard
+        logout={onLogout}
+        user={profile}
+        state={{ fetchUserProfileState: props.fetchUserProfileState }}
+      >
+        <Route
+          path="/values"
+          render={(routeProps) => (
+            <Suspense fallback={<FullPageSpinner />}>
+              <MyValues {...props} {...routeProps} />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/projects"
+          render={(routeProps) => (
+            <Suspense fallback={<FullPageSpinner />}>
+              <Projects {...props} {...routeProps} />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/settings"
+          render={(routeProps) => (
+            <Suspense fallback={<FullPageSpinner />}>
+              <Profile {...props} {...routeProps} />
+            </Suspense>
+          )}
+        />
+        <Route
+          path="/get-started"
+          render={(routeProps) => (
+            <Suspense fallback={<FullPageSpinner />}>
+              <OnboardingComponent {...props} {...routeProps} />
+            </Suspense>
+          )}
+        />
+      </Dashboard>
+    </Switch>
   );
 };
 
@@ -74,6 +109,9 @@ const mapStateToProps = (state) => {
     fetchUserProfileState: state.user.fetchUserProfileState,
   };
 };
-export default connect(mapStateToProps, { logout, fetchUserProfile })(
-  MainRoute
-);
+export default connect(mapStateToProps, {
+  logout,
+  fetchUserProfile,
+  setIsAuthenticated,
+  fetchValues,
+})(MainRoute);

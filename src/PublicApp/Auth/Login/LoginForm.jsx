@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
 import {
   Button,
   FormControl,
@@ -40,6 +41,8 @@ export function LoginForm({ loginState, login }) {
         position: "bottom-left",
         render: () => <ToastBox message={"Login successful!"} />,
       });
+      localStorage.setItem("isAuthenticated", "true");
+      Cookies.set("essentialismLog");
       history.push("/dashboard/home");
     } else if (result === "You have no account with this email") {
       setIncorrectMsg("You have no account with this email");

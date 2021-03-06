@@ -77,3 +77,9 @@ export const logout = () => (dispatch) => {
     type: types.LOGOUT,
   });
 };
+
+export const setIsAuthenticated = () => (dispatch) => {
+  dispatch({
+    type: types.SET_IS_AUTHENTICATED,
+  });
+}

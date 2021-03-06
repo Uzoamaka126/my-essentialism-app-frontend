@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
+import Cookies from "js-cookie";
 import { useFormik } from "formik";
 import {
   Button,
@@ -41,6 +42,8 @@ export function SignupForm({ registerState, register }) {
         position: "bottom-left",
         render: () => <ToastBox message={"Welcome!"} />,
       });
+      localStorage.setItem("isAuthenticated", "true");
+      Cookies.set("essentialismLog");
       history.push("/dashboard/home");
     } else if (result === "You have an account with this email") {
       setIncorrectMsg("You have an account with this email");

@@ -6,10 +6,10 @@ export const fetchValues = () => async (dispatch) => {
     type: types.GET_VALUES_STARTED,
   });
   try {
-    const response = await client().get("/values");
+    const response = await client("values", { data: "", method: "GET" });
     dispatch({
       type: types.GET_VALUES_SUCCEDED,
-      payload: response.data,
+      payload: response,
     });
   } catch (error) {
     dispatch({

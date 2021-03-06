@@ -14,10 +14,10 @@ function App() {
     <ThemeProvider theme={customTheme}>
       <CSSReset />
       <Switch>
-        <Route exact path="/about" component={AboutUs} />
+        <Route path="/about" component={AboutUs} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/home" component={Home} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/home" component={Home} />
         <PrivateRoute path="/" component={MainRoute} />
 
         <Route path="*">

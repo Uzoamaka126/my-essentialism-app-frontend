@@ -7,7 +7,6 @@ import {
   deleteUserProject,
   updateUserProject,
 } from "../../../../redux-store/actions/project.actions";
-import { fetchValues } from "../../../../redux-store/actions/values.actions";
 
 function Projects(props) {
   return (
@@ -31,7 +30,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   fetchUserProjects,
   addUserProject,
-  fetchValues,
   deleteUserProject,
   updateUserProject,
 })(Projects);

@@ -1,28 +1,23 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import {getToken} from '../../Utilities/localStorage'
+import { isLogin } from '../../Utilities/userLoggedInCheck';
 
-const ProtectedRoute = ({ component: Component, ...props }) => {
-  const token = getToken();
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isLogin() === true ? (
+        <Component {...props} {...rest} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+          }}
+        />
+      )
+    }
+  />
+);
 
-  return (
-    <Route
-      {...props}
-      render={props => {
-        if (token) {
-          return (
-            <Component {...props} />
-          );
-        } else {
-          return (
-            <Redirect
-              to='/login'
-            />
-          );
-        }
-      }}
-    />
-  );
-};
 
 export default ProtectedRoute;
