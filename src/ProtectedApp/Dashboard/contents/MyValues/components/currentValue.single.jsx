@@ -1,15 +1,10 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
 // import { Search } from "../../../Components/Search";
 import {
   Image,
   Flex,
   Box,
   Text,
-  Stack,
-  IconButton,
-  Button,
-  Link,
 } from "@chakra-ui/core";
 export function CurrentValuesComponent({ item }) {
   return (
@@ -22,10 +17,8 @@ export function CurrentValuesComponent({ item }) {
       <Box marginTop="1rem">
         <Flex
           borderRadius="5px"
-          // boxShadow="0 6px 12px 0 rgba(51,51,51,0.1)"
           marginX="0.625rem"
           border="1px solid #e8f5f9"
-          //   alignItems="center"
           height="auto"
           maxHeight="200px"
           padding="15px 20px"

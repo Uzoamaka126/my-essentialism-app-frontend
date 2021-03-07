@@ -54,7 +54,10 @@ export function SideBar({ menuList, user }) {
       width="215px"
     >
       <Box marginLeft="2.125rem" marginY="1rem">
-        <Text color="#1a1f36" fontSize="1rem" fontWeight="medium">
+        <Text color="#718096" fontSize="1rem" fontWeight="normal">
+          Welcome
+        </Text>
+        <Text color="#1a1f36" fontSize="1.125rem" fontWeight="medium">
           {user?.username}
         </Text>
       </Box>
@@ -78,7 +81,7 @@ export function SideBar({ menuList, user }) {
                   <Text
                     ml="1.125rem"
                     fontSize="0.875rem"
-                      fontWeight="400"
+                    fontWeight="400"
                     textTransform="capitalize"
                     minWidth="6.5625rem"
                     color={title === t ? "#6554c0" : "#1a1f36"}

@@ -18,6 +18,7 @@ import FullPageSpinner from "../../Components/FullPageSpinner";
 
 const MainRoute = (props) => {
   const { user, profile, fetchUserProfile } = props;
+  const id = JSON.parse(localStorage.getItem("ESSENTIALISM")).id;
   const [errorModal, setErrorModal] = useState(false);
   const getIsAuthenticated = localStorage.getItem("isAuthenticated");
   function onLogout() {
@@ -28,7 +29,7 @@ const MainRoute = (props) => {
 
   async function handleFetchProfile() {
     const payload = {
-      id: user?.id,
+      id: user?.id ? user?.id : id,
     };
     const result = await fetchUserProfile(payload);
     if (!result) {
@@ -41,17 +42,18 @@ const MainRoute = (props) => {
   }
 
   useEffect(() => {
-    handleFetchProfile();
-    handleFetchValues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (getIsAuthenticated !== null) {
       props.setIsAuthenticated();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getIsAuthenticated]);
+
+  useEffect(() => {
+    if (props.isAuthUser) {
+      // handleFetchProfile();
+      // handleFetchValues();
+    }
+  }, [props.isAuthUser]);
 
   if (props.fetchUserProfileState === "loading") {
     return <FullPageSpinner />;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Flex,
   Box,
@@ -11,16 +11,17 @@ import {
 import { AddValueModal } from "./components/values.modal";
 import { EmptyPage } from "../../../../Components/EmptyPage";
 import EmptyImage from "../../../../Components/assets/empty.svg";
+import PrimaryButton from "../../../../Components/Buttons/PrimaryButton";
 
-export function CurrentValuesComponent({ 
+export function CurrentValuesComponent({
   isLoading,
   error_message,
   fetchTopValues,
   values,
   success,
   topThreeValues,
-  createTopValues
- }) {
+  createTopValues,
+}) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -62,18 +63,7 @@ export function CurrentValuesComponent({
               heading="You don't have any personal values yet"
               subheading="Click on the button below to add values to your list"
             >
-              <Button
-                variant="solid"
-                color="#fff"
-                leftIcon="add"
-                background="#025559"
-                fontSize="0.875rem"
-                fontWeight="medium"
-                _hover={{ background: "#02393b" }}
-                onClick={onOpen}
-              >
-                Add values
-              </Button>
+              <PrimaryButton onClick={onOpen} label="Add values" leftIcon="add" />
             </EmptyPage>
           </Box>
         ) : (

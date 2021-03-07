@@ -8,16 +8,16 @@ export const fetchUserProfile = (id) => async (dispatch) => {
       data: id,
       method: "POST",
     });
-    if (response.data.isSuccessful === true) {
+    if (response.isSuccessful === true) {
       dispatch({
         type: types.GET_USER_PROFILE_SUCCEEDED,
-        payload: response.data.data,
+        payload: response.data,
       });
       return true;
     } else if (typeof response === "undefined") {
       dispatch({ type: types.GET_USER_PROFILE_FAILED });
       return false;
-    } else if (response.data.isSuccessful === false) {
+    } else if (response.isSuccessful === false) {
       dispatch({ type: types.GET_USER_PROFILE_FAILED });
       return false;
     } else {

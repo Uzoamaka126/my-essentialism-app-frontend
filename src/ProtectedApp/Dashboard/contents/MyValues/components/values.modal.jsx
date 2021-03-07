@@ -25,20 +25,27 @@ export function AddValueModal({ isOpen, onClose, handleAddValues, values, id }) 
       showCloseButton
     >
       <ModalBody>
-        <Select placeholder="Select option" value={optionValue} onChange={handleChange}>
-          {values && values.map((item, index) => (
-             <option key={index} value={item.value_name}>{item.value_name}</option>
-          ))}
+        <Select
+          placeholder="Select option"
+          value={optionValue}
+          onChange={handleChange}
+        >
+          {values &&
+            values.map((item, index) => (
+              <option key={index} value={item.value_name}>
+                {item.value_name}
+              </option>
+            ))}
         </Select>
         <Box margin="1.25rem 0 2rem">
           <Button
             variant="solid"
-            background="#e91e63"
+            background="#4299e1"
             color="#fff"
             fontSize="0.875rem"
             fontWeight="medium"
-            borderColor="#e91e63"
-            onClick={() => handleAddTopValue({value: optionValue})}
+            borderColor="transparent"
+            onClick={() => handleAddTopValue({ value: optionValue })}
           >
             Add Values
           </Button>
