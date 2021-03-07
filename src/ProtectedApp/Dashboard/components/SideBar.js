@@ -6,11 +6,12 @@ import { Box, Text, Stack, Flex, Icon } from "@chakra-ui/core";
 const StyledSidebar = styled(Box)`
   a {
     width: 100%;
-    color: #1a1f36;
+    color: #4a5568;
     display: block;
 
     &.active {
-      color: #6554c0;
+      color: #4299e1;
+      font-weight: 600 !important;
     }
 
     &.hover {
@@ -54,10 +55,7 @@ export function SideBar({ menuList, user }) {
       width="215px"
     >
       <Box marginLeft="2.125rem" marginY="1rem">
-        <Text color="#718096" fontSize="1rem" fontWeight="normal">
-          Welcome
-        </Text>
-        <Text color="#1a1f36" fontSize="1.125rem" fontWeight="medium">
+        <Text color="#718096" fontSize="1.125rem" fontWeight="medium">
           {user?.username}
         </Text>
       </Box>
@@ -128,7 +126,6 @@ export function SideBar({ menuList, user }) {
                     <Text
                       ml="1.125rem"
                       fontSize="0.875rem"
-                      fontWeight="400"
                       minWidth="6.5625rem"
                       textTransform="capitaize"
                     >

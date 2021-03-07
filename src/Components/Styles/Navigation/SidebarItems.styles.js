@@ -7,8 +7,8 @@ export const StyledSidebarItems = styled.li`
 
     a {
         font-size: 16px;
-        color: ${(props) => props.active ? "orange" : "grey"};
-        background: ${(props) => props.active ? "light orange": "transparent"}  
+        /* color: ${(props) => props.active ? "orange" : "grey"};
+        background: ${(props) => props.active ? "light orange": "transparent"};   */
         
         :hover {
             background: skyblue;
