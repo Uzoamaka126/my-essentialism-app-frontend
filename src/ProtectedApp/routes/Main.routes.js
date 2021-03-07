@@ -109,6 +109,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     isAuthUser: state.auth.isAuthUser,
     fetchUserProfileState: state.user.fetchUserProfileState,
+    values: state.values.values,
   };
 };
 export default connect(mapStateToProps, {

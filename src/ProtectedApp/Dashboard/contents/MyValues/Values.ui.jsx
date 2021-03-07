@@ -14,11 +14,7 @@ import EmptyImage from "../../../../Components/assets/empty.svg";
 import PrimaryButton from "../../../../Components/Buttons/PrimaryButton";
 
 export function CurrentValuesComponent({
-  isLoading,
-  error_message,
-  fetchTopValues,
   values,
-  success,
   topThreeValues,
   createTopValues,
 }) {

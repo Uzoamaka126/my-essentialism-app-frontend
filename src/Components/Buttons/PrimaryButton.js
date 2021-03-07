@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@chakra-ui/core";
 
-export default function PrimaryButton({ onClick, label, marginTop, width, leftIcon, rightIcon }) {
+export default function PrimaryButton({ onClick, label, marginTop, width, leftIcon, rightIcon, condition }) {
   return (
     <Button
       variant="solid"
@@ -36,6 +36,7 @@ export default function PrimaryButton({ onClick, label, marginTop, width, leftIc
       marginTop={marginTop}
       transition="transform .6s"
       border="1px solid transparent"
+      isDisabled={condition}
     >
       {label}
     </Button>
