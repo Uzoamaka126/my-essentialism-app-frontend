@@ -1,7 +1,19 @@
 import React from "react";
 import { Button } from "@chakra-ui/core";
 
-export default function PrimaryButton({ onClick, label, marginTop, width, leftIcon, rightIcon, condition }) {
+export default function PrimaryButton({
+  onClick,
+  label,
+  marginTop,
+  width,
+  leftIcon,
+  rightIcon,
+  disabledCondition,
+  loadingCondition,
+  marginLeft,
+  marginRight,
+  maxWidth
+}) {
   return (
     <Button
       variant="solid"
@@ -10,11 +22,13 @@ export default function PrimaryButton({ onClick, label, marginTop, width, leftIc
       background="#4299e1" //117a8b 025559
       color="#f2f2f2"
       padding="20px 15px"
+      marginLeft={marginLeft}
+      marginRight={marginRight}
       lineHeight="1"
       height="40px"
       leftIcon={leftIcon}
       rightIcon={rightIcon}
-      maxWidth="152px"
+      maxWidth={maxWidth ? maxWidth : "152px"}
       _hover={{
         background: "#1380da",
         color: "#fff",
@@ -36,7 +50,8 @@ export default function PrimaryButton({ onClick, label, marginTop, width, leftIc
       marginTop={marginTop}
       transition="transform .6s"
       border="1px solid transparent"
-      isDisabled={condition}
+      isDisabled={disabledCondition}
+      isLoading={loadingCondition}
     >
       {label}
     </Button>

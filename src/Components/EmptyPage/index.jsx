@@ -26,22 +26,18 @@ export function EmptyPage({
       justifyContent="center"
       flexDirection="column"
       textAlign="center"
-      padding="2rem 0"
+      maxWidth="600px"
+      marginX="auto"
     >
       {image && (
         <Box height="180px" width={imageSize} paddingBottom="2rem">
           <Image src={image} alt="" width="100%" height="100%" maxWidth="100%" />
         </Box>
       )}
-      {/* {icon && (
-        <Box paddingBottom="2rem">
-          <Icon name={icon} size={iconSize} color={iconColor} />
-        </Box>
-      )} */}
       <Box width={width} marginX="auto">
         <Heading
-          size="md"
-          color="#212242"
+          size="lg"
+          color="#718096"
           fontWeight={500}
           marginBottom="0.5rem"
         >

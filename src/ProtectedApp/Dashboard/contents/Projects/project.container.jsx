@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { ProjectsComponent } from "./project.component";
 import {
-  fetchUserProjects,
   addUserProject,
   deleteUserProject,
   updateUserProject,
@@ -18,17 +17,16 @@ function Projects(props) {
 
 const mapStateToProps = (state) => {
   return {
-    fetchProjectsState: state.projects.fetchProjectsState,
     values: state.values.values,
     projects: state.projects.projects,
     fetchSingleProjState: state.projects.fetchSingleProjState,
     addProjectState: state.projects.addProjectState,
     project: state.projects.project,
+    user: state.user.profile,
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchUserProjects,
   addUserProject,
   deleteUserProject,
   updateUserProject,

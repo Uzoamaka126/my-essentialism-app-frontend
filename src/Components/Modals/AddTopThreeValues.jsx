@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { ModalContainer } from "../../../../../Components/ModalContainer";
+import { ModalContainer } from "../ModalContainer";
 import { ModalBody, Box, Button, Text } from "@chakra-ui/core";
 import Select from "react-select";
 import randomColor from "randomcolor";
-import PrimaryButton from "../../../../../Components/Buttons/PrimaryButton";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 export function AddValueModal({ isOpen, onClose, handleAddValues, values }) {
   const [optionValues, setOptionValues] = useState([]);
@@ -55,7 +55,7 @@ export function AddValueModal({ isOpen, onClose, handleAddValues, values }) {
         <Box margin="1.25rem 0 2rem">
           <PrimaryButton
             onClick={handleAddTopValue}
-            condition={optionValues.length <= 0 ? true : false}
+            disabledCondition={optionValues.length <= 0 ? true : false}
             label="Add Values"
           />
         </Box>

@@ -1,15 +1,28 @@
 import * as types from "./types/projects.types";
 import { client } from "../../Utilities/axiosHelper";
 
-export const fetchUserProjects = () => async (dispatch) => {
+export const fetchUserProjects = (id) => async (dispatch) => {
   dispatch({ type: types.GET_USER_PROJECTS });
   try {
-    const response = await client().get(`/projects`);
-    dispatch({
-      type: types.GET_USER_PROJECTS_SUCCESS,
-      payload: response.data.data.projects,
+    const response = await client("projects", {
+      data: id,
+      method: "POST",
     });
-    return true;
+    if (response.isSuccessful === true) {
+      dispatch({
+        type: types.GET_USER_PROJECTS_SUCCESS,
+        payload: response.data.projects,
+      });
+      return true;
+    } else if (response.isSuccessful === false) {
+      dispatch({
+        type: types.GET_USER_PROJECTS_FAILURE,
+      });
+    } else {
+      dispatch({
+        type: types.GET_USER_PROJECTS_FAILURE,
+      });
+    }
   } catch (err) {
     dispatch({ type: types.GET_USER_PROJECTS_FAILURE, payload: err.response });
     return false;

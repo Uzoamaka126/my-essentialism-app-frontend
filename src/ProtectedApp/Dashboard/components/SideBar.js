@@ -51,7 +51,7 @@ export function SideBar({ menuList, user }) {
       zIndex={10}
       height="100vh"
       position="fixed"
-      backgroundColor="#e3e8ee"
+      backgroundColor="#e3e8ee" //#F7FAFC
       width="215px"
     >
       <Box marginLeft="2.125rem" marginY="1rem">

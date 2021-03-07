@@ -30,11 +30,12 @@ export function ModalContainer({
           {title && (
             <ModalHeader
               textAlign="center"
-              fontWeight="medium"
-              paddingY="1rem"
-              background="#fbfbfb"
+              fontWeight="semibold"
+              paddingY="1.125rem"
+              background="#F7FAFC"
               border="1px solid #eee"
               fontSize="1rem"
+              color="#718096"
             >
               {title}
             </ModalHeader>

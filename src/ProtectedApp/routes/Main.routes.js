@@ -8,6 +8,7 @@ import {
 } from "../../redux-store/actions/auth.actions";
 import { fetchValues } from "../../redux-store/actions/values.actions";
 import { fetchUserProfile } from "../../redux-store/actions/user.actions";
+import { fetchUserProjects } from "../../redux-store/actions/project.actions";
 import { clearAppState } from "../../Utilities/localStorage";
 import { OnboardingComponent } from "../Dashboard/contents/Home/onboarding.component";
 import MyValues from "../Dashboard/contents/MyValues/Values.container";
@@ -19,6 +20,7 @@ import FullPageSpinner from "../../Components/FullPageSpinner";
 const MainRoute = (props) => {
   const { user, profile, fetchUserProfile } = props;
   const id = JSON.parse(localStorage.getItem("ESSENTIALISM")).id;
+  const userId = JSON.parse(localStorage.getItem("ESSENTIALISM")).userId;
   const [errorModal, setErrorModal] = useState(false);
   const getIsAuthenticated = localStorage.getItem("isAuthenticated");
   function onLogout() {
@@ -41,6 +43,13 @@ const MainRoute = (props) => {
     await props.fetchValues();
   }
 
+  async function handleFetchProjects() {
+    const payload = {
+      userId: user?.userId ? user?.userId : userId,
+    };
+    props.fetchUserProjects(payload);
+  }
+
   useEffect(() => {
     if (getIsAuthenticated !== null) {
       props.setIsAuthenticated();
@@ -52,6 +61,7 @@ const MainRoute = (props) => {
     if (props.isAuthUser) {
       // handleFetchProfile();
       // handleFetchValues();
+      // handleFetchProjects();
     }
   }, [props.isAuthUser]);
 
@@ -110,6 +120,7 @@ const mapStateToProps = (state) => {
     isAuthUser: state.auth.isAuthUser,
     fetchUserProfileState: state.user.fetchUserProfileState,
     values: state.values.values,
+    fetchProjectsState: state.projects.fetchProjectsState,
   };
 };
 export default connect(mapStateToProps, {
@@ -117,4 +128,5 @@ export default connect(mapStateToProps, {
   fetchUserProfile,
   setIsAuthenticated,
   fetchValues,
+  fetchUserProjects,
 })(MainRoute);

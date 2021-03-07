@@ -8,7 +8,7 @@ import {
   IconButton,
   Button,
 } from "@chakra-ui/core";
-import { AddValueModal } from "./components/values.modal";
+import { AddValueModal } from "../../../../Components/Modals/AddTopThreeValues";
 import { EmptyPage } from "../../../../Components/EmptyPage";
 import EmptyImage from "../../../../Components/assets/empty.svg";
 import PrimaryButton from "../../../../Components/Buttons/PrimaryButton";
@@ -59,7 +59,11 @@ export function CurrentValuesComponent({
               heading="You don't have any personal values yet"
               subheading="Click on the button below to add values to your list"
             >
-              <PrimaryButton onClick={onOpen} label="Add values" leftIcon="add" />
+              <PrimaryButton
+                onClick={onOpen}
+                label="Add values"
+                leftIcon="add"
+              />
             </EmptyPage>
           </Box>
         ) : (
