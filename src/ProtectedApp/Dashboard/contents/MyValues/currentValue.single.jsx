@@ -6,6 +6,7 @@ import {
   Box,
   Text,
 } from "@chakra-ui/core";
+
 export function CurrentValuesComponent({ item }) {
   return (
     <Box paddingLeft="1.25rem" paddingRight="1.25rem">

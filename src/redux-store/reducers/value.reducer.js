@@ -2,11 +2,8 @@ import * as types from "../actions/types/values.types";
 
 const initialState = {
   values: [],
-  isLoading: false,
-  error: "",
   topThreeValues: [],
-  error_maessage: "",
-  success: false
+  fetchAllValuesState: "idle",
 };
 
 export const valueReducer = (state = initialState, action) => {
@@ -14,22 +11,20 @@ export const valueReducer = (state = initialState, action) => {
     case types.GET_VALUES_STARTED:
       return {
         ...state,
-        isLoading: true,
+        fetchAllValuesState: "loading",
       };
     case types.GET_VALUES_SUCCEDED:
       return {
         ...state,
+        fetchAllValuesState: "success",
         values: action.payload,
-        isLoading: false,
       };
     case types.GET_VALUES_FAILED:
       return {
         ...state,
-        isLoading: false,
-        error: action.payload,
+        fetchAllValuesState: "failed",
       };
-    
-    
+
     default:
       return state;
   }
