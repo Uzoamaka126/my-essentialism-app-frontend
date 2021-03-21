@@ -22,7 +22,7 @@ const MainRoute = (props) => {
   const id = JSON.parse(localStorage.getItem("ESSENTIALISM")).id;
   const userId = JSON.parse(localStorage.getItem("ESSENTIALISM")).userId;
   const [errorModal, setErrorModal] = useState(false);
-  const getIsAuthenticated = localStorage.getItem("isAuthenticated");
+  const getIsAuthenticated = sessionStorage.getItem("isAuthenticated");
   function onLogout() {
     logout();
     clearAppState();

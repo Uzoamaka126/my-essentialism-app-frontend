@@ -82,6 +82,7 @@ export function AddProjectModal({
           loadingCondition={addProjectState === "loading"}
           onClick={() => onSubmit(combinedValues())}
           label="Create"
+          disabledCondition={!projectName || !value}
         />
       </ModalFooter>
     </ModalContainer>

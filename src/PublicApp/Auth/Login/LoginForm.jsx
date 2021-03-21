@@ -41,7 +41,7 @@ export function LoginForm({ loginState, login }) {
         position: "bottom-left",
         render: () => <ToastBox message={"Login successful!"} />,
       });
-      localStorage.setItem("isAuthenticated", "true");
+      sessionStorage.setItem("isAuthenticated", "true");
       Cookies.set("essentialismLog");
       history.push("/dashboard/home");
     } else if (result === "You have no account with this email") {
