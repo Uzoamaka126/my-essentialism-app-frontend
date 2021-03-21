@@ -45,7 +45,7 @@ const MainRoute = (props) => {
 
   async function handleFetchProjects() {
     const payload = {
-      userId: user?.userId ? user?.userId : userId,
+      userId: user?.id ? user?.id : id,
     };
     props.fetchUserProjects(payload);
   }
@@ -59,9 +59,9 @@ const MainRoute = (props) => {
 
   useEffect(() => {
     if (props.isAuthUser) {
-      // handleFetchProfile();
-      // handleFetchValues();
-      // handleFetchProjects();
+      handleFetchProfile();
+      handleFetchValues();
+      handleFetchProjects();
     }
   }, [props.isAuthUser]);
 

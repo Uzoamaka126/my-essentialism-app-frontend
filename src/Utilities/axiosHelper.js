@@ -53,11 +53,9 @@ Axios.interceptors.response.use(
   },
   function (error) {
     if (error.response && error.response.status === 401) {
-      debugger;
       window.location.href = "/login";
     }
     if (error.response && error.response.data) {
-      debugger;
       return Promise.reject(error.response.data.message);
     }
     return Promise.reject(error.message);

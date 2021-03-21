@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalContainer } from "../ModalContainer";
 import {
   ModalFooter,
@@ -19,6 +19,8 @@ export function AddProjectModal({
   onSubmit,
   addProjectState,
   user,
+  setSelectedProjValue,
+  selectedProjectValueObj,
 }) {
   const [value, setValue] = useState("");
   const [projectName, setProjectName] = useState("");
@@ -31,16 +33,21 @@ export function AddProjectModal({
     setValue(event.target.value);
   }
 
-  function combinedValues() {
-    if (!!value && !!projectName && !!user?.id) {
-      const newValues = {
-        user_id: user?.id,
-        value_id: value,
-        project_name: projectName,
-      };
-      return newValues;
-    }
+  function handleSubmit() {
+    const payload = {
+      user_id: user?.id,
+      value_id: selectedProjectValueObj?.id,
+      project_name: projectName,
+    };
+    onSubmit(payload);
   }
+
+  useEffect(() => {
+    if (value !== "") {
+      setSelectedProjValue(value);
+    }
+  }, [value]);
+
   return (
     <ModalContainer
       title="Create a new project"
@@ -80,7 +87,7 @@ export function AddProjectModal({
         <PrimaryButton
           marginLeft="0.625rem"
           loadingCondition={addProjectState === "loading"}
-          onClick={() => onSubmit(combinedValues())}
+          onClick={handleSubmit}
           label="Create"
           disabledCondition={!projectName || !value}
         />

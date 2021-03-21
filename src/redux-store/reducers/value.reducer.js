@@ -4,6 +4,7 @@ const initialState = {
   values: [],
   topThreeValues: [],
   fetchAllValuesState: "idle",
+  selectedProjectValueObj: {},
 };
 
 export const valueReducer = (state = initialState, action) => {
@@ -24,7 +25,17 @@ export const valueReducer = (state = initialState, action) => {
         ...state,
         fetchAllValuesState: "failed",
       };
-
+    case types.SELECTED_PROJECT_VALUE:
+      const selectedObj = state.values.find(
+        (item) => item.value_name === action.payload
+      );
+      return {
+        ...state,
+        selectedProjectValueObj: {
+          ...state.selectedProjectValueObj,
+          ...selectedObj,
+        },
+      };
     default:
       return state;
   }

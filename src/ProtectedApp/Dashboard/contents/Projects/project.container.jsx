@@ -6,6 +6,7 @@ import {
   deleteUserProject,
   updateUserProject,
 } from "../../../../redux-store/actions/project.actions";
+import { setSelectedProjValue } from "../../../../redux-store/actions/values.actions";
 
 function Projects(props) {
   return (
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => {
     addProjectState: state.projects.addProjectState,
     project: state.projects.project,
     user: state.user.profile,
+    selectedProjectValueObj: state.values.selectedProjectValueObj,
   };
 };
 
@@ -30,4 +32,5 @@ export default connect(mapStateToProps, {
   addUserProject,
   deleteUserProject,
   updateUserProject,
+  setSelectedProjValue,
 })(Projects);

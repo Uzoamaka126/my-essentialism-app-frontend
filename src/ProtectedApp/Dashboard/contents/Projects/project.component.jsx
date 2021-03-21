@@ -154,6 +154,8 @@ export function ProjectsComponent({
   updateUserProject,
   deleteUserProject,
   user,
+  setSelectedProjValue,
+  selectedProjectValueObj,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
@@ -342,6 +344,8 @@ export function ProjectsComponent({
           onSubmit={handleAddProject}
           addProjectState={addProjectState}
           user={user}
+          setSelectedProjValue={setSelectedProjValue}
+          selectedProjectValueObj={selectedProjectValueObj}
         />
       </Box>
     </Box>
