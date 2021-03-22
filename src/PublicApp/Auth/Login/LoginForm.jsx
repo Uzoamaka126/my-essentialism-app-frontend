@@ -172,10 +172,12 @@ export function LoginForm({ loginState, login }) {
               size="md"
               variant="solid"
               marginBottom="0.875rem"
-              background="#035257"
+              // background="#035257"
+              background="#3D93DB"
               color="#fff"
               _hover={{
-                background: "#035257",
+                // background: "#035257",
+                background: "#4299e1",
                 color: "#fff",
               }}
               border="none"

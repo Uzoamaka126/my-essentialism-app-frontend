@@ -5,12 +5,13 @@ import {
   FormLabel,
   FormControl,
   Input,
-  Button,
   ModalBody,
   Select,
+  useToast,
 } from "@chakra-ui/core";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import GreyOutlineButton from "../Buttons/GreyOutlineButton";
+import { ToastBox } from "../../Components";
 
 export function AddProjectModal({
   isOpen,
@@ -24,6 +25,7 @@ export function AddProjectModal({
 }) {
   const [value, setValue] = useState("");
   const [projectName, setProjectName] = useState("");
+  const toast = useToast();
 
   function handleProjectNameChange(event) {
     setProjectName(event.target.value);
@@ -33,13 +35,25 @@ export function AddProjectModal({
     setValue(event.target.value);
   }
 
-  function handleSubmit() {
+  async function handleAddProject(data) {
     const payload = {
       user_id: user?.id,
       value_id: selectedProjectValueObj?.id,
       project_name: projectName,
     };
-    onSubmit(payload);
+    const result = await onSubmit(payload);
+    if (!result) {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"Unable to add project"} />,
+      });
+    } else {
+      toast({
+        position: "bottom-left",
+        render: () => <ToastBox message={"New project added"} />,
+      });
+      onClose();
+    }
   }
 
   useEffect(() => {
@@ -87,7 +101,7 @@ export function AddProjectModal({
         <PrimaryButton
           marginLeft="0.625rem"
           loadingCondition={addProjectState === "loading"}
-          onClick={handleSubmit}
+          onClick={handleAddProject}
           label="Create"
           disabledCondition={!projectName || !value}
         />

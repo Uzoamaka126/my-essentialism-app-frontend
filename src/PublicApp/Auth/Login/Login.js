@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@chakra-ui/core";
 import { login } from "../../../redux-store/actions/auth.actions";
-import bg from "../../../Components/assets/auth_background.svg";
+// import bg from "../../../Components/assets/auth_background.svg";
+import bg from "../../../Components/assets/blue-auth-bg.svg";
+
 import { LoginForm } from "./LoginForm";
 
 function Login(props) {

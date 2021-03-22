@@ -59,9 +59,9 @@ const MainRoute = (props) => {
 
   useEffect(() => {
     if (props.isAuthUser) {
-      handleFetchProfile();
-      handleFetchValues();
-      handleFetchProjects();
+      // handleFetchProfile();
+      // handleFetchValues();
+      // handleFetchProjects();
     }
   }, [props.isAuthUser]);
 
@@ -88,7 +88,7 @@ const MainRoute = (props) => {
           path="/projects"
           render={(routeProps) => (
             <Suspense fallback={<FullPageSpinner />}>
-              <Projects {...props} {...routeProps} />
+              <Projects {...props} userInfoIdLS={id} {...routeProps} />
             </Suspense>
           )}
         />

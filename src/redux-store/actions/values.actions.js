@@ -10,7 +10,7 @@ export const fetchValues = () => async (dispatch) => {
     if (response.isSuccessful === true) {
       dispatch({
         type: types.GET_VALUES_SUCCEDED,
-        payload: response,
+        payload: response.data,
       });
       return true;
     } else if (response.isSuccessful === false) {

@@ -28,7 +28,7 @@ export const projectsReducer = (state = initialState, action) => {
         addProjectState: "failed",
         error_message: action.payload,
       };
-    case types.GET_USER_PROJECTS:
+    case types.GET_USER_PROJECTS_STARTED:
       return {
         ...state,
         fetchProjectsState: "loading",

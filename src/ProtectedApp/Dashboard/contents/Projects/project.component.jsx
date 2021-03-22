@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import {
   Box,
@@ -16,15 +16,20 @@ import {
   EditableInput,
   EditablePreview,
   Divider,
+  Spinner,
 } from "@chakra-ui/core";
 import { AddProjectModal } from "../../../../Components/Modals/AddNewProject";
 import { EmptyPage, ToastBox } from "../../../../Components";
 import PrimaryButton from "../../../../Components/Buttons/PrimaryButton";
 import EmptyImage from "../../../../Components/assets/empty.svg";
 
-const id = "1";
-
-export function EditProjectText({ name, onSubmit, projectId, value_id }) {
+export function EditProjectText({
+  name,
+  onSubmit,
+  projectId,
+  value_id,
+  fetchUserProjects,
+}) {
   const toast = useToast();
   const [nameValue, setNameValue] = useState(name || "");
 
@@ -71,16 +76,16 @@ export function EditProjectText({ name, onSubmit, projectId, value_id }) {
           fontSize="14px"
           padding="0"
           paddingBottom="0"
-          onClick={() =>
-            handleUpdateProject(
-              {
-                user_id: id,
-                value_id: value_id,
-                project_name: nameValue,
-              },
-              projectId
-            )
-          }
+          // onClick={() =>
+          //   handleUpdateProject(
+          //     {
+          //       user_id: id,
+          //       value_id: value_id,
+          //       project_name: nameValue,
+          //     },
+          //     projectId
+          //   )
+          // }
           isLoading={isLoading}
         >
           Save
@@ -150,18 +155,25 @@ export function ProjectsComponent({
   values,
   projects,
   addProjectState,
-  fetchSingleProject,
   updateUserProject,
   deleteUserProject,
   user,
   setSelectedProjValue,
   selectedProjectValueObj,
+  fetchUserProjects,
+  userInfoIdLS,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
 
   const toast = useToast();
 
+  function handleFetchAllProjects() {
+    const payload = {
+      userId: user?.id ? user?.id : userInfoIdLS,
+    };
+    fetchUserProjects(payload);
+  }
   function handleDeleteProject(id) {
     deleteUserProject(id)
       .then((response) => {
@@ -182,22 +194,18 @@ export function ProjectsComponent({
     onOpen();
   }
 
-  async function handleAddProject(data) {
-    const result = await addUserProject(data);
-    if (!result) {
-      toast({
-        position: "bottom-left",
-        render: () => <ToastBox message={"Unable to add project"} />,
-      });
-    } else {
-      toast({
-        position: "bottom-left",
-        render: () => <ToastBox message={"New project added"} />,
-      });
-      onClose();
-    }
+  if (fetchProjectsState === "loading") {
+    return (
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        paddingY="5rem"
+      >
+        <Spinner color="blue.500" />
+      </Flex>
+    );
   }
-
   return (
     <Box>
       <Box>
@@ -213,135 +221,165 @@ export function ProjectsComponent({
             </Text>
           </Flex>
         </Box>
-        {projects.length === 0 ? (
-          <Box width="100%" marginTop="10rem">
-            <EmptyPage
-              height="auto"
-              width="500px"
-              image={EmptyImage}
-              imageSize="50%"
-              heading="You don't have any projects yet"
-              subheading="What kind of projects do you want to do?"
-            >
-              <PrimaryButton
-                label="Add a project"
-                marginTop="1rem"
-                onClick={handleOpenAddModal}
-                leftIcon="add"
-              />
-            </EmptyPage>
-          </Box>
+        {fetchProjectsState === "failed" && !projects.length ? (
+          <Flex
+            marginTop="4rem"
+            maxWidth="500px"
+            marginRight="auto"
+            marginLeft="auto"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text marginBottom="1rem">
+              An error occured while fetching your projects
+            </Text>
+            <PrimaryButton
+              marginLeft="0.625rem"
+              loadingCondition={addProjectState === "loading"}
+              onClick={handleFetchAllProjects}
+              label="Retry"
+              leftIcon="repeat"
+            />
+          </Flex>
         ) : (
-          <Box marginTop="1.75rem" paddingLeft="1.25rem" paddingRight="1.25rem">
-            <Flex
-              width="100%"
-              justifyContent="space-between"
-              marginBottom="2rem"
-              paddingRight="1.25rem"
-            >
-              <Text fontSize="0.875rem">
-                Total no. of Projects: {projects && projects.length}
-              </Text>
-              <Button
-                variant="ghost"
-                variantColor="teal"
-                fontSize="0.875rem"
-                fontWeight="medium"
-                leftIcon="add"
-                borderColor="teal"
-                _hover={{ background: "none" }}
-                onClick={onOpen}
-                marginRight="1.3rem"
-              >
-                Add a project
-              </Button>
-            </Flex>
-            {/* Project List */}
-            <Stack
-              flexWrap="wrap"
-              width="100%"
-              spacing={6}
-              isInline
-              marginTop="1rem"
-            >
-              {projects.map((item, index) => (
-                <Flex
-                  borderRadius="5px"
-                  border="1px solid #eee"
+          <React.Fragment>
+            {projects.length === 0 ? (
+              <Box width="100%" marginTop="10rem">
+                <EmptyPage
                   height="auto"
-                  marginBottom="1.5rem"
-                  maxWidth="30%"
-                  width="30%"
-                  background="transparent"
-                  key={index}
-                  rounded="md"
-                  borderWidth="1px"
+                  width="500px"
+                  image={EmptyImage}
+                  imageSize="50%"
+                  heading="You don't have any projects yet"
+                  subheading="What kind of projects do you want to do?"
                 >
-                  <Box flex={4} padding="5px 10px">
-                    <Flex justifyContent="center">
-                      <Badge
-                        variantColor="purple"
-                        fontSize="0.8rem"
-                        textTransform="capitalize"
-                        borderRadius="10px"
-                      >
-                        {item.value_name}
-                      </Badge>
-                    </Flex>
-                    <Flex marginBottom="0.625rem">
-                      <EditProjectText
-                        name={item.project_name}
-                        onSubmit={updateUserProject}
-                        projectId={item.id}
-                        value_id={item.value_id}
-                      />
-                    </Flex>
-                    <Divider />
-                    <Flex
-                      justifyContent="space-between"
-                      alignItems="center"
-                      marginBottom="0.625rem"
-                    >
-                      <Link
-                        variant="link"
-                        color="#3bb75e"
-                        fontSize="14px"
-                        fontWeight="medium"
-                        padding="0"
-                        paddingBottom="0"
-                        as={RouterLink}
-                        to={`/dashboard/project/${item.id}`}
-                      >
-                        View project
-                      </Link>
-                      <IconButton
-                        aria-label="delete"
-                        variant="ghost"
-                        icon="delete"
-                        height="fit-content"
-                        color="#e91e63"
-                        _selected={{
-                          border: "none",
-                          background: "transparent",
-                        }}
-                        _focus={{
-                          border: "none",
-                          background: "transparent",
-                        }}
-                        onClick={() => handleDeleteProject(item.id)}
-                      />
-                    </Flex>
-                  </Box>
+                  <PrimaryButton
+                    label="Add a project"
+                    marginTop="1rem"
+                    onClick={handleOpenAddModal}
+                    leftIcon="add"
+                  />
+                </EmptyPage>
+              </Box>
+            ) : (
+              <Box
+                marginTop="1.75rem"
+                paddingLeft="1.25rem"
+                paddingRight="1.25rem"
+              >
+                <Flex
+                  width="100%"
+                  justifyContent="space-between"
+                  marginBottom="2rem"
+                  paddingRight="1.25rem"
+                >
+                  <Text fontSize="0.875rem">
+                    Total no. of Projects: {projects && projects.length}
+                  </Text>
+                  <Button
+                    variant="ghost"
+                    variantColor="teal"
+                    fontSize="0.875rem"
+                    fontWeight="medium"
+                    leftIcon="add"
+                    borderColor="teal"
+                    _hover={{ background: "none" }}
+                    onClick={onOpen}
+                    marginRight="1.3rem"
+                  >
+                    Add a project
+                  </Button>
                 </Flex>
-              ))}
-            </Stack>
-          </Box>
+                {/* Project List */}
+                <Stack
+                  flexWrap="wrap"
+                  width="100%"
+                  spacing={6}
+                  isInline
+                  marginTop="1rem"
+                >
+                  {projects.map((item, index) => (
+                    <Flex
+                      borderRadius="5px"
+                      border="1px solid #eee"
+                      height="auto"
+                      marginBottom="1.5rem"
+                      maxWidth="30%"
+                      width="30%"
+                      background="transparent"
+                      key={index}
+                      rounded="md"
+                      borderWidth="1px"
+                    >
+                      <Box flex={4} padding="5px 10px">
+                        <Flex justifyContent="center">
+                          <Badge
+                            variantColor="purple"
+                            fontSize="0.8rem"
+                            textTransform="capitalize"
+                            borderRadius="10px"
+                          >
+                            {item.value_name}
+                          </Badge>
+                        </Flex>
+                        <Flex marginBottom="0.625rem">
+                          <EditProjectText
+                            name={item.project_name}
+                            onSubmit={updateUserProject}
+                            projectId={item.id}
+                            value_id={item.value_id}
+                          />
+                        </Flex>
+                        <Divider />
+                        <Flex
+                          justifyContent="space-between"
+                          alignItems="center"
+                          marginBottom="0.625rem"
+                        >
+                          <Link
+                            variant="link"
+                            color="#3bb75e"
+                            fontSize="14px"
+                            fontWeight="medium"
+                            padding="0"
+                            paddingBottom="0"
+                            as={RouterLink}
+                            to={`/dashboard/project/${item.id}`}
+                          >
+                            View project
+                          </Link>
+                          <IconButton
+                            aria-label="delete"
+                            variant="ghost"
+                            icon="delete"
+                            height="fit-content"
+                            color="#e91e63"
+                            _selected={{
+                              border: "none",
+                              background: "transparent",
+                            }}
+                            _focus={{
+                              border: "none",
+                              background: "transparent",
+                            }}
+                            onClick={() => handleDeleteProject(item.id)}
+                          />
+                        </Flex>
+                      </Box>
+                    </Flex>
+                  ))}
+                </Stack>
+              </Box>
+            )}
+          </React.Fragment>
         )}
+
         <AddProjectModal
           isOpen={isOpen}
           onClose={onClose}
           values={values}
-          onSubmit={handleAddProject}
+          onSubmit={addUserProject}
           addProjectState={addProjectState}
           user={user}
           setSelectedProjValue={setSelectedProjValue}

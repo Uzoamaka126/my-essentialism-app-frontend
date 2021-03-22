@@ -185,9 +185,15 @@ export function SignupForm({ registerState, register }) {
             size="md"
             variant="solid"
             marginBottom="0.875rem"
-            background="#025559"
+            // background="#025559"
+            background="#3D93DB"
             color="#fff"
             border="none"
+            _hover={{
+              // background: "#035257",
+              background: "#4299e1",
+              color: "#fff",
+            }}
             width="100%"
             isLoading={registerState === "loading"}
             disabled={

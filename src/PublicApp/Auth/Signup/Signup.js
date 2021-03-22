@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { register } from "../../../redux-store/actions/auth.actions";
 import { Box } from "@chakra-ui/core";
-import bg from "../../../Components/assets/auth_background.svg";
+// import bg from "../../../Components/assets/auth_background.svg";
 import { SignupForm } from "./SignupForm";
+import bg from "../../../Components/assets/blue-auth-bg.svg";
 
 function Signup(props) {
   return (

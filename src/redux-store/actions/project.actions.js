@@ -2,13 +2,12 @@ import * as types from "./types/projects.types";
 import { client } from "../../Utilities/axiosHelper";
 
 export const fetchUserProjects = (payload) => async (dispatch) => {
-  dispatch({ type: types.GET_USER_PROJECTS });
+  dispatch({ type: types.GET_USER_PROJECTS_STARTED });
   try {
     const response = await client("projects/fetchProjects", {
       data: { userId: payload.userId },
       method: "POST",
     });
-    debugger;
     if (response.isSuccessful === true) {
       dispatch({
         type: types.GET_USER_PROJECTS_SUCCESS,
